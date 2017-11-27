@@ -9,10 +9,15 @@ class BookController extends Controller
 {
     public function index() {
     	$user = \Auth::user();
-    	$books = \Auth::user()->backlog()->where('user_id', $user->id)->get();
+    	$books = \Auth::user()->backlog()->where('user_id', $user->id)->where('is_finished', false)->orWhere('read_again', true)->get();
     	$wpm = $user->wpm;
+    	$totalPages = 0;
 
-    	return view('home', compact('books', 'wpm'));
+    	foreach ($books as $book) {
+    		$totalPages += $book->pages;
+    	}
+
+    	return view('home', compact('books', 'wpm', 'totalPages'));
     }
 
     public function store(Request $request) {
@@ -31,8 +36,21 @@ class BookController extends Controller
 
 
     	return redirect('home');
+    }
 
+    public function create() {
+    	return view('add');
+    }
 
+    public function finished() {
+    	$user = \Auth::user();
+    	$books = \Auth::user()->backlog()->where('user_id', $user->id)->where('is_finished', true)->get();
+    	$totalPages = 0;
+
+    	foreach ($books as $book) {
+    		$totalPages += $book->pages;
+    	}
+    	return view('finished', compact('books', 'totalPages'));
     }
 
     public static function timeToRead($pages) {

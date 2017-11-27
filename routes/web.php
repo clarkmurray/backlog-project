@@ -19,4 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'BookController@index')->name('home');
 
+Route::get('/finished', 'BookController@finished');
+
+Route::get('/add', 'BookController@create');
+
+Route::get('/search', [
+	'as' => 'search',
+	'uses' =>'SearchController@books'
+]);
+
 Route::resource('/books', 'BookController');
