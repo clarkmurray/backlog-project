@@ -130,5 +130,19 @@ class BookUserTableSeeder extends Seeder
         	'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         	'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
+
+        DB::table('book_user')->insert([
+        	'book_id' => 16,
+        	'user_id' => 1,
+        	'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        	'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+
+        DB::table('book_user')->insert([
+        	'book_id' => 16,
+        	'user_id' => 2,
+        	'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        	'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
     }
 }

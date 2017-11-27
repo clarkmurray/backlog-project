@@ -49,6 +49,7 @@
                             <th>Author</th>
                             <th>Published</th>
                             <th>Pages</th>
+                            <th>Estimated Time</th>
                         </thead>
                         <tbody>
                             @foreach ($books as $book) 
@@ -58,6 +59,11 @@
                             <td>{{ $book->author }}</td>
                             <td>{{ $book->published }}</td>
                             <td>{{ $book->pages }}</td>
+                            <td>
+                                <!-- {{ floor((($book->pages * 350) / $wpm) / 60)}} h, 
+                                {{ ((($book->pages * 350) / $wpm) / 60) - floor((($book->pages * 350) / $wpm) / 60) }} m -->
+                               {{ \App\Http\Controllers\BookController::timeToRead($book->pages) }}
+                            </td>
                             </tr>
                             @endforeach
                         </tbody>

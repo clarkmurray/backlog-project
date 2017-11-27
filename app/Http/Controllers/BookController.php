@@ -10,7 +10,9 @@ class BookController extends Controller
     public function index() {
     	$user = \Auth::user();
     	$books = \Auth::user()->backlog()->where('user_id', $user->id)->get();
-    	return view('home', compact('books'));
+    	$wpm = $user->wpm;
+
+    	return view('home', compact('books', 'wpm'));
     }
 
     public function store(Request $request) {
@@ -30,6 +32,24 @@ class BookController extends Controller
 
     	return redirect('home');
 
+
+    }
+
+    public static function timeToRead($pages) {
+    	$user = \Auth::user();
+    	$wpm = $user->wpm;
+
+
+    	$words = $pages * 350;
+    	$time = $words/$wpm;
+    	$hours = floor($time/60);
+    	$minutes = $time % 60;
+
+    	if ($minutes > 0) {
+    		return $hours . 'h, ' . $minutes . 'm';
+    	}
+
+    	return $hours . ' hours';
 
     }
 }
