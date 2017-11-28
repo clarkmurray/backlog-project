@@ -28,7 +28,7 @@
                             @foreach ($books as $book) 
                             <tr>
                             <td></td>
-                            <td>{{ $book->title }}</td>
+                            <td><a href="/books/{{ $book->id }}">{{ $book->title }}</a></td>
                             <td>{{ $book->author }}</td>
                             <td>{{ $book->published }}</td>
                             <td>{{ $book->pages }}</td>

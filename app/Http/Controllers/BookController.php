@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Book;
 
 class BookController extends Controller
 {
@@ -40,6 +41,31 @@ class BookController extends Controller
 
     public function create() {
     	return view('add');
+    }
+
+    public function show($id) {
+        $book = Book::find($id);
+        $user = \Auth::user();
+        return view('book', compact('book', 'user'));
+    }
+
+    public function addToBacklog($id) {
+        $book = Book::find($id);
+        $user = \Auth::user();
+
+        $user->backlog()->attach($book);
+
+        return redirect('home');
+    }
+
+    public function markAsRead($id) {
+        $book = Book::find($id);
+        $user = \Auth::user();
+
+        $user->backlog()->where('book_id', $book->id)->updateExistingPivot($book->id, ['is_finished' => true]);
+
+        return redirect('finished');
+
     }
 
     public function finished() {

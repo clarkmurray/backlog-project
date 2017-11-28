@@ -13,7 +13,8 @@ window.Vue = require('vue');
 
 import InstantSearch from 'vue-instantsearch';
 
-import createFromAlgoliaCredentials from 'vue-instantsearch';
+import { createFromAlgoliaCredentials } from 'vue-instantsearch';
+
 
 Vue.use(InstantSearch);
 
@@ -27,15 +28,4 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 const app = new Vue({
     el: '#app',
-    data: {
-    	searchStore: null
-    }
 });
-
-const searchStore = createFromAlgoliaCredentials('VDG2ASZRC8', '7ae089c05742521cd481e6190a45e5ee');
-
-export default {
-  data() {
-    return { searchStore };
-  }
-}

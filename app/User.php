@@ -29,7 +29,7 @@ class User extends Authenticatable
     ];
 
     public function backlog() {
-        return $this->belongsToMany('App\Book', 'book_user', 'user_id', 'book_id');
+        return $this->belongsToMany('App\Book', 'book_user', 'user_id', 'book_id')->withPivot('is_finished', 'read_again');
     }
 
 }

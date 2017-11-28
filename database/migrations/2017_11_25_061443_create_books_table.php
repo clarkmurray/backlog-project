@@ -19,6 +19,8 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->integer('published');
             $table->integer('pages');
+            $table->text('summary')->nullable();
+            $table->string('img_url')->nullable();
             $table->timestamps();
         });
     }
