@@ -10,10 +10,7 @@
 
 				<div class="panel-body">
 
-					<form class="form">
-						<input class="form-control" placeholder="Find book, movie, or show">
-						<input type="submit" value="Search">
-					</form>
+
 
 				</div>
 
@@ -21,7 +18,5 @@
 		</div>
 	</div>
 </div>
-
-
 
 @endsection

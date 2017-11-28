@@ -62,7 +62,32 @@
                             </ul>
                         </li>
                         <li><a href="/add">Add</a></li>
-                        <li><a href="/search">Search</a></li>
+                        <li>
+                            <ais-index
+                                app-id="VDG2ASZRC8"
+                                api-key="7ae089c05742521cd481e6190a45e5ee"
+                                index-name="title"
+                                :search-store="searchStore"
+                            >
+<!--                             :search-store="searchStore"
+ -->                                <ais-search-box>
+                                    <ais-input placeholder="Find book, movie, or show" :class-names="{
+                                    'ais-input': 'form-control',}" id="searchBar"></ais-input>
+                                </ais-search-box>
+<!--                                 <ais-results v-show="searchStore.query.length > 0">
+ -->                                <ais-results v-show="searchStore.query.length > 0">
+                                    <template slot-scope="{ result }">
+                                        <div class="searchResult">
+                                            <p v-text="result.title"></p>
+                                            <p v-text="result.author"></p>
+                                        </div>
+                                     </template>
+                                </ais-results>
+                            </ais-index>
+                        </li>
+
+
+                    </div>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -102,5 +127,18 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <script>
+        import { createFromAlgoliaCredentials } from 'vue-instantsearch';
+
+        const searchStore = createFromAlgoliaCredentials('VDG2ASZRC8', '7ae089c05742521cd481e6190a45e5ee');
+
+        export default {
+            data() {
+                return { searchStore };
+            }
+        }
+    </script>
+
 </body>
 </html>
