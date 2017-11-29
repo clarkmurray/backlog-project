@@ -12,9 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div>
+    <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -61,6 +62,7 @@
                                 <li><a href="#">Watch Lists</a></li>
                             </ul>
                         </li>
+                        <li><a href="/search">Search</a></li>
                         <li><a href="/add">Add</a></li>
                     </ul>
 

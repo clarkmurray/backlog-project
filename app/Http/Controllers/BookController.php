@@ -54,13 +54,12 @@ class BookController extends Controller
         $book = Book::find($id);
         $user = \Auth::user();
 
-        // If book is not in backlog
-        $user->backlog()->attach($book);
+        // If book IS NOT in backlog
 
         // If book IS in backlog
-        $user->backlog()->detach($book);
+        // $user->backlog()->detach($book);
 
-        return redirect('home');
+        return back();
     }
 
     public function markAsRead($id) 

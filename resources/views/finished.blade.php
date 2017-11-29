@@ -3,34 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-
-
-            <!-- <form class="form-horizonal" method="post" action="/books">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                <span class="form-group">
-                    <label for="title">Title:</label>
-                    <input type="text" class="form-control" name="title" id="title">
-                </span>
-                <span class="form-group">
-                    <label for="author">Author:</label>
-                    <input type="text" class="form-control" name="author" id="author">
-                </span>
-                <span class="form-group">
-                    <label for="published">Published:</label>
-                    <input type="number" class="form-control" name="published" id="published">
-                </span>
-                <span class="form-group">
-                    <label for="pages">Pages:</label>
-                    <input type="number" class="form-control" name="pages" id="pages">
-                </span>
-                <div class="form-group">
-                    <button type="submit" name="button" value="Add" class="btn btn-default">Save</button>
-                </div>
-
-            </form> -->
-
+        <div class="col-md-10 col-md-offset-1">
 
             <div class="panel panel-default">
                 <div class="panel-heading">My Finished Books</div>
@@ -49,6 +22,8 @@
                             <th>Author</th>
                             <th>Published</th>
                             <th>Pages</th>
+                            <th></th>
+                            <th></th>
                         </thead>
                         <tbody>
                             @foreach ($books as $book) 
@@ -58,6 +33,16 @@
                                 <td>{{ $book->author }}</td>
                                 <td>{{ $book->published }}</td>
                                 <td>{{ $book->pages }}</td>
+                                <td>
+                                    <i class="fa fa-book" aria-hidden="true"></i></td>
+                                <td>
+                                    <form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
+                                    {{ csrf_field() }}
+                                    <button type="submit">
+                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    </button>
+                                    </form>
+                                </td>
                                 </tr>
                             @endforeach
                         </tbody>

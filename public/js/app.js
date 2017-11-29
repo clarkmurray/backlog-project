@@ -65855,6 +65855,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 var searchStore = Object(__WEBPACK_IMPORTED_MODULE_0_vue_instantsearch__["a" /* createFromAlgoliaCredentials */])(window.algolia.app_id, window.algolia.search_key);
@@ -65896,15 +65899,17 @@ var render = function() {
             fn: function(ref) {
               var result = ref.result
               return [
-                _c(
-                  "h2",
-                  [
-                    _c("ais-highlight", {
-                      attrs: { result: result, "attribute-name": "title" }
+                _c("div", { staticClass: "searchResult" }, [
+                  _c("a", { attrs: { href: "books/" + result.id } }, [
+                    _c("h2", {
+                      domProps: { textContent: _vm._s(result.title) }
+                    }),
+                    _vm._v(" "),
+                    _c("p", {
+                      domProps: { textContent: _vm._s(result.author) }
                     })
-                  ],
-                  1
-                )
+                  ])
+                ])
               ]
             }
           }

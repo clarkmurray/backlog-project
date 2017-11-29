@@ -3,9 +3,12 @@
         <ais-input></ais-input>
         <ais-results v-show="searchStore.query.length > 0">
             <template slot-scope="{ result }">
-                <h2>
-                    <ais-highlight :result="result" attribute-name="title"></ais-highlight>
-                </h2>
+                <div class="searchResult">
+                    <a :href="'books/' + result.id">
+                    <h2 v-text="result.title"></h2>
+                    <p v-text="result.author"></p>
+                    </a>
+                </div>
             </template>
         </ais-results>
     </ais-index>

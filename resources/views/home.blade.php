@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
 
             <div class="panel panel-default">
                 <div class="panel-heading">My Books</div>
@@ -23,6 +23,8 @@
                             <th>Published</th>
                             <th>Pages</th>
                             <th>Estimated Time</th>
+                            <th></th>
+                            <th></th>
                         </thead>
                         <tbody>
                             @foreach ($books as $book) 
@@ -33,6 +35,15 @@
                             <td>{{ $book->published }}</td>
                             <td>{{ $book->pages }}</td>
                             <td>{{ \App\Http\Controllers\BookController::timeToRead($book->pages) }}</td>
+                            <td>
+                                <form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
+                                {{ csrf_field() }}
+                                    <button type="submit">
+                                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td><i class="fa fa-minus-circle" aria-hidden="true"></i></td>
                             </tr>
                             @endforeach
                         </tbody>
