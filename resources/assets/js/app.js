@@ -13,8 +13,6 @@ window.Vue = require('vue');
 
 import InstantSearch from 'vue-instantsearch';
 
-import { createFromAlgoliaCredentials } from 'vue-instantsearch';
-
 
 Vue.use(InstantSearch);
 
@@ -25,7 +23,8 @@ Vue.use(InstantSearch);
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('algolia-instantsearch', require('./components/InstantSearch.vue'));
 
 const app = new Vue({
-    el: '#app',
+    el: '#app'
 });
