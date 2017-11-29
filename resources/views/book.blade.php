@@ -19,14 +19,31 @@
 				</ul>
 				<p class="bookSummary">{{ $book->summary }}</p>
 				<div class="text-center">
-					<form method="post" action="/books/{{ $book->id }}/add">
+
+
+					<form method="post" action="/books/{{ $book->id }}/add" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Add to Backlog" class="btn btn-primary" class="addBacklog">
 					</form>
-					<form method="post" action="/books/{{ $book->id }}/read">
+
+					<form method="post" action="/books/{{ $book->id }}/add" class="form-inline">
+						{{ csrf_field() }}
+						<input type="submit" value="Remove Backlog" class="btn btn-danger" class="addBacklog">
+					</form>
+
+
+					@if ($user->backlog()->where('book_id', $book->id)->first()->getOriginal('pivot_is_finished') == false)
+					<form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Mark as Read" class="btn btn-success" class="markRead">
 					</form>
+					@else
+					<form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
+						{{ csrf_field() }}
+						<input type="submit" value="Mark as Unread" class="btn btn-success" class="markRead">
+					</form>
+					@endif
+
 				</div>
 			</div>
 		</div>

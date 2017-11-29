@@ -49,22 +49,29 @@ class BookController extends Controller
         return view('book', compact('book', 'user'));
     }
 
-    public function addToBacklog($id) {
+    public function addToBacklog($id) 
+    {
         $book = Book::find($id);
         $user = \Auth::user();
 
+        // If book is not in backlog
         $user->backlog()->attach($book);
+
+        // If book IS in backlog
+        $user->backlog()->detach($book);
 
         return redirect('home');
     }
 
-    public function markAsRead($id) {
+    public function markAsRead($id) 
+    {
         $book = Book::find($id);
         $user = \Auth::user();
+        $backlog = $user->backlog()->where('book_id', $book->id);
 
-        $user->backlog()->where('book_id', $book->id)->updateExistingPivot($book->id, ['is_finished' => true]);
+        $backlog->updateExistingPivot($book->id, ['is_finished' => !$backlog->first()->getOriginal('pivot_is_finished')]);
 
-        return redirect('finished');
+        return back();
 
     }
 
