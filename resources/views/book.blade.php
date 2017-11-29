@@ -32,17 +32,15 @@
 					</form>
 
 
-					@if ($user->backlog()->where('book_id', $book->id)->first()->getOriginal('pivot_is_finished') == false)
+					
 					<form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Mark as Read" class="btn btn-success" class="markRead">
 					</form>
-					@else
 					<form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Mark as Unread" class="btn btn-success" class="markRead">
 					</form>
-					@endif
 
 				</div>
 			</div>

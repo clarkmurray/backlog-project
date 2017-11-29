@@ -54,12 +54,36 @@ class BookController extends Controller
         $book = Book::find($id);
         $user = \Auth::user();
 
-        // If book IS NOT in backlog
 
-        // If book IS in backlog
-        // $user->backlog()->detach($book);
+        // Check if book is finished, if so, set 'read_again' = true
 
-        return back();
+        $exists = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->first();
+
+        if ($exists) {
+
+            DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => true]);
+
+            return back();
+
+        } else {
+
+            $user->backlog()->attach($user, [
+            'book_id' => $book->id,
+            'user_id' => $user->id,
+            'is_finished' => false,
+            'read_again' => false,
+
+        ]);
+
+            return back();
+
+        }
+
+
+        // Add row to book_user table with 'book_id' = $book->id, 'user_id' = $user->id, 
+        //'is_finished' = false, 'read_again' = false
+
+
     }
 
     public function markAsRead($id) 

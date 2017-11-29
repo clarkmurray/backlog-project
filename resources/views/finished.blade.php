@@ -34,7 +34,12 @@
                                 <td>{{ $book->published }}</td>
                                 <td>{{ $book->pages }}</td>
                                 <td>
-                                    <i class="fa fa-book" aria-hidden="true"></i></td>
+                                    <form method="post" action="/books/{{ $book->id }}/add" class="form-inline">
+                                    {{ csrf_field() }}
+                                    <button type="submit">
+                                        <i class="fa fa-book" aria-hidden="true"></i></td>
+                                    </button>
+                                    </form>
                                 <td>
                                     <form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
                                     {{ csrf_field() }}
