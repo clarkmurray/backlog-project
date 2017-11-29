@@ -80,10 +80,6 @@ class BookController extends Controller
         }
 
 
-        // Add row to book_user table with 'book_id' = $book->id, 'user_id' = $user->id, 
-        //'is_finished' = false, 'read_again' = false
-
-
     }
 
     public function markAsRead($id) 
@@ -109,6 +105,26 @@ class BookController extends Controller
     	return view('finished', compact('books', 'totalPages'));
     }
 
+    public function destroy($id) {
+        $user = \Auth::user();
+        $book = Book::find($id);
+
+
+        $inBacklog = DB::table('book_user')->where('book_id', $book->id)->where('is_finished', true)->first();
+
+        if ($inBacklog) {
+            // If marked as finished, change read_again to false
+            DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => false]);
+
+        } else {
+            // If not mark as finished, remove row
+            $user->backlog()->detach($book->id);
+        }
+
+
+        return back();
+    }
+
     public static function timeToRead($pages) {
     	$user = \Auth::user();
     	$wpm = $user->wpm;
@@ -126,4 +142,5 @@ class BookController extends Controller
     	return $hours . ' hours';
 
     }
+
 }

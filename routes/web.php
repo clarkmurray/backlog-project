@@ -32,6 +32,8 @@ Route::resource('/books', 'BookController');
 
 Route::post('/books/{book}/add', 'BookController@addToBacklog');
 
+Route::post('/books/{book}/remove', 'BookController@destroy');
+
 Route::post('/books/{book}/read', 'BookController@markAsRead');
 
 Route::get('/books/{book}', 'BookController@show');
