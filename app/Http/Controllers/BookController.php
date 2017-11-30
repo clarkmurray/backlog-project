@@ -88,6 +88,11 @@ class BookController extends Controller
         $user = \Auth::user();
         $backlog = $user->backlog()->where('book_id', $book->id);
 
+        // If book is in backlog, take out of backlog
+        if ($user->backlog()->where('book_id', $book->id)->where('read_again', true)->where('is_finished', true)) {
+            return "This book should be taken out of backlog";
+        }
+
         $backlog->updateExistingPivot($book->id, ['is_finished' => !$backlog->first()->getOriginal('pivot_is_finished')]);
 
         return back();
@@ -123,6 +128,29 @@ class BookController extends Controller
 
 
         return back();
+    }
+
+    public function wpmTest() {
+        $user = \Auth::user();
+
+        // The time read is used to calculate new value of $wpm and store it in database
+
+        // Cancel test
+
+        // Stretch goal: comprehension test
+
+        return view('wpm', compact('user'));
+    }
+
+    public function storeWPM(Request $request) {
+
+        $user = \Auth::user();
+
+        $value = $request->get('value');
+
+        $user->wpm = ceil($value);
+
+        $user->save();
     }
 
     public static function timeToRead($pages) {

@@ -43,7 +43,14 @@
                                     </button>
                                 </form>
                             </td>
-                            <td><i class="fa fa-minus-circle" aria-hidden="true"></i></td>
+                            <td>
+                                <form method="post" action="/books/{{ $book->id }}/remove" class="form-inline">
+                                {{ csrf_field() }}
+                                    <button type="submit">
+                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </td>
                             </tr>
                             @endforeach
                         </tbody>

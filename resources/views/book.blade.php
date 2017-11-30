@@ -25,14 +25,12 @@
 						{{ csrf_field() }}
 						<input type="submit" value="Add to Backlog" class="btn btn-primary" class="addBacklog">
 					</form>
-
 					<form method="post" action="/books/{{ $book->id }}/remove" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Remove Backlog" class="btn btn-danger" class="addBacklog">
 					</form>
 
-
-					
+ 
 					<form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Mark as Read" class="btn btn-success" class="markRead">

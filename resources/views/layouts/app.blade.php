@@ -44,6 +44,7 @@
                                 <li><a href="/home">Backlog</a></li>
                                 <li><a href="/finished">Finished</a></li>
                                 <li><a href="#">Reading Lists</a></li>
+                                <li><a href="/wpm-test">WPM Test</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -64,6 +65,7 @@
                         </li>
                         <li><a href="/search">Search</a></li>
                         <li><a href="/add">Add</a></li>
+                        <li><algolia-instantsearch></algolia-instantsearch></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

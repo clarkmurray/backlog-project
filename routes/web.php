@@ -30,6 +30,10 @@ Route::get('/search', [
 
 Route::resource('/books', 'BookController');
 
+Route::get('/wpm-test', 'BookController@wpmTest');
+
+Route::get('/wpm-store', 'BookController@storeWPM');
+
 Route::post('/books/{book}/add', 'BookController@addToBacklog');
 
 Route::post('/books/{book}/remove', 'BookController@destroy');
