@@ -88,10 +88,24 @@ class BookController extends Controller
         $user = \Auth::user();
         $backlog = $user->backlog()->where('book_id', $book->id);
 
-        // If book is in backlog, take out of backlog
-        if ($user->backlog()->where('book_id', $book->id)->where('read_again', true)->where('is_finished', true)) {
-            return "This book should be taken out of backlog";
+
+        $reRead = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->where('read_again', true)->first();
+
+        $remove = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->where('is_finished', true)->where('read_again', false)->first();
+
+
+        if ($reRead) {
+            $reRead = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => false]);
+
+            return back();
+
+        } else if ($remove) {
+            $user->backlog()->detach($book->id);
+
+            return back();
         }
+
+        // $backlog->updateExistingPivot($book->id, ['is_finished' => !$backlog->first()->getOriginal('pivot_is_finished')]);
 
         $backlog->updateExistingPivot($book->id, ['is_finished' => !$backlog->first()->getOriginal('pivot_is_finished')]);
 

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<reading-test wpm="{{ $user->wpm }}"></reading-test>
+<reading-test></reading-test>
 
 
 @endsection

@@ -14,7 +14,7 @@
 					<button v-on:click="retakeTest()" class="btn btn-danger">Cancel</button>
 				</div>
 				<div v-if="finishedTest" class="text-center">
-					<p>Your WPM is: {{ wpm }}</p>
+					<h2>Your WPM is: {{ result }}</h2>
 					<button v-on:click="retakeTest()" class="btn btn-success">Retake Test</button>
 				</div>
 			</div>
@@ -26,7 +26,6 @@
 
 <script>
 	export default {
-		props: ['wpm'],
 		data() {
 			return {
 				startTest: true,
@@ -68,7 +67,7 @@
 			newWPM() {
 				var minutes = this.time / 60;
 				// result= seconds / 60
-				this.result = 1000 / minutes;
+				this.result = Math.round(1000 / minutes);
 				console.log(this.result);
 				this.storeNewWPM(this.result);
 

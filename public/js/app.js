@@ -66012,7 +66012,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['wpm'],
 	data: function data() {
 		return {
 			startTest: true,
@@ -66053,7 +66052,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		newWPM: function newWPM() {
 			var minutes = this.time / 60;
 			// result= seconds / 60
-			this.result = 1000 / minutes;
+			this.result = Math.round(1000 / minutes);
 			console.log(this.result);
 			this.storeNewWPM(this.result);
 
@@ -66147,7 +66146,7 @@ var render = function() {
         _vm._v(" "),
         _vm.finishedTest
           ? _c("div", { staticClass: "text-center" }, [
-              _c("p", [_vm._v("Your WPM is: " + _vm._s(_vm.wpm))]),
+              _c("h2", [_vm._v("Your WPM is: " + _vm._s(_vm.result))]),
               _vm._v(" "),
               _c(
                 "button",
