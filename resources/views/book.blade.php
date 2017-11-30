@@ -21,19 +21,19 @@
 				<div class="text-center">
 
 
-					@if((!$user->backlog()->where('book_id', $book->id)->exists()) || ($user->backlog()->where('read_again', false)->where('is_finished', true)->first()))
-					<form method="post" action="/books/{{ $book->id }}/add" class="form-inline">
-						{{ csrf_field() }}
-						<input type="submit" value="Add to Backlog" class="btn btn-primary" class="addBacklog">
-					</form>
+					@if((!$user->backlog()->where('book_id', $book->id)->exists()) or ($user->backlog()->where('book_id', $book->id)->where('read_again', false)->where('is_finished', true)->first()))
+						<form method="post" action="/books/{{ $book->id }}/add" class="form-inline">
+							{{ csrf_field() }}
+							<input type="submit" value="Add to Backlog" class="btn btn-primary" class="addBacklog">
+						</form>
 					@else
-					<form method="post" action="/books/{{ $book->id }}/remove" class="form-inline">
-						{{ csrf_field() }}
-						<input type="submit" value="Remove from Backlog" class="btn btn-danger" class="addBacklog">
-					</form>
+						<form method="post" action="/books/{{ $book->id }}/remove" class="form-inline">
+							{{ csrf_field() }}
+							<input type="submit" value="Remove from Backlog" class="btn btn-danger" class="addBacklog">
+						</form>
 					@endif
 
- 					@if($user->backlog()->where('book_id', $book->id)->where('is_finished', false)->first())
+ 					@if(($user->backlog()->where('book_id', $book->id)->where('is_finished', false)->first()) || ($user->backlog()->where('book_id', $book->id)->exists()))
 					<form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Mark as Read" class="btn btn-success" class="markRead">
