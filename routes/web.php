@@ -40,4 +40,6 @@ Route::post('/books/{book}/remove', 'BookController@destroy');
 
 Route::post('/books/{book}/read', 'BookController@markAsRead');
 
+Route::post('/books/{book}/not-read', 'BookController@removeRead');
+
 Route::get('/books/{book}', 'BookController@show');

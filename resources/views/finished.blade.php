@@ -41,7 +41,7 @@
                                     </button>
                                     </form>
                                 <td>
-                                    <form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
+                                    <form method="post" action="/books/{{ $book->id }}/not-read" class="form-inline">
                                     {{ csrf_field() }}
                                     <button type="submit">
                                         <i class="fa fa-minus-circle" aria-hidden="true"></i>

@@ -113,6 +113,26 @@ class BookController extends Controller
 
     }
 
+    public function removeRead($id) {
+        // remove from finished
+
+        $user = \Auth::user();
+        $book = Book::find($id);
+
+        $remove = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->where('read_again', false)->first();
+
+        if ($remove) {
+            $user->backlog()->detach($book->id);
+        }
+
+        DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['is_finished' => false]);
+
+
+        return back();
+
+
+    }
+
     public function finished() {
     	$user = \Auth::user();
     	$books = \Auth::user()->backlog()->where('user_id', $user->id)->where('is_finished', true)->get();
