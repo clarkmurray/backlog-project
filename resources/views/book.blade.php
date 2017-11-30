@@ -33,7 +33,7 @@
 						</form>
 					@endif
 
- 					@if(($user->backlog()->where('book_id', $book->id)->where('is_finished', false)->first()) || ($user->backlog()->where('book_id', $book->id)->exists()))
+ 					@if(($user->backlog()->where('book_id', $book->id)->where('is_finished', false)->first()) or (!$user->backlog()->where('book_id', $book->id)->exists()))
 					<form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Mark as Read" class="btn btn-success" class="markRead">

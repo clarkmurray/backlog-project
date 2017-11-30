@@ -55,17 +55,21 @@ class BookController extends Controller
         $user = \Auth::user();
 
 
-        // Check if book is finished, if so, set 'read_again' = true
-
         $exists = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->first();
 
+
+        // Check if book is finished 
         if ($exists) {
+
+            // If yes, mark as a re-read
 
             DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => true]);
 
             return back();
 
         } else {
+
+            // If no, add the record to the book_user table
 
             $user->backlog()->attach($user, [
             'book_id' => $book->id,
@@ -86,28 +90,21 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $user = \Auth::user();
-        $backlog = $user->backlog()->where('book_id', $book->id);
 
 
         $reRead = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->where('read_again', true)->first();
 
-        $remove = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->where('is_finished', true)->where('read_again', false)->first();
+
+        // Attach if not previously read
 
 
         if ($reRead) {
             $reRead = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => false]);
 
-            return back();
+            // return back();
+        } 
 
-        } else if ($remove) {
-            $user->backlog()->detach($book->id);
-
-            return back();
-        }
-
-        // $backlog->updateExistingPivot($book->id, ['is_finished' => !$backlog->first()->getOriginal('pivot_is_finished')]);
-
-        $backlog->updateExistingPivot($book->id, ['is_finished' => !$backlog->first()->getOriginal('pivot_is_finished')]);
+        DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['is_finished' => true]);
 
         return back();
 
@@ -151,12 +148,19 @@ class BookController extends Controller
 
         $inBacklog = DB::table('book_user')->where('book_id', $book->id)->where('is_finished', true)->first();
 
+
+        // Check if the book is finished
+
         if ($inBacklog) {
-            // If marked as finished, change read_again to false
+
+            // If yes, mark the book as not being re-read
+
             DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => false]);
 
         } else {
-            // If not mark as finished, remove row
+
+            // If no, remove row from book_user
+
             $user->backlog()->detach($book->id);
         }
 
