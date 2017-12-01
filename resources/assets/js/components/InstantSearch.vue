@@ -4,7 +4,7 @@
         <ais-results v-show="searchStore.query.length > 0">
             <template slot-scope="{ result }">
                 <div class="searchResult">
-                    <a :href="'books/' + result.id">
+                    <a :href="'/books/' + result.id">
                     <h2 v-text="result.title"></h2>
                     <p v-text="result.author"></p>
                     </a>

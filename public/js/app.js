@@ -65901,7 +65901,7 @@ var render = function() {
               var result = ref.result
               return [
                 _c("div", { staticClass: "searchResult" }, [
-                  _c("a", { attrs: { href: "books/" + result.id } }, [
+                  _c("a", { attrs: { href: "/books/" + result.id } }, [
                     _c("h2", {
                       domProps: { textContent: _vm._s(result.title) }
                     }),
