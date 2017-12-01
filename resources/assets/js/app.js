@@ -25,6 +25,7 @@ Vue.use(InstantSearch);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('algolia-instantsearch', require('./components/InstantSearch.vue'));
 Vue.component('reading-test', require('./components/ReadingTest.vue'));
+Vue.component('api-search', require('./components/APISearch.vue'));
 
 const app = new Vue({
     el: '#app'

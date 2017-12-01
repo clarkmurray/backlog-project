@@ -111,6 +111,8 @@
     }
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{URL::asset('/js/api-search.js')}}"></script>
+
 
 
 </body>
