@@ -97,6 +97,13 @@ class BookController extends Controller
         $exists = DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->first();
 
 
+        if(DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->where('is_finished', false)->where('read_again', true)->first()) {
+            DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => false, 'is_finished'=> true]);
+
+            return back();
+        }
+
+
 
         if (!$exists) {
             $user->backlog()->attach($user, [

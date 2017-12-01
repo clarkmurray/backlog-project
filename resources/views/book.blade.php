@@ -41,7 +41,7 @@
 					@else
 					<form method="post" action="/books/{{ $book->id }}/not-read" class="form-inline">
 						{{ csrf_field() }}
-						<input type="submit" value="Mark as Unread" class="btn btn-success" class="markRead">
+						<input type="submit" value="Mark as Not Read" class="btn btn-success" class="markRead">
 					</form>
 					@endif
 
