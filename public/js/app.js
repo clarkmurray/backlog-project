@@ -66285,40 +66285,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            apiSearch: '',
-            apiResults: []
-        };
-    },
+	data: function data() {
+		return {
+			apiSearch: '',
+			movieSearch: '',
+			apiResults: [],
+			movieResults: [],
+			books: false,
+			moviesAndTV: true
 
-    methods: {
-        searchBook: function searchBook() {
-            var vm = this;
-            this.apiResults = [];
-            $.ajax({
-                url: "https://www.googleapis.com/books/v1/volumes?q=" + this.apiSearch + "&maxResults=40",
-                dataType: "json",
-                success: function success(data) {
-                    console.log(data);
-                    for (var i = 0; i < 10; i++) {
-                        if (data.items[i].volumeInfo.title && data.items[i].volumeInfo.authors && data.items[i].volumeInfo.imageLinks.smallThumbnail) {
-                            vm.apiResults.push(data.items[i].volumeInfo);
-                        }
-                    }
-                },
-                type: 'GET'
+		};
+	},
 
-            });
+	methods: {
+		searchBook: function searchBook() {
+			var vm = this;
+			this.apiResults = [];
+			$.ajax({
+				url: "https://www.googleapis.com/books/v1/volumes?q=" + this.apiSearch,
+				dataType: "json",
+				success: function success(data) {
+					console.log(data);
+					for (var i = 0; i < 10; i++) {
+						if (data.items[i].volumeInfo.title && data.items[i].volumeInfo.authors && data.items[i].volumeInfo.imageLinks.smallThumbnail && data.items[i].volumeInfo.industryIdentifiers[0].identifier) {
+							vm.apiResults.push(data.items[i].volumeInfo);
+						}
+					}
+				},
+				type: 'GET'
 
-            console.log(this.apiResults);
+			});
 
-            this.apiSearch = '';
-        }
-    }
+			console.log(this.apiResults);
+
+			this.apiSearch = '';
+		},
+		searchMovieTV: function searchMovieTV() {
+			var vm = this;
+			this.movieResults = [];
+			$.ajax({
+				url: "https://api.themoviedb.org/3/search/movie?api_key=0b825591a48003863026cd7101cef2d0&query=" + this.movieSearch,
+				dataType: "json",
+				success: function success(data) {
+					console.log(data);
+					for (var i = 0; i < 10; i++) {
+						vm.movieResults.push(data.results[i]);
+					}
+				},
+				type: 'GET'
+
+			});
+
+			console.log(this.movieSearch);
+
+			this.movieSearch = '';
+		}
+	}
 
 });
 
@@ -66332,68 +66373,127 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+      _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
         _c("div", { staticClass: "panel panel-default" }, [
           _c("div", { staticClass: "panel-heading" }, [_vm._v("Search")]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "panel-body" },
-            [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.apiSearch,
-                    expression: "apiSearch"
-                  }
-                ],
-                attrs: { id: "apiSearch", placeholder: "Find Book" },
-                domProps: { value: _vm.apiSearch },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+          _vm.books
+            ? _c(
+                "div",
+                { staticClass: "panel-body" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.apiSearch,
+                        expression: "apiSearch"
+                      }
+                    ],
+                    staticStyle: { width: "80%", margin: "auto" },
+                    attrs: { placeholder: "Find Book" },
+                    domProps: { value: _vm.apiSearch },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.apiSearch = $event.target.value
+                      }
                     }
-                    _vm.apiSearch = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  attrs: { id: "submitSearch", type: "button" },
-                  on: { click: _vm.searchBook }
-                },
-                [_vm._v("Search")]
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.apiResults, function(result) {
-                return _c("div", [
+                  }),
+                  _vm._v(" "),
                   _c(
-                    "table",
-                    { staticClass: "table", attrs: { id: "apiSearchResults" } },
-                    [
-                      _c("tr", [
-                        _c("th", { attrs: { rowspan: "2" } }, [
-                          _c("img", {
-                            attrs: { src: result.imageLinks.smallThumbnail }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v(_vm._s(result.title))])
-                      ]),
+                    "button",
+                    {
+                      attrs: { type: "button" },
+                      on: { click: _vm.searchBook }
+                    },
+                    [_vm._v("Search")]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.apiResults, function(result) {
+                    return _c("div", [
+                      _c(
+                        "table",
+                        {
+                          staticClass: "table",
+                          attrs: { id: "apiSearchResults" }
+                        },
+                        [
+                          _c("tr", [
+                            _c("th", { attrs: { rowspan: "2" } }, [
+                              _c("img", {
+                                attrs: { src: result.imageLinks.smallThumbnail }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v(_vm._s(result.title))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v(_vm._s(result.authors[0]))])
+                          ])
+                        ]
+                      ),
                       _vm._v(" "),
-                      _c("tr", [_c("td", [_vm._v(_vm._s(result.authors[0]))])])
-                    ]
-                  )
-                ])
-              })
-            ],
-            2
-          )
+                      _c("h1", [
+                        _vm._v(
+                          "ISBN: " +
+                            _vm._s(result.industryIdentifiers[0].identifier)
+                        )
+                      ])
+                    ])
+                  })
+                ],
+                2
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.moviesAndTV
+            ? _c(
+                "div",
+                { staticClass: "panel-body" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.movieSearch,
+                        expression: "movieSearch"
+                      }
+                    ],
+                    staticStyle: { width: "80%", margin: "auto" },
+                    attrs: { placeholder: "Find Movie or TV show" },
+                    domProps: { value: _vm.movieSearch },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.movieSearch = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      attrs: { type: "button" },
+                      on: { click: _vm.searchMovieTV }
+                    },
+                    [_vm._v("Search")]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.movieResults, function(result) {
+                    return _c("div", [_c("h1", [_vm._v(_vm._s(result.title))])])
+                  })
+                ],
+                2
+              )
+            : _vm._e()
         ])
       ])
     ])
