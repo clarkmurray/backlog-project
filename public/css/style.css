@@ -18,6 +18,18 @@ nav a {
 	padding-top: 30px !important;
 }
 
+ul.dropdown-menu {
+	background-color: #548687 !important;
+}
+
+li.dropdown a:focus {
+	background-color: #548687 !important;
+}
+
+ul.dropdown-menu li a:hover {
+	background-color: #083A3B !important;
+}
+
 nav input {
 	margin-top: 18px !important;
 	margin-left: 10px;
@@ -40,6 +52,20 @@ nav button {
 
 #main {
 	margin-top: 106px;
+}
+
+.searchResult {
+	width: 100%;
+	background-color: white;
+}
+
+.searchResult > a {
+	color: black !important;
+}
+
+.searchResultsContainer {
+	background-color: white;
+	border: 1px solid red !important;
 }
 
 

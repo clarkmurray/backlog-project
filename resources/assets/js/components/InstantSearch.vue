@@ -2,6 +2,7 @@
     <ais-index :search-store="searchStore">
         <ais-input></ais-input>
         <ais-results v-show="searchStore.query.length > 0">
+        <div class="searchResultsContainer"
             <template slot-scope="{ result }">
                 <div class="searchResult">
                     <a :href="'/books/' + result.id">
@@ -10,6 +11,7 @@
                     </a>
                 </div>
             </template>
+        </div>
         </ais-results>
     </ais-index>
 </template>
