@@ -1,0 +1,55 @@
+body {
+	background-color: #f1e9d2;
+}
+
+nav {
+	height: 76px;
+	background-color: #548687 !important;
+	position: fixed !important;
+	width: 100%;
+	z-index: 10;
+}
+
+nav a {
+	color: white !important;
+	font-weight: bold;
+	font-size: 16px;
+	height: 75px !important;
+	padding-top: 30px !important;
+}
+
+nav input {
+	margin-top: 18px !important;
+	margin-left: 10px;
+	height: 40px;
+	width: 300px;
+	border-radius: 5px;
+	padding-right: 50px;
+}
+
+nav button {
+	margin-top: 18px;
+	height: 40px;
+	border-radius: 5px;
+	background-color: #E99B14;
+	border: none;
+	width: 50px;
+	margin-left: -50px;
+	color: white;
+}
+
+
+/*Vertically align list items in header
+
+Vertically align search bar & style it
+
+Set button next to search bar to search APIs
+
+Way to select what medium you are searching
+
+Instant search results drop down below bar & over rest of content*/
+
+/*nav li.dropdown a {
+	height: 75px !important;
+	vertical-align: middle !important;
+}*/

@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -66,6 +67,7 @@
                         <li><a href="/search">Search</a></li>
                         <li><a href="/add">Add</a></li>
                         <li><algolia-instantsearch></algolia-instantsearch></li>
+                        <li><button type="button">Go</button></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
