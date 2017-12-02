@@ -65862,6 +65862,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 var searchStore = Object(__WEBPACK_IMPORTED_MODULE_0_vue_instantsearch__["a" /* createFromAlgoliaCredentials */])(window.algolia.app_id, window.algolia.search_key);
@@ -65882,46 +65884,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "ais-index",
-    { attrs: { "search-store": _vm.searchStore } },
-    [
-      _c("ais-input"),
-      _vm._v(" "),
-      _c("ais-results", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.searchStore.query.length > 0,
-            expression: "searchStore.query.length > 0"
-          }
-        ],
-        scopedSlots: _vm._u([
-          {
-            key: "default",
-            fn: function(ref) {
-              var result = ref.result
-              return [
-                _c("div", { staticClass: "searchResult" }, [
-                  _c("a", { attrs: { href: "/books/" + result.id } }, [
-                    _c("h2", {
-                      domProps: { textContent: _vm._s(result.title) }
-                    }),
-                    _vm._v(" "),
-                    _c("p", {
-                      domProps: { textContent: _vm._s(result.author) }
-                    })
-                  ])
-                ])
-              ]
+  return _c("ais-index", { attrs: { "search-store": _vm.searchStore } }, [
+    _c(
+      "div",
+      { attrs: { id: "instantInput" } },
+      [
+        _c("ais-input"),
+        _vm._v(" "),
+        _c("ais-results", {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.searchStore.query.length > 0,
+              expression: "searchStore.query.length > 0"
             }
-          }
-        ])
-      })
-    ],
-    1
-  )
+          ],
+          scopedSlots: _vm._u([
+            {
+              key: "default",
+              fn: function(ref) {
+                var result = ref.result
+                return [
+                  _c("div", { staticClass: "searchResultsContainer" }, [
+                    _c("div", { staticClass: "searchResult" }, [
+                      _c("a", { attrs: { href: "/books/" + result.id } }, [
+                        _c("h4", {
+                          domProps: { textContent: _vm._s(result.title) }
+                        }),
+                        _vm._v(" "),
+                        _c("p", {
+                          domProps: { textContent: _vm._s(result.author) }
+                        })
+                      ])
+                    ])
+                  ])
+                ]
+              }
+            }
+          ])
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

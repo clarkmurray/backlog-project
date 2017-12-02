@@ -1,18 +1,20 @@
 <template>
     <ais-index :search-store="searchStore">
+        <div id="instantInput">
         <ais-input></ais-input>
         <ais-results v-show="searchStore.query.length > 0">
-        <div class="searchResultsContainer"
             <template slot-scope="{ result }">
+                <div class="searchResultsContainer">
                 <div class="searchResult">
                     <a :href="'/books/' + result.id">
-                    <h2 v-text="result.title"></h2>
+                    <h4 v-text="result.title"></h4>
                     <p v-text="result.author"></p>
                     </a>
                 </div>
+                </div>
             </template>
-        </div>
         </ais-results>
+        </div>
     </ais-index>
 </template>
 

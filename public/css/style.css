@@ -34,7 +34,7 @@ nav input {
 	margin-top: 18px !important;
 	margin-left: 10px;
 	height: 40px;
-	width: 300px;
+	width: 100%;
 	border-radius: 5px;
 	padding-right: 50px;
 }
@@ -50,14 +50,17 @@ nav button {
 	color: white;
 }
 
+#instantInput {
+	width: 300px;
+}
+
 #main {
 	margin-top: 106px;
 }
 
-.searchResult {
+/*.searchResult {
 	width: 100%;
-	background-color: white;
-}
+}*/
 
 .searchResult > a {
 	color: black !important;
@@ -65,7 +68,10 @@ nav button {
 
 .searchResultsContainer {
 	background-color: white;
-	border: 1px solid red !important;
+	width: 100%;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 5px;
 }
 
 
