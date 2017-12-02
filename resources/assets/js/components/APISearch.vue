@@ -37,8 +37,14 @@
 	                    <button v-on:click="searchMovieTV"  type="button">Search</button>
 
 	                    <div v-for="result in movieResults">
+	                    	<table class="table">
 
-	                    	<h1>{{ result.title }}</h1>
+	                    	<tr>
+	                    		<td rowspan="2"><img v-bind:src="'https://image.tmdb.org/t/p/w150' + result.poster_path"></td>
+	                    		<td>{{ result.title }}</td>
+	                    	</tr>
+
+	                   	 	</table>
 
 	                	</div>
 
@@ -99,7 +105,7 @@
 					dataType: "json",
 					success: function (data) {
 						console.log(data);
-						for (var i=0; i < 10; i++) {
+						for (var i=0; i < data.results.length; i++) {
 							vm.movieResults.push(data.results[i]);
 						}
 

@@ -66301,6 +66301,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66347,7 +66353,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				dataType: "json",
 				success: function success(data) {
 					console.log(data);
-					for (var i = 0; i < 10; i++) {
+					for (var i = 0; i < data.results.length; i++) {
 						vm.movieResults.push(data.results[i]);
 					}
 				},
@@ -66488,7 +66494,23 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _vm._l(_vm.movieResults, function(result) {
-                    return _c("div", [_c("h1", [_vm._v(_vm._s(result.title))])])
+                    return _c("div", [
+                      _c("table", { staticClass: "table" }, [
+                        _c("tr", [
+                          _c("td", { attrs: { rowspan: "2" } }, [
+                            _c("img", {
+                              attrs: {
+                                src:
+                                  "https://image.tmdb.org/t/p/w150" +
+                                  result.poster_path
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(result.title))])
+                        ])
+                      ])
+                    ])
                   })
                 ],
                 2
