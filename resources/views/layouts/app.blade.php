@@ -65,7 +65,6 @@
                             </ul>
                         </li>
                         <li><a href="/search">Search</a></li>
-                        <li><a href="/add">Add</a></li>
                         <li><algolia-instantsearch></algolia-instantsearch></li>
                         <li><button type="button">Go</button></li>
                     </ul>

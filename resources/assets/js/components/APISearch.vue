@@ -4,7 +4,10 @@
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
-					<div class= "panel-heading">Search</div>
+					<div class= "panel-heading">
+						<span>Search Results for: </span>
+						<span class="pull-right"><a href="/add">Don't see what you're looking for? Make your own entry</a></span>
+					</div>
 
 
 					<div class="panel-body" v-if="books">
@@ -67,8 +70,8 @@
             	movieSearch: '',
             	apiResults: [],
             	movieResults: [],
-            	books: false,
-            	moviesAndTV: true
+            	books: true,
+            	moviesAndTV: false
 
             }
         },

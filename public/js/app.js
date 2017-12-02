@@ -66315,6 +66315,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66324,8 +66327,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			movieSearch: '',
 			apiResults: [],
 			movieResults: [],
-			books: false,
-			moviesAndTV: true
+			books: true,
+			moviesAndTV: false
 
 		};
 	},
@@ -66389,7 +66392,7 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
         _c("div", { staticClass: "panel panel-default" }, [
-          _c("div", { staticClass: "panel-heading" }, [_vm._v("Search")]),
+          _vm._m(0, false, false),
           _vm._v(" "),
           _vm.books
             ? _c(
@@ -66529,7 +66532,22 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("span", [_vm._v("Search Results for: ")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "pull-right" }, [
+        _c("a", { attrs: { href: "/add" } }, [
+          _vm._v("Don't see what you're looking for? Make your own entry")
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
