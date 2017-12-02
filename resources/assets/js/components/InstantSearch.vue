@@ -1,19 +1,22 @@
 <template>
     <ais-index :search-store="searchStore">
         <div id="instantInput">
-        <ais-input></ais-input>
-        <ais-results v-show="searchStore.query.length > 0">
-            <template slot-scope="{ result }">
-                <div class="searchResultsContainer">
-                <div class="searchResult">
-                    <a :href="'/books/' + result.id">
-                    <h4 v-text="result.title"></h4>
-                    <p v-text="result.author"></p>
-                    </a>
-                </div>
-                </div>
-            </template>
-        </ais-results>
+            <div class="input-group searchBar">
+                <ais-input class="form-control"></ais-input>
+                <span class="input-group-addon" id="searchButton"><a href="/search">Go</a></span>
+            </div>
+            <ais-results v-show="searchStore.query.length > 0">
+                <template slot-scope="{ result }">
+                    <div class="searchResultsContainer">
+                    <div class="searchResult">
+                        <a :href="'/books/' + result.id">
+                        <h4 v-text="result.title"></h4>
+                        <p v-text="result.author"></p>
+                        </a>
+                    </div>
+                    </div>
+                </template>
+            </ais-results>
         </div>
     </ais-index>
 </template>

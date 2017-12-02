@@ -65864,6 +65864,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 var searchStore = Object(__WEBPACK_IMPORTED_MODULE_0_vue_instantsearch__["a" /* createFromAlgoliaCredentials */])(window.algolia.app_id, window.algolia.search_key);
@@ -65889,7 +65892,26 @@ var render = function() {
       "div",
       { attrs: { id: "instantInput" } },
       [
-        _c("ais-input"),
+        _c(
+          "div",
+          { staticClass: "input-group searchBar" },
+          [
+            _c("ais-input", {
+              staticClass: "form-control",
+              attrs: { id: "aisBar" }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "input-group-addon",
+                attrs: { id: "searchButton" }
+              },
+              [_c("a", { attrs: { href: "/search" } }, [_vm._v("Go")])]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("ais-results", {
           directives: [

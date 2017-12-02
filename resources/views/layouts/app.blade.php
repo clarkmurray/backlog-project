@@ -65,7 +65,6 @@
                             </ul>
                         </li>
                         <li><algolia-instantsearch></algolia-instantsearch></li>
-                        <li><a href="/search" class="btn btn-default searchButton">Go</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

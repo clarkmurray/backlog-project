@@ -31,8 +31,8 @@ ul.dropdown-menu li a:hover {
 }
 
 nav input {
-	margin-top: 18px !important;
-	height: 40px;
+/*	margin-top: 18px !important;
+*/	height: 100% !important;
 	width: 100%;
 	border-radius: 5px;
 	padding-right: 50px;
@@ -66,21 +66,21 @@ nav button {
 	border-radius: 5px;
 }
 
-a.searchButton {
-	display: inline;
+#searchButton {
 	background-color: #E99B14;
 	border: none;
-	width: 50px;
-	margin-top: 18px;
-	height: 35px !important;
-	border-radius: 5px !important;
-	vertical-align: middle !important;
-
+	height: 40px !important;
 }
 
 a.searchButton:hover {
 	background-color: black !important;
 }
+
+.searchBar {
+	height: 40px !important;
+	margin-top: 18px;
+}
+
 
 
 /*Vertically align list items in header
