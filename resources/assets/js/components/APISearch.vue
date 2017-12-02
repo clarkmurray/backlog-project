@@ -12,7 +12,7 @@
 	                    <button v-on:click="searchBook" id="submitSearch" type="button">Search</button>
 
 	                    <div v-for="result in apiResults">
-	                   <!--  <table class="table" id="apiSearchResults">
+	                    <table class="table" id="apiSearchResults">
 
 	                    	<tr>
 	                    		<th rowspan="2"><img v-bind:src="result.imageLinks.smallThumbnail"></th>
@@ -22,10 +22,8 @@
 	                    		<td>{{ result.authors[0] }}</td>
 	                    	</tr>
 
-	                    </table> -->
-
-	                    <h1>{{ result.title }}</h1>
-	                    <h1>{{ result.authors[0]}}</h1>
+	                    </table>
+	                    
 	                </div>
 
 					</div>
@@ -52,13 +50,14 @@
         		var vm = this;
         		this.apiResults = [];
         		$.ajax({
-					url: "https://www.googleapis.com/books/v1/volumes?q=" + this.apiSearch,
+					url: "https://www.googleapis.com/books/v1/volumes?q=" + this.apiSearch + "&maxResults=40",
 					dataType: "json",
 					success: function (data) {
 						console.log(data);
 						for (var i=0; i < 10; i++) {
-								vm.apiResults.push(data.items[i].volumeInfo);
-								console.log(data.items[i].volumeInfo.title);
+								if (data.items[i].volumeInfo.title && data.items[i].volumeInfo.authors && data.items[i].volumeInfo.imageLinks.smallThumbnail){
+										vm.apiResults.push(data.items[i].volumeInfo);
+								}
 						}
 
 					},
