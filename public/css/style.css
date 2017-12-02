@@ -39,14 +39,7 @@ nav input {
 }
 
 nav button {
-	margin-top: 18px;
-	height: 40px;
-	border-radius: 5px;
-	background-color: #E99B14;
-	border: none;
-	width: 50px;
 	margin-left: -50px;
-	color: white;
 }
 
 #instantInput {
@@ -71,6 +64,22 @@ nav button {
 	padding: 20px;
 	border: 1px solid black;
 	border-radius: 5px;
+}
+
+a.searchButton {
+	display: inline;
+	background-color: #E99B14;
+	border: none;
+	width: 50px;
+	margin-top: 18px;
+	height: 35px !important;
+	border-radius: 5px !important;
+	vertical-align: middle !important;
+
+}
+
+a.searchButton:hover {
+	background-color: black !important;
 }
 
 

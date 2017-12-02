@@ -64,9 +64,8 @@
                                 <li><a href="#">Watch Lists</a></li>
                             </ul>
                         </li>
-                        <li><a href="/search">Search</a></li>
                         <li><algolia-instantsearch></algolia-instantsearch></li>
-                        <li><button type="button">Go</button></li>
+                        <li><a href="/search" class="btn btn-default searchButton">Go</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
