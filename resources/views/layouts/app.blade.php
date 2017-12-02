@@ -102,7 +102,11 @@
             </div>
         </nav>
 
+        <div id="main">
+
         @yield('content')
+
+        </div>
     </div>
 
     <!-- Scripts -->
