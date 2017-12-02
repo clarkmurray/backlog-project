@@ -66282,6 +66282,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66295,18 +66300,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         searchBook: function searchBook() {
             var vm = this;
+            this.apiResults = [];
             $.ajax({
                 url: "https://www.googleapis.com/books/v1/volumes?q=" + this.apiSearch,
                 dataType: "json",
                 success: function success(data) {
                     console.log(data);
-                    for (var i = 0; i < data.items.length; i++) {
+                    for (var i = 0; i < 10; i++) {
                         vm.apiResults.push(data.items[i].volumeInfo);
+                        console.log(data.items[i].volumeInfo.title);
                     }
                 },
                 type: 'GET'
 
             });
+
+            console.log(this.apiResults);
 
             this.apiSearch = '';
         }
@@ -66363,18 +66372,10 @@ var render = function() {
               ),
               _vm._v(" "),
               _vm._l(_vm.apiResults, function(result) {
-                return _c("table", { attrs: { id: "apiSearchResults" } }, [
-                  _c("tr", [
-                    _c("th", { attrs: { rowspan: "2" } }, [
-                      _c("img", {
-                        attrs: { src: result.imageLinks.smallThumbnail }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(result.title))])
-                  ]),
+                return _c("div", [
+                  _c("h1", [_vm._v(_vm._s(result.title))]),
                   _vm._v(" "),
-                  _c("tr", [_c("td", [_vm._v(_vm._s(result.authors[0]))])])
+                  _c("h1", [_vm._v(_vm._s(result.authors[0]))])
                 ])
               })
             ],
