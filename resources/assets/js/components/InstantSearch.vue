@@ -3,7 +3,7 @@
         <div id="instantInput">
             <div class="input-group searchBar">
                 <ais-input placeholder="Find a book, movie, or show" class="form-control" id="aisSearchBar"></ais-input>
-                <span class="input-group-addon" id="searchButton" v-on:click="secondSearch">Go</span>
+                <span class="input-group-addon" id="searchButton" v-on:click="secondSearch"><i class="fa fa-search" aria-hidden="true"></i></span>
             </div>
             <ais-results v-show="searchStore.query.length > 0">
                 <template slot-scope="{ result }">

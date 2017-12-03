@@ -70,6 +70,12 @@ nav button {
 	background-color: #E99B14;
 	border: none;
 	height: 40px !important;
+	cursor: pointer;
+	color: white;
+}
+
+#searchButton:active {
+	background-color: #9D4F00;
 }
 
 a.searchButton:hover {

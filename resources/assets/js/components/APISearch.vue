@@ -5,7 +5,7 @@
 			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
 					<div class= "panel-heading">
-						<span>Search Results for: {{}} </span>
+						<span>Search Results for: {{ this.apiSearch }} </span>
 						<span class="pull-right"><a href="/add">Don't see what you're looking for? Make your own entry</a></span>
 					</div>
 
@@ -90,7 +90,7 @@
 
 				console.log(this.apiResults);
 
-				this.apiSearch ='';
+				// this.apiSearch ='';
         	},
 
         	searchMovieTV() {
@@ -110,7 +110,7 @@
 
 				});
 
-				this.apiSearch = '';
+				// this.apiSearch = '';
         	}
         },
 

@@ -65938,7 +65938,12 @@ var render = function() {
                 attrs: { id: "searchButton" },
                 on: { click: _vm.secondSearch }
               },
-              [_vm._v("Go")]
+              [
+                _c("i", {
+                  staticClass: "fa fa-search",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]
             )
           ],
           1
@@ -66400,7 +66405,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       console.log(this.apiResults);
 
-      this.apiSearch = '';
+      // this.apiSearch ='';
     },
     searchMovieTV: function searchMovieTV() {
       var vm = this;
@@ -66418,7 +66423,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       });
 
-      this.apiSearch = '';
+      // this.apiSearch = '';
     }
   },
 
@@ -66445,7 +66450,13 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
         _c("div", { staticClass: "panel panel-default" }, [
-          _vm._m(0, false, false),
+          _c("div", { staticClass: "panel-heading" }, [
+            _c("span", [
+              _vm._v("Search Results for: " + _vm._s(this.apiSearch) + " ")
+            ]),
+            _vm._v(" "),
+            _vm._m(0, false, false)
+          ]),
           _vm._v(" "),
           _vm.books
             ? _c(
@@ -66522,13 +66533,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("span", [_vm._v("Search Results for: {{}} ")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "pull-right" }, [
-        _c("a", { attrs: { href: "/add" } }, [
-          _vm._v("Don't see what you're looking for? Make your own entry")
-        ])
+    return _c("span", { staticClass: "pull-right" }, [
+      _c("a", { attrs: { href: "/add" } }, [
+        _vm._v("Don't see what you're looking for? Make your own entry")
       ])
     ])
   }
