@@ -95,6 +95,20 @@ button.btn.btn-default.dropdown-toggle.as-is.bs-dropdown-to-select {
 	color: white;
 }
 
+#dropdownSelect > .dropdown-menu {
+	background-color: white !important;
+	color: black !important;
+}
+
+#dropdownSelect > .dropdown-menu > li a {
+	color: black !important;
+}
+
+#dropdownSelect > .dropdown-menu >li a:hover {
+	background-color: gray !important;
+	color: white !important;
+}
+
 .bias-input-group .input-group-addon + .input-group-btn > .btn {border-radius: 0;}
 .bias-input-group .input-group-addon + .input-group-btn + .input-group-addon {border-right: 0; border-left: 0;}
 

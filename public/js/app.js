@@ -66567,7 +66567,13 @@ var render = function() {
         _c("div", { staticClass: "panel panel-default" }, [
           _c("div", { staticClass: "panel-heading" }, [
             _c("span", [
-              _vm._v("Search Results for: " + _vm._s(this.apiSearch) + " ")
+              _vm._v(
+                'Search Results for "' +
+                  _vm._s(this.apiSearch) +
+                  '" in ' +
+                  _vm._s(this.searchType) +
+                  " "
+              )
             ]),
             _vm._v(" "),
             _vm._m(0, false, false)
