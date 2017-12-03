@@ -3,7 +3,7 @@
 @section('content')
 
 
-	<api-search></api-search>
+	<api-search :prop_api='{!! Auth::user()->toJson() !!}'></api-search>
 
 
 @endsection

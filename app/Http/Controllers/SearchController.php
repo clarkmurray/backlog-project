@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Book;
 
+use Illuminate\Support\Facades\Log;
+
 class SearchController extends Controller
 {
     public function books(Request $request) {
@@ -23,4 +25,14 @@ class SearchController extends Controller
 
     	return view('search');
     }
+
+    public function storeSearch(Request $request) {
+
+    	$param = $request->get('value');
+
+    	Log::info('The variable param is equal to ' . $param);
+
+
+    }
+
 }

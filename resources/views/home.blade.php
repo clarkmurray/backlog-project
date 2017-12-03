@@ -6,7 +6,10 @@
         <div class="col-md-10 col-md-offset-1">
 
             <div class="panel panel-default">
-                <div class="panel-heading">My Books</div>
+                <div class="panel-heading">
+                    <span>My Books</span>
+                    <span class="pull-right">Time to Read: {{ \App\Http\Controllers\BookController::timeToRead($totalPages) }}</span>
+                </div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -61,15 +64,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <p>Time to Read: {{ \App\Http\Controllers\BookController::timeToRead($totalPages) }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </div>
 @endsection

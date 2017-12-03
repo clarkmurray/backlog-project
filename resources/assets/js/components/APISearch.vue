@@ -14,7 +14,6 @@
 
 	                    <input style="width:80%; margin:auto" v-model="apiSearch" placeholder="Find Book">
 	                    <button v-on:click="searchBook" type="button">Search</button>
-
 	                    <div v-for="result in apiResults">
 	                    <table class="table" id="apiSearchResults">
 
@@ -64,14 +63,16 @@
 <script>
 
     export default {
+    	props: ['prop_api'],
         data() {
             return { 
             	apiSearch: '',
             	movieSearch: '',
             	apiResults: [],
             	movieResults: [],
-            	books: true,
-            	moviesAndTV: false
+            	books: false,
+            	moviesAndTV: true,
+            	searchParam: ''
 
             }
         },
@@ -121,6 +122,15 @@
 
 				this.movieSearch = '';
         	}
+        },
+
+        mounted() {
+        	console.log(this.prop_api);
+        	this.$root.$on('APIsearch', backupParam => {
+        		console.log(backupParam + "is emmitted");
+        		this.searchParam = backupParam;
+        	});
+        	console.log(this.searchParam);
         }
 
     }

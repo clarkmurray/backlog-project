@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -114,8 +114,6 @@
     }
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script type="text/javascript" src="{{URL::asset('/js/api-search.js')}}"></script>
-
 
 
 </body>

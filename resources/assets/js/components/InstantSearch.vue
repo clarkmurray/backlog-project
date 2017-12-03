@@ -2,8 +2,8 @@
     <ais-index :search-store="searchStore">
         <div id="instantInput">
             <div class="input-group searchBar">
-                <ais-input class="form-control"></ais-input>
-                <span class="input-group-addon" id="searchButton"><a href="/search">Go</a></span>
+                <ais-input placeholder="Find a book, movie, or show" class="form-control" id="aisSearchBar"></ais-input>
+                <span class="input-group-addon" id="searchButton" v-on:click="secondSearch">Go</span>
             </div>
             <ais-results v-show="searchStore.query.length > 0">
                 <template slot-scope="{ result }">
@@ -30,7 +30,32 @@
 
     export default {
         data() {
-            return { searchStore };
+            return { 
+                searchStore,
+                backupParam: ''
+            };
+        },
+        methods: {
+            secondSearch() {
+                this.backupParam = document.getElementById('aisSearchBar').value;
+                this.passSecondSearch(this.backupParam);
+            },
+
+            passSecondSearch(value) {
+
+                var data = { value : value };
+                $.ajax({
+                    type: "GET",
+                    url: '/param-store',
+                    data: data,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function() {
+                      console.log("The value added is " + value);
+                    }
+                })
+            }
         }
     }
 </script>

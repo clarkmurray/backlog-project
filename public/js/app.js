@@ -65875,7 +65875,32 @@ searchStore.indexName = 'title';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return { searchStore: searchStore };
+        return {
+            searchStore: searchStore,
+            backupParam: ''
+        };
+    },
+
+    methods: {
+        secondSearch: function secondSearch() {
+            this.backupParam = document.getElementById('aisSearchBar').value;
+            this.passSecondSearch(this.backupParam);
+        },
+        passSecondSearch: function passSecondSearch(value) {
+
+            var data = { value: value };
+            $.ajax({
+                type: "GET",
+                url: '/param-store',
+                data: data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function success() {
+                    console.log("The value added is " + value);
+                }
+            });
+        }
     }
 });
 
@@ -65898,16 +65923,20 @@ var render = function() {
           [
             _c("ais-input", {
               staticClass: "form-control",
-              attrs: { id: "aisBar" }
+              attrs: {
+                placeholder: "Find a book, movie, or show",
+                id: "aisSearchBar"
+              }
             }),
             _vm._v(" "),
             _c(
               "span",
               {
                 staticClass: "input-group-addon",
-                attrs: { id: "searchButton" }
+                attrs: { id: "searchButton" },
+                on: { click: _vm.secondSearch }
               },
-              [_c("a", { attrs: { href: "/search" } }, [_vm._v("Go")])]
+              [_vm._v("Go")]
             )
           ],
           1
@@ -66339,67 +66368,78 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			apiSearch: '',
-			movieSearch: '',
-			apiResults: [],
-			movieResults: [],
-			books: true,
-			moviesAndTV: false
+  props: ['prop_api'],
+  data: function data() {
+    return {
+      apiSearch: '',
+      movieSearch: '',
+      apiResults: [],
+      movieResults: [],
+      books: false,
+      moviesAndTV: true,
+      searchParam: ''
 
-		};
-	},
+    };
+  },
 
-	methods: {
-		searchBook: function searchBook() {
-			var vm = this;
-			this.apiResults = [];
-			$.ajax({
-				url: "https://www.googleapis.com/books/v1/volumes?q=" + this.apiSearch,
-				dataType: "json",
-				success: function success(data) {
-					console.log(data);
-					for (var i = 0; i < 10; i++) {
-						if (data.items[i].volumeInfo.title && data.items[i].volumeInfo.authors && data.items[i].volumeInfo.imageLinks.smallThumbnail && data.items[i].volumeInfo.industryIdentifiers[0].identifier) {
-							vm.apiResults.push(data.items[i].volumeInfo);
-						}
-					}
-				},
-				type: 'GET'
+  methods: {
+    searchBook: function searchBook() {
+      var vm = this;
+      this.apiResults = [];
+      $.ajax({
+        url: "https://www.googleapis.com/books/v1/volumes?q=" + this.apiSearch,
+        dataType: "json",
+        success: function success(data) {
+          console.log(data);
+          for (var i = 0; i < 10; i++) {
+            if (data.items[i].volumeInfo.title && data.items[i].volumeInfo.authors && data.items[i].volumeInfo.imageLinks.smallThumbnail && data.items[i].volumeInfo.industryIdentifiers[0].identifier) {
+              vm.apiResults.push(data.items[i].volumeInfo);
+            }
+          }
+        },
+        type: 'GET'
 
-			});
+      });
 
-			console.log(this.apiResults);
+      console.log(this.apiResults);
 
-			this.apiSearch = '';
-		},
-		searchMovieTV: function searchMovieTV() {
-			var vm = this;
-			this.movieResults = [];
-			$.ajax({
-				url: "https://api.themoviedb.org/3/search/movie?api_key=0b825591a48003863026cd7101cef2d0&query=" + this.movieSearch,
-				dataType: "json",
-				success: function success(data) {
-					console.log(data);
-					for (var i = 0; i < data.results.length; i++) {
-						vm.movieResults.push(data.results[i]);
-					}
-				},
-				type: 'GET'
+      this.apiSearch = '';
+    },
+    searchMovieTV: function searchMovieTV() {
+      var vm = this;
+      this.movieResults = [];
+      $.ajax({
+        url: "https://api.themoviedb.org/3/search/movie?api_key=0b825591a48003863026cd7101cef2d0&query=" + this.movieSearch,
+        dataType: "json",
+        success: function success(data) {
+          console.log(data);
+          for (var i = 0; i < data.results.length; i++) {
+            vm.movieResults.push(data.results[i]);
+          }
+        },
+        type: 'GET'
 
-			});
+      });
 
-			console.log(this.movieSearch);
+      console.log(this.movieSearch);
 
-			this.movieSearch = '';
-		}
-	}
+      this.movieSearch = '';
+    }
+  },
 
+  mounted: function mounted() {
+    var _this = this;
+
+    console.log(this.prop_api);
+    this.$root.$on('APIsearch', function (backupParam) {
+      console.log(backupParam + "is emmitted");
+      _this.searchParam = backupParam;
+    });
+    console.log(this.searchParam);
+  }
 });
 
 /***/ }),
