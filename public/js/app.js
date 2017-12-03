@@ -65884,6 +65884,9 @@ searchStore.indexName = 'title';
     methods: {
         secondSearch: function secondSearch() {
             this.backupParam = document.getElementById('aisSearchBar').value;
+            if (!this.backupParam.replace(/\s/g, '').length || this.backupParam === null) {
+                return;
+            }
             this.passSecondSearch(this.backupParam);
         },
         passSecondSearch: function passSecondSearch(value) {
@@ -66313,6 +66316,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //

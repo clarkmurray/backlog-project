@@ -38,6 +38,9 @@
         methods: {
             secondSearch() {
                 this.backupParam = document.getElementById('aisSearchBar').value;
+                if (!this.backupParam.replace(/\s/g, '').length || this.backupParam === null) {
+                    return;
+                }
                 this.passSecondSearch(this.backupParam);
             },
 

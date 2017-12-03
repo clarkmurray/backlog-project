@@ -32,10 +32,6 @@ class SearchController extends Controller
 
     	$user = \Auth::user();
 
-    	if ($param === null) {
-    		$param = '';
-    	}
-
     	$user->search_param = $param;
 
     	$user->save();
