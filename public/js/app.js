@@ -65919,7 +65919,7 @@ searchStore.indexName = 'title';
                 }
             });
 
-            // window.location.replace("/search");
+            window.location.replace("/search");
         }
     },
 
@@ -66486,6 +66486,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       apiSearch: this.prop_api.search_param,
+      searchType: this.prop_api.search_type,
       apiResults: [],
       movieResults: [],
       books: true,
@@ -66539,11 +66540,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   mounted: function mounted() {
     console.log(this.prop_api.search_param);
-    if (this.apiSearch === '') {
-      // Indicate that the search failed
+    console.log("The Prop API search type is " + this.prop_api.search_type);
+    if (this.searchType === 'Books') {
+      this.moviesAndTV = false;
+      this.books = true;
       this.searchBook();
-    } else {
-      this.searchBook();
+    } else if (this.searchType === 'Movies') {
+      this.books = false;
+      this.moviesAndTV = true;
+      this.searchMovieTV();
     }
   }
 });

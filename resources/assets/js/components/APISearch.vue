@@ -62,7 +62,7 @@
         data() {
             return { 
             	apiSearch: this.prop_api.search_param,
-            	searchType: '',
+            	searchType: this.prop_api.search_type,
             	apiResults: [],
             	movieResults: [],
             	books: true,
@@ -118,11 +118,15 @@
 
         mounted() {
         	console.log(this.prop_api.search_param);
-        	if (this.apiSearch === '') {
-        		// Indicate that the search failed
+        	console.log("The Prop API search type is " + this.prop_api.search_type);
+        	if (this.searchType === 'Books') {
+        		this.moviesAndTV = false;
+        		this.books = true;
         		this.searchBook(); 
-        	} else {
-        		this.searchBook();
+        	} else if (this.searchType === 'Movies') {
+        		this.books = false;
+        		this.moviesAndTV = true;
+        		this.searchMovieTV();
         	}
         }
 
