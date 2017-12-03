@@ -65882,6 +65882,12 @@ searchStore.indexName = 'title';
     },
 
     methods: {
+        checkActive: function checkActive() {
+            console.log("Function entered");
+            if (document.getElementById('aisSearchBar') === document.activeElement) {
+                this.secondSearch();
+            }
+        },
         secondSearch: function secondSearch() {
             this.backupParam = document.getElementById('aisSearchBar').value;
             if (!this.backupParam.replace(/\s/g, '').length || this.backupParam === null) {
@@ -65924,7 +65930,20 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "input-group searchBar" },
+          {
+            staticClass: "input-group searchBar",
+            on: {
+              keyup: function($event) {
+                if (
+                  !("button" in $event) &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key)
+                ) {
+                  return null
+                }
+                _vm.secondSearch($event)
+              }
+            }
+          },
           [
             _c("ais-input", {
               staticClass: "form-control",

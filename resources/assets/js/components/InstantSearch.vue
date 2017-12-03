@@ -1,7 +1,7 @@
 <template>
     <ais-index :search-store="searchStore">
         <div id="instantInput">
-            <div class="input-group searchBar">
+            <div class="input-group searchBar" v-on:keyup.enter="secondSearch">
                 <ais-input placeholder="Find a book, movie, or show" class="form-control" id="aisSearchBar"></ais-input>
                 <span class="input-group-addon" id="searchButton" v-on:click="secondSearch"><i class="fa fa-search" aria-hidden="true"></i></span>
             </div>
@@ -36,6 +36,13 @@
             };
         },
         methods: {
+            checkActive() {
+                console.log("Function entered");
+                if (document.getElementById('aisSearchBar') === document.activeElement) {
+                    this.secondSearch();
+                }
+            },
+
             secondSearch() {
                 this.backupParam = document.getElementById('aisSearchBar').value;
                 if (!this.backupParam.replace(/\s/g, '').length || this.backupParam === null) {
