@@ -5,15 +5,12 @@
 			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
 					<div class= "panel-heading">
-						<span>Search Results for: </span>
+						<span>Search Results for: {{}} </span>
 						<span class="pull-right"><a href="/add">Don't see what you're looking for? Make your own entry</a></span>
 					</div>
 
 
 					<div class="panel-body" v-if="books">
-
-	                    <input style="width:80%; margin:auto" v-model="apiSearch" placeholder="Find Book">
-	                    <button v-on:click="searchBook" type="button">Search</button>
 	                    <div v-for="result in apiResults">
 	                    <table class="table" id="apiSearchResults">
 
@@ -34,9 +31,6 @@
 					</div>
 
 					<div class="panel-body" v-if="moviesAndTV">
-
-	                    <input style="width:80%; margin:auto" v-model="movieSearch" placeholder="Find Movie or TV show">
-	                    <button v-on:click="searchMovieTV"  type="button">Search</button>
 
 	                    <div v-for="result in movieResults">
 	                    	<table class="table">
@@ -66,13 +60,11 @@
     	props: ['prop_api'],
         data() {
             return { 
-            	apiSearch: '',
-            	movieSearch: '',
+            	apiSearch: this.prop_api.search_param,
             	apiResults: [],
             	movieResults: [],
-            	books: false,
-            	moviesAndTV: true,
-            	searchParam: ''
+            	books: true,
+            	moviesAndTV: false,
 
             }
         },
@@ -105,7 +97,7 @@
         		var vm = this;
         		this.movieResults = [];
         		$.ajax({
-					url: "https://api.themoviedb.org/3/search/movie?api_key=0b825591a48003863026cd7101cef2d0&query=" + this.movieSearch,
+					url: "https://api.themoviedb.org/3/search/movie?api_key=0b825591a48003863026cd7101cef2d0&query=" + this.apiSearch,
 					dataType: "json",
 					success: function (data) {
 						console.log(data);
@@ -118,19 +110,18 @@
 
 				});
 
-				console.log(this.movieSearch);
-
-				this.movieSearch = '';
+				this.apiSearch = '';
         	}
         },
 
         mounted() {
-        	console.log(this.prop_api);
-        	this.$root.$on('APIsearch', backupParam => {
-        		console.log(backupParam + "is emmitted");
-        		this.searchParam = backupParam;
-        	});
-        	console.log(this.searchParam);
+        	console.log(this.prop_api.search_param);
+        	if (this.apiSearch === '') {
+        		// Indicate that the search failed
+        		this.searchBook(); 
+        	} else {
+        		this.searchBook();
+        	}
         }
 
     }

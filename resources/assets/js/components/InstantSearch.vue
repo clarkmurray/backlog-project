@@ -54,7 +54,9 @@
                     success: function() {
                       console.log("The value added is " + value);
                     }
-                })
+                });
+
+                window.location.replace("/search");
             }
         }
     }

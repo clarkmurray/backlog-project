@@ -65900,6 +65900,8 @@ searchStore.indexName = 'title';
                     console.log("The value added is " + value);
                 }
             });
+
+            window.location.replace("/search");
         }
     }
 });
@@ -66362,25 +66364,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['prop_api'],
   data: function data() {
     return {
-      apiSearch: '',
-      movieSearch: '',
+      apiSearch: this.prop_api.search_param,
       apiResults: [],
       movieResults: [],
-      books: false,
-      moviesAndTV: true,
-      searchParam: ''
+      books: true,
+      moviesAndTV: false
 
     };
   },
@@ -66412,7 +66406,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var vm = this;
       this.movieResults = [];
       $.ajax({
-        url: "https://api.themoviedb.org/3/search/movie?api_key=0b825591a48003863026cd7101cef2d0&query=" + this.movieSearch,
+        url: "https://api.themoviedb.org/3/search/movie?api_key=0b825591a48003863026cd7101cef2d0&query=" + this.apiSearch,
         dataType: "json",
         success: function success(data) {
           console.log(data);
@@ -66424,21 +66418,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       });
 
-      console.log(this.movieSearch);
-
-      this.movieSearch = '';
+      this.apiSearch = '';
     }
   },
 
   mounted: function mounted() {
-    var _this = this;
-
-    console.log(this.prop_api);
-    this.$root.$on('APIsearch', function (backupParam) {
-      console.log(backupParam + "is emmitted");
-      _this.searchParam = backupParam;
-    });
-    console.log(this.searchParam);
+    console.log(this.prop_api.search_param);
+    if (this.apiSearch === '') {
+      // Indicate that the search failed
+      this.searchBook();
+    } else {
+      this.searchBook();
+    }
   }
 });
 
@@ -66460,73 +66451,39 @@ var render = function() {
             ? _c(
                 "div",
                 { staticClass: "panel-body" },
-                [
-                  _c("input", {
-                    directives: [
+                _vm._l(_vm.apiResults, function(result) {
+                  return _c("div", [
+                    _c(
+                      "table",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.apiSearch,
-                        expression: "apiSearch"
-                      }
-                    ],
-                    staticStyle: { width: "80%", margin: "auto" },
-                    attrs: { placeholder: "Find Book" },
-                    domProps: { value: _vm.apiSearch },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.apiSearch = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      attrs: { type: "button" },
-                      on: { click: _vm.searchBook }
-                    },
-                    [_vm._v("Search")]
-                  ),
-                  _vm._v(" "),
-                  _vm._l(_vm.apiResults, function(result) {
-                    return _c("div", [
-                      _c(
-                        "table",
-                        {
-                          staticClass: "table",
-                          attrs: { id: "apiSearchResults" }
-                        },
-                        [
-                          _c("tr", [
-                            _c("th", { attrs: { rowspan: "2" } }, [
-                              _c("img", {
-                                attrs: { src: result.imageLinks.smallThumbnail }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v(_vm._s(result.title))])
+                        staticClass: "table",
+                        attrs: { id: "apiSearchResults" }
+                      },
+                      [
+                        _c("tr", [
+                          _c("th", { attrs: { rowspan: "2" } }, [
+                            _c("img", {
+                              attrs: { src: result.imageLinks.smallThumbnail }
+                            })
                           ]),
                           _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [_vm._v(_vm._s(result.authors[0]))])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("h1", [
-                        _vm._v(
-                          "ISBN: " +
-                            _vm._s(result.industryIdentifiers[0].identifier)
-                        )
-                      ])
+                          _c("th", [_vm._v(_vm._s(result.title))])
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", [_vm._v(_vm._s(result.authors[0]))])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("h1", [
+                      _vm._v(
+                        "ISBN: " +
+                          _vm._s(result.industryIdentifiers[0].identifier)
+                      )
                     ])
-                  })
-                ],
-                2
+                  ])
+                })
               )
             : _vm._e(),
           _vm._v(" "),
@@ -66534,59 +66491,25 @@ var render = function() {
             ? _c(
                 "div",
                 { staticClass: "panel-body" },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.movieSearch,
-                        expression: "movieSearch"
-                      }
-                    ],
-                    staticStyle: { width: "80%", margin: "auto" },
-                    attrs: { placeholder: "Find Movie or TV show" },
-                    domProps: { value: _vm.movieSearch },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.movieSearch = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      attrs: { type: "button" },
-                      on: { click: _vm.searchMovieTV }
-                    },
-                    [_vm._v("Search")]
-                  ),
-                  _vm._v(" "),
-                  _vm._l(_vm.movieResults, function(result) {
-                    return _c("div", [
-                      _c("table", { staticClass: "table" }, [
-                        _c("tr", [
-                          _c("td", { attrs: { rowspan: "2" } }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  "https://image.tmdb.org/t/p/w150" +
-                                  result.poster_path
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(result.title))])
-                        ])
+                _vm._l(_vm.movieResults, function(result) {
+                  return _c("div", [
+                    _c("table", { staticClass: "table" }, [
+                      _c("tr", [
+                        _c("td", { attrs: { rowspan: "2" } }, [
+                          _c("img", {
+                            attrs: {
+                              src:
+                                "https://image.tmdb.org/t/p/w150" +
+                                result.poster_path
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(result.title))])
                       ])
                     ])
-                  })
-                ],
-                2
+                  ])
+                })
               )
             : _vm._e()
         ])
@@ -66600,7 +66523,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading" }, [
-      _c("span", [_vm._v("Search Results for: ")]),
+      _c("span", [_vm._v("Search Results for: {{}} ")]),
       _vm._v(" "),
       _c("span", { staticClass: "pull-right" }, [
         _c("a", { attrs: { href: "/add" } }, [

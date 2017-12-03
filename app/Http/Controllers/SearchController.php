@@ -30,8 +30,15 @@ class SearchController extends Controller
 
     	$param = $request->get('value');
 
-    	Log::info('The variable param is equal to ' . $param);
+    	$user = \Auth::user();
 
+    	if ($param === null) {
+    		$param = '';
+    	}
+
+    	$user->search_param = $param;
+
+    	$user->save();
 
     }
 

@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('wpm');
+            $table->string('search_param')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
