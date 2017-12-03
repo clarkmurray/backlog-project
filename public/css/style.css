@@ -43,7 +43,7 @@ nav button {
 }
 
 #instantInput {
-	width: 300px;
+	width: 500px;
 }
 
 #main {
@@ -85,7 +85,18 @@ a.searchButton:hover {
 .searchBar {
 	height: 40px !important;
 	margin-top: 18px;
+	margin-left: 75px !important;
 }
+
+button.btn.btn-default.dropdown-toggle.as-is.bs-dropdown-to-select {
+	height: 40px;
+	background-color: gray;
+	border: none;
+	color: white;
+}
+
+.bias-input-group .input-group-addon + .input-group-btn > .btn {border-radius: 0;}
+.bias-input-group .input-group-addon + .input-group-btn + .input-group-addon {border-right: 0; border-left: 0;}
 
 
 

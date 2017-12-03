@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('wpm');
             $table->string('search_param')->nullable();
+            $table->string('search_type')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

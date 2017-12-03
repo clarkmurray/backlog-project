@@ -30,9 +30,13 @@ class SearchController extends Controller
 
     	$param = $request->get('value');
 
+    	$paramType = $request->get('type');
+
     	$user = \Auth::user();
 
     	$user->search_param = $param;
+
+    	$user->search_type = $paramType;
 
     	$user->save();
 

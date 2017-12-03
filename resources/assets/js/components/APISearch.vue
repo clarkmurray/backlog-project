@@ -1,7 +1,7 @@
 <template>
 
 	<div class="container">
-		
+
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
@@ -62,6 +62,7 @@
         data() {
             return { 
             	apiSearch: this.prop_api.search_param,
+            	searchType: '',
             	apiResults: [],
             	movieResults: [],
             	books: true,

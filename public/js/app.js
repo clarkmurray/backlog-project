@@ -65867,6 +65867,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var searchStore = Object(__WEBPACK_IMPORTED_MODULE_0_vue_instantsearch__["a" /* createFromAlgoliaCredentials */])(window.algolia.app_id, window.algolia.search_key);
@@ -65877,27 +65889,23 @@ searchStore.indexName = 'title';
     data: function data() {
         return {
             searchStore: searchStore,
-            backupParam: ''
+            backupParam: '',
+            searchType: 'Books'
         };
     },
 
     methods: {
-        checkActive: function checkActive() {
-            console.log("Function entered");
-            if (document.getElementById('aisSearchBar') === document.activeElement) {
-                this.secondSearch();
-            }
-        },
         secondSearch: function secondSearch() {
             this.backupParam = document.getElementById('aisSearchBar').value;
             if (!this.backupParam.replace(/\s/g, '').length || this.backupParam === null) {
                 return;
             }
-            this.passSecondSearch(this.backupParam);
+            this.searchType = document.getElementById('dropdownSelectValue').value;
+            this.passSecondSearch(this.backupParam, this.searchType);
         },
-        passSecondSearch: function passSecondSearch(value) {
+        passSecondSearch: function passSecondSearch(value, type) {
 
-            var data = { value: value };
+            var data = { value: value, type: type };
             $.ajax({
                 type: "GET",
                 url: '/param-store',
@@ -65907,11 +65915,24 @@ searchStore.indexName = 'title';
                 },
                 success: function success() {
                     console.log("The value added is " + value);
+                    console.log("The value type is " + type);
                 }
             });
 
-            window.location.replace("/search");
+            // window.location.replace("/search");
         }
+    },
+
+    mounted: function mounted() {
+        $(document).ready(function (e) {
+
+            $(document).on('click', '.bs-dropdown-to-select-group .dropdown-menu li', function (event) {
+                var $target = $(event.currentTarget);
+                $target.closest('.bs-dropdown-to-select-group').find('[data-bind="bs-drp-sel-value"]').val($target.attr('data-value')).end().children('.dropdown-toggle').dropdown('toggle');
+                $target.closest('.bs-dropdown-to-select-group').find('[data-bind="bs-drp-sel-label"]').text($target.attr('data-value')); /*$target.text()*/
+                return false;
+            });
+        });
     }
 });
 
@@ -65945,6 +65966,72 @@ var render = function() {
             }
           },
           [
+            _c(
+              "div",
+              {
+                staticClass: "input-group-btn bs-dropdown-to-select-group",
+                attrs: { id: "dropdownSelect" }
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-default dropdown-toggle as-is bs-dropdown-to-select",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "dropdown",
+                      tabindex: "-1"
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "data-bind": "bs-drp-sel-label" } }, [
+                      _vm._v("Books")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: {
+                        type: "hidden",
+                        name: "country_path",
+                        "data-bind": "bs-drp-sel-value",
+                        value: "Books",
+                        id: "dropdownSelectValue"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "caret" }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "sr-only" }, [
+                      _vm._v("Toggle Dropdown")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  {
+                    staticClass: "dropdown-menu",
+                    staticStyle: {
+                      "max-height": "300px",
+                      overflow: "scroll",
+                      "overflow-y": "scroll",
+                      "overflow-x": "hidden"
+                    },
+                    attrs: { role: "menu" }
+                  },
+                  [
+                    _c("li", { attrs: { "data-value": "Books" } }, [
+                      _c("a", { attrs: { href: "#" } }, [_vm._v("Books")])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", { attrs: { "data-value": "Movies" } }, [
+                      _c("a", { attrs: { href: "#" } }, [_vm._v("Movies")])
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
             _c("ais-input", {
               staticClass: "form-control",
               attrs: {
