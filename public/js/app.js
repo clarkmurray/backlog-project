@@ -66479,6 +66479,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66535,6 +66538,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
 
       // this.apiSearch = '';
+    },
+    openLibraryRequest: function openLibraryRequest(result) {
+      var data = { value: result };
+      $.ajax({
+        url: "http://openlibrary.org/api/books?bibkeys=ISBN:" + result.industryIdentifiers[0].identifier + "&jscmd=data&format=json",
+        dataType: "json",
+        data: data,
+        success: function success(data) {
+          console.log(data);
+        },
+        type: 'GET'
+
+      });
+
+      this.passToController(data);
+
+      // console.log(result.industryIdentifiers[0].identifier);
+    },
+    passToController: function passToController(data) {
+      console.log("You were passed into the controller method");
+      console.log(data);
     }
   },
 
@@ -66586,25 +66610,40 @@ var render = function() {
                 _vm._l(_vm.apiResults, function(result) {
                   return _c("div", [
                     _c(
-                      "table",
+                      "a",
                       {
-                        staticClass: "table",
-                        attrs: { id: "apiSearchResults" }
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            _vm.openLibraryRequest(result)
+                          }
+                        }
                       },
                       [
-                        _c("tr", [
-                          _c("th", { attrs: { rowspan: "2" } }, [
-                            _c("img", {
-                              attrs: { src: result.imageLinks.smallThumbnail }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v(_vm._s(result.title))])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v(_vm._s(result.authors[0]))])
-                        ])
+                        _c(
+                          "table",
+                          {
+                            staticClass: "table",
+                            attrs: { id: "apiSearchResults" }
+                          },
+                          [
+                            _c("tr", [
+                              _c("th", { attrs: { rowspan: "2" } }, [
+                                _c("img", {
+                                  attrs: {
+                                    src: result.imageLinks.smallThumbnail
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v(_vm._s(result.title))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", [_vm._v(_vm._s(result.authors[0]))])
+                            ])
+                          ]
+                        )
                       ]
                     ),
                     _vm._v(" "),

@@ -28,6 +28,8 @@ Route::get('/search', [
 	'uses' =>'SearchController@books'
 ]);
 
+Route::get('/search/books/{isbn}', 'SearchController@isbn');
+
 Route::resource('/books', 'BookController');
 
 Route::get('/wpm-test', 'BookController@wpmTest');

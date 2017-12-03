@@ -42,4 +42,11 @@ class SearchController extends Controller
 
     }
 
+    public function isbn(Request $request) {
+
+    	$isbn = $request->path();
+
+    	return view('searchedBook', compact('isbn'));
+    }
+
 }
