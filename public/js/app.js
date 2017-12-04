@@ -66482,7 +66482,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66540,24 +66539,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             // this.apiSearch = '';
         }
-
-        //     	openLibraryRequest(result) {
-        //     		var data = { value : result };
-        //     		$.ajax({
-        // 	url: "http://openlibrary.org/api/books?bibkeys=ISBN:" + result.industryIdentifiers[0].identifier + "&jscmd=data&format=json",
-        // 	dataType: "json",
-        // 	data: data,
-        // 	success: function (data) {
-        // 		console.log(data);
-        // 	},
-        // 	type: 'GET'
-
-        // });
-
-        // this.passToController(data);
-
-        // // console.log(result.industryIdentifiers[0].identifier);
-        //     	},
 
         //     	passToController(data) {
         //     		console.log("You were passed into the controller method");
@@ -66782,6 +66763,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66796,19 +66785,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			cover: ''
 		};
 	},
-	mounted: function mounted() {
+	created: function created() {
 		var vm = this;
-		console.log('This is working');
 		$.ajax({
-			url: "http://openlibrary.org/api/books?bibkeys=ISBN:" + this.isbn + "&jscmd=data&format=json",
+			url: "https://www.googleapis.com/books/v1/volumes?q=" + this.isbn,
 			dataType: "json",
 			success: function success(data) {
 				console.log(data);
-				vm.title = data["ISBN:" + vm.isbn + ""].title;
-				vm.author = data["ISBN:" + vm.isbn + ""].authors[0].name;
-				vm.pages = data["ISBN:" + vm.isbn + ""].number_of_pages;
-				vm.published = data["ISBN:" + vm.isbn + ""].publish_date;
-				vm.cover = data["ISBN:" + vm.isbn + ""].cover.medium;
+				console.log(vm.isbn);
+				vm.title = data.items[0].volumeInfo.title;
+				vm.author = data.items[0].volumeInfo.authors[0];
+				vm.pages = data.items[0].volumeInfo.pageCount;
+				vm.published = data.items[0].volumeInfo.publishedDate;
+				vm.description = data.items[0].volumeInfo.description;
+				vm.cover = data.items[0].volumeInfo.imageLinks.thumbnail;
 			},
 			type: 'GET'
 
@@ -66826,16 +66816,40 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
-        _c("h1", [_vm._v(_vm._s(_vm.title))]),
-        _vm._v(" "),
-        _c("h1", [_vm._v(_vm._s(_vm.author))]),
-        _vm._v(" "),
-        _c("h1", [_vm._v(_vm._s(_vm.pages))]),
-        _vm._v(" "),
-        _c("h1", [_vm._v(_vm._s(_vm.published))]),
-        _vm._v(" "),
-        _c("img", { attrs: { src: _vm.cover } })
+      _c(
+        "div",
+        { staticClass: "col-md-4 col-md-offset-1 text-center bookCover" },
+        [
+          _c("img", {
+            attrs: { src: _vm.cover, height: "100%", width: "100%" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "bookInfo" }, [
+          _c("h2", { staticClass: "bookTitle" }, [_vm._v(_vm._s(_vm.title))]),
+          _vm._v(" "),
+          _c("h4", { staticClass: "bookAuthor" }, [
+            _vm._v("by " + _vm._s(_vm.author))
+          ]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "bookStats text-left" }, [
+            _c("li", { staticClass: "bookStat" }, [
+              _vm._v("Published: " + _vm._s(_vm.published))
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "bookStat" }, [
+              _vm._v("Pages: " + _vm._s(_vm.pages))
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "bookStat" }, [_vm._v("Time to Read: ")])
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "bookSummary" }, [
+            _vm._v(_vm._s(_vm.description))
+          ])
+        ])
       ])
     ])
   ])
