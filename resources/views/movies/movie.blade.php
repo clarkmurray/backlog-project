@@ -19,23 +19,32 @@
 				<p class="bookSummary">{{ $movie->description }}</p>
 				<div class="text-center">
 
+
+					@if((!$user->movieBacklog()->where('movie_id', $movie->id)->exists()) or ($user->movieBacklog()->where('movie_id', $movie->id)->where('watch_again', false)->where('is_finished', true)->first()))
 					<form method="post" action="/movies/{{ $movie->id }}/add" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Add to Backlog" class="btn btn-primary" class="addBacklog">
 					</form>
+					@else
 					<form method="post" action="/movies/{{ $movie->id }}/remove" class="form-inline">
 							{{ csrf_field() }}
 							<input type="submit" value="Remove from Backlog" class="btn btn-danger" class="addBacklog">
-						</form>
+					</form>
+					@endif
 
+
+
+					@if(($user->movieBacklog()->where('movie_id', $movie->id)->where('is_finished', false)->first()) or (!$user->movieBacklog()->where('movie_id', $movie->id)->exists()))
 					<form method="post" action="/movies/{{ $movie->id }}/watched" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Mark as Watched" class="btn btn-success" class="markWatched">
 					</form>
+					@else
 					<form method="post" action="/movies/{{ $movie->id }}/not-watched" class="form-inline">
 						{{ csrf_field() }}
 						<input type="submit" value="Mark as Not Watched" class="btn btn-success" class="markRead">
 					</form>
+					@endif
 
 				</div>
 			</div>

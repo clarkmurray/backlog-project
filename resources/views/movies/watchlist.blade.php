@@ -25,6 +25,7 @@
                             <th>Released</th>
                             <th>Run Time</th>
                             <th></th>
+                            <th></th>
                         </thead>
                         <tbody>
                             @foreach ($movies as $movie) 
@@ -34,7 +35,7 @@
                             <td>{{ $movie->director }}</td>
                             <td>{{ $movie->release }}</td>
                             <td>{{ $movie->runtime }}</td>
-                <!--        <td>
+                            <td>
                                 <form method="post" action="/movies/{{ $movie->id }}/watched" class="form-inline">
                                 {{ csrf_field() }}
                                     <button type="submit">
@@ -49,7 +50,7 @@
                                         <i class="fa fa-minus-circle" aria-hidden="true"></i>
                                     </button>
                                 </form>
-                            </td> -->
+                            </td>
                             </tr>
                             @endforeach
                         </tbody>

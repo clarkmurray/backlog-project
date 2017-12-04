@@ -34,6 +34,21 @@
                                 <td>{{ $movie->director }}</td>
                                 <td>{{ $movie->release }}</td>
                                 <td>{{ $movie->runtime }}</td>
+                                <td>
+                                    <form method="post" action="/movies/{{ $movie->id }}/add" class="form-inline">
+                                    {{ csrf_field() }}
+                                    <button type="submit">
+                                        <i class="fa fa-book" aria-hidden="true"></i></td>
+                                    </button>
+                                    </form>
+                                <td>
+                                    <form method="post" action="/movies/{{ $movie->id }}/not-watched" class="form-inline">
+                                    {{ csrf_field() }}
+                                    <button type="submit">
+                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    </button>
+                                    </form>
+                                </td>
                                 </tr>
                             @endforeach
                         </tbody>

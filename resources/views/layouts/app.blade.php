@@ -44,7 +44,6 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/home">Backlog</a></li>
                                 <li><a href="/finished">Finished</a></li>
-                                <li><a href="#">Reading Lists</a></li>
                                 <li><a href="/wpm-test">WPM Test</a></li>
                             </ul>
                         </li>
@@ -52,8 +51,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My Movies</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/movie-backlog">Backlog</a></li>
-                                <li><a href="/watched">Finished</a></li>
-                                <li><a href="#">Watch Lists</a></li>
+                                <li><a href="/watched">Watched</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -61,7 +59,6 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">Backlog</a></li>
                                 <li><a href="#">Finished</a></li>
-                                <li><a href="#">Watch Lists</a></li>
                             </ul>
                         </li>
                         <li><algolia-instantsearch></algolia-instantsearch></li>
