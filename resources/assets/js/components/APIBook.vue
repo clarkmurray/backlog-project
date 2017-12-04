@@ -14,6 +14,9 @@
 					<li class="bookStat">Time to Read: </li>
 				</ul>
 				<p class="bookSummary">{{ description }}</p>
+				<div>
+					<button v-on:click="addBacklog">Add to Backlog</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -34,6 +37,30 @@ export default  {
 			published: '',
 			description: '',
 			cover: ''
+		}
+	},
+
+	methods: {
+		addBacklog() {
+			var data = { 
+					title: this.title,
+					author: this.author,
+					pages: this.pages,
+					published: this.published,
+					description: this.description,
+					cover: this.cover
+				};
+				$.ajax({
+				    type: "GET",
+				    url: '/new-book',
+				    data: data,
+				    headers: {
+      					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    				},
+				    success: function() {
+				      console.log(data);
+				    }
+				})
 		}
 	},
 

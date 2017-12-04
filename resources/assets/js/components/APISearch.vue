@@ -36,6 +36,7 @@
 					<div class="panel-body" v-if="moviesAndTV">
 
 	                    <div v-for="result in movieResults">
+	                    	<a :href="'/search/movies/' + result.id">
 	                    	<table class="table">
 
 	                    	<tr>
@@ -44,6 +45,7 @@
 	                    	</tr>
 
 	                   	 	</table>
+	                   	 	</a>
 
 	                	</div>
 

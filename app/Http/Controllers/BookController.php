@@ -217,4 +217,24 @@ class BookController extends Controller
 
     }
 
+    public function newBook(Request $request){
+
+        $book = new \App\Book;
+        
+
+        $book->title = request('title');
+        $book->author = request('author');
+        $book->published = request('published');
+        $book->pages = request('pages');
+        $book->summary = request('description');
+        $book->img_url = request('cover');
+
+        $book->published = substr($book->published, 0, 4);
+
+
+        $book->save();
+
+        $this->addToBacklog($book->id);
+    }
+
 }

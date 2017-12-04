@@ -32,6 +32,10 @@ Route::get('/search/books/{isbn}', function($isbn) {
 	return view('searchedBook')->with('isbn', $isbn);
 });
 
+Route::get('/search/movies/{id}', function($id) {
+	return view('searchedMovie')->with('id', $id);
+});
+
 Route::resource('/books', 'BookController');
 
 Route::get('/wpm-test', 'BookController@wpmTest');
@@ -49,3 +53,5 @@ Route::post('/books/{book}/not-read', 'BookController@removeRead');
 Route::get('/books/{book}', 'BookController@show');
 
 Route::get('/param-store', 'SearchController@storeSearch');
+
+Route::get('/new-book', 'BookController@newBook');

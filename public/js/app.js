@@ -813,7 +813,7 @@ module.exports = identity;
 /***/ (function(module, exports, __webpack_require__) {
 
 var assignValue = __webpack_require__(77),
-    baseAssignValue = __webpack_require__(33);
+    baseAssignValue = __webpack_require__(34);
 
 /**
  * Copies properties of `source` to `object`.
@@ -1081,7 +1081,7 @@ module.exports = castPath;
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isSymbol = __webpack_require__(31);
+var isSymbol = __webpack_require__(32);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0;
@@ -1141,6 +1141,115 @@ module.exports = replaceHolders;
 
 /***/ }),
 /* 24 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1330,7 +1439,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = function clone(obj) {
@@ -1339,7 +1448,7 @@ module.exports = function clone(obj) {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsArguments = __webpack_require__(215),
@@ -1381,7 +1490,7 @@ module.exports = isArguments;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(1),
@@ -1426,7 +1535,7 @@ module.exports = isBuffer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)(module)))
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /** Used as references for various `Number` constants. */
@@ -1454,7 +1563,7 @@ module.exports = isIndex;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseFindIndex = __webpack_require__(103),
@@ -1480,7 +1589,7 @@ module.exports = baseIndexOf;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseFor = __webpack_require__(110),
@@ -1502,7 +1611,7 @@ module.exports = baseForOwn;
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(9),
@@ -1537,7 +1646,7 @@ module.exports = isSymbol;
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayReduce = __webpack_require__(76),
@@ -1594,7 +1703,7 @@ module.exports = reduce;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var defineProperty = __webpack_require__(107);
@@ -1625,7 +1734,7 @@ module.exports = baseAssignValue;
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeKeys = __webpack_require__(96),
@@ -1663,7 +1772,7 @@ module.exports = keysIn;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var toFinite = __webpack_require__(302);
@@ -1705,15 +1814,15 @@ module.exports = toInteger;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseKeys = __webpack_require__(98),
     getTag = __webpack_require__(72),
-    isArguments = __webpack_require__(26),
+    isArguments = __webpack_require__(27),
     isArray = __webpack_require__(0),
     isArrayLike = __webpack_require__(7),
-    isBuffer = __webpack_require__(27),
+    isBuffer = __webpack_require__(28),
     isPrototype = __webpack_require__(44),
     isTypedArray = __webpack_require__(43);
 
@@ -1788,7 +1897,7 @@ module.exports = isEmpty;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(9),
@@ -1824,7 +1933,7 @@ module.exports = isString;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 /**
@@ -1840,115 +1949,6 @@ function getHolder(func) {
 }
 
 module.exports = getHolder;
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
 
 
 /***/ }),
@@ -2254,7 +2254,7 @@ function localstorage() {
   } catch (e) {}
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
 
 /***/ }),
 /* 43 */
@@ -2445,7 +2445,7 @@ module.exports = apply;
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseForOwn = __webpack_require__(30),
+var baseForOwn = __webpack_require__(31),
     createBaseEach = __webpack_require__(254);
 
 /**
@@ -2590,8 +2590,8 @@ module.exports = baseCreate;
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIndexOf = __webpack_require__(29),
-    toInteger = __webpack_require__(35);
+var baseIndexOf = __webpack_require__(30),
+    toInteger = __webpack_require__(36);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -2823,7 +2823,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
 
 /***/ }),
 /* 59 */
@@ -2864,15 +2864,15 @@ var forOwn = __webpack_require__(252);
 var forEach = __webpack_require__(20);
 var filter = __webpack_require__(68);
 var map = __webpack_require__(11);
-var reduce = __webpack_require__(32);
+var reduce = __webpack_require__(33);
 var omit = __webpack_require__(126);
 var indexOf = __webpack_require__(55);
 var isNaN = __webpack_require__(304);
 var isArray = __webpack_require__(0);
-var isEmpty = __webpack_require__(36);
+var isEmpty = __webpack_require__(37);
 var isEqual = __webpack_require__(305);
 var isUndefined = __webpack_require__(136);
-var isString = __webpack_require__(37);
+var isString = __webpack_require__(38);
 var isFunction = __webpack_require__(17);
 var find = __webpack_require__(56);
 var trim = __webpack_require__(138);
@@ -4950,7 +4950,7 @@ module.exports = getTag;
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArray = __webpack_require__(0),
-    isSymbol = __webpack_require__(31);
+    isSymbol = __webpack_require__(32);
 
 /** Used to match property names within property paths. */
 var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
@@ -5021,7 +5021,7 @@ module.exports = toString;
 var Symbol = __webpack_require__(16),
     arrayMap = __webpack_require__(10),
     isArray = __webpack_require__(0),
-    isSymbol = __webpack_require__(31);
+    isSymbol = __webpack_require__(32);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0;
@@ -5093,7 +5093,7 @@ module.exports = arrayReduce;
 /* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseAssignValue = __webpack_require__(33),
+var baseAssignValue = __webpack_require__(34),
     eq = __webpack_require__(18);
 
 /** Used for built-in method references. */
@@ -5141,7 +5141,7 @@ module.exports = getPrototype;
 
 var baseGetAllKeys = __webpack_require__(118),
     getSymbolsIn = __webpack_require__(128),
-    keysIn = __webpack_require__(34);
+    keysIn = __webpack_require__(35);
 
 /**
  * Creates an array of own and inherited enumerable property names and
@@ -5344,7 +5344,7 @@ var baseSetData = __webpack_require__(143),
     mergeData = __webpack_require__(348),
     setData = __webpack_require__(151),
     setWrapToString = __webpack_require__(152),
-    toInteger = __webpack_require__(35);
+    toInteger = __webpack_require__(36);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -8229,10 +8229,10 @@ function buildSearchMethod(queryParam, url) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseTimes = __webpack_require__(214),
-    isArguments = __webpack_require__(26),
+    isArguments = __webpack_require__(27),
     isArray = __webpack_require__(0),
-    isBuffer = __webpack_require__(27),
-    isIndex = __webpack_require__(28),
+    isBuffer = __webpack_require__(28),
+    isIndex = __webpack_require__(29),
     isTypedArray = __webpack_require__(43);
 
 /** Used for built-in method references. */
@@ -8416,7 +8416,7 @@ module.exports = toSource;
 /* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIndexOf = __webpack_require__(29);
+var baseIndexOf = __webpack_require__(30);
 
 /**
  * A specialized version of `_.includes` for arrays without support for
@@ -9496,7 +9496,7 @@ module.exports = isUndefined;
 
 var baseFindIndex = __webpack_require__(103),
     baseIteratee = __webpack_require__(5),
-    toInteger = __webpack_require__(35);
+    toInteger = __webpack_require__(36);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -9653,7 +9653,7 @@ module.exports = createAssigner;
 /* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseAssignValue = __webpack_require__(33),
+var baseAssignValue = __webpack_require__(34),
     eq = __webpack_require__(18);
 
 /**
@@ -10555,7 +10555,7 @@ var composeArgs = __webpack_require__(146),
     countHolders = __webpack_require__(336),
     createCtor = __webpack_require__(57),
     createRecurry = __webpack_require__(148),
-    getHolder = __webpack_require__(38),
+    getHolder = __webpack_require__(39),
     reorder = __webpack_require__(346),
     replaceHolders = __webpack_require__(23),
     root = __webpack_require__(1);
@@ -10907,7 +10907,7 @@ module.exports = setWrapToString;
 "use strict";
 
 
-var reduce = __webpack_require__(32);
+var reduce = __webpack_require__(33);
 var find = __webpack_require__(56);
 var startsWith = __webpack_require__(350);
 
@@ -11561,7 +11561,7 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(25)))
 
 /***/ }),
 /* 156 */
@@ -11895,10 +11895,10 @@ var pick = __webpack_require__(366);
 var map = __webpack_require__(11);
 var mapKeys = __webpack_require__(368);
 var mapValues = __webpack_require__(369);
-var isString = __webpack_require__(37);
+var isString = __webpack_require__(38);
 var isPlainObject = __webpack_require__(81);
 var isArray = __webpack_require__(0);
-var isEmpty = __webpack_require__(36);
+var isEmpty = __webpack_require__(37);
 var invert = __webpack_require__(158);
 
 var encode = __webpack_require__(87).encode;
@@ -12122,7 +12122,7 @@ module.exports = '2.23.0';
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(162);
-module.exports = __webpack_require__(386);
+module.exports = __webpack_require__(389);
 
 
 /***/ }),
@@ -12158,6 +12158,7 @@ Vue.component('algolia-instantsearch', __webpack_require__(374));
 Vue.component('reading-test', __webpack_require__(377));
 Vue.component('api-search', __webpack_require__(380));
 Vue.component('search-book', __webpack_require__(383));
+Vue.component('search-movie', __webpack_require__(386));
 
 var app = new Vue({
   el: '#app'
@@ -53823,7 +53824,7 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(25)))
 
 /***/ }),
 /* 189 */
@@ -53885,7 +53886,7 @@ var RESET_APP_DATA_TIMER =
 function AlgoliaSearchCore(applicationID, apiKey, opts) {
   var debug = __webpack_require__(42)('algoliasearch');
 
-  var clone = __webpack_require__(25);
+  var clone = __webpack_require__(26);
   var isArray = __webpack_require__(59);
   var map = __webpack_require__(60);
 
@@ -54556,7 +54557,7 @@ AlgoliaSearchCore.prototype._getHostIndexByType = function(hostType) {
 };
 
 AlgoliaSearchCore.prototype._setHostIndexByType = function(hostIndex, hostType) {
-  var clone = __webpack_require__(25);
+  var clone = __webpack_require__(26);
   var newHostIndexes = clone(this._hostIndexes);
   newHostIndexes[hostType] = hostIndex;
   this._partialAppIdDataUpdate({hostIndexes: newHostIndexes});
@@ -54916,7 +54917,7 @@ IndexCore.prototype.browseFrom = function(cursor, callback) {
 * @param callback (optional)
 */
 IndexCore.prototype.searchForFacetValues = function(params, callback) {
-  var clone = __webpack_require__(25);
+  var clone = __webpack_require__(26);
   var omit = __webpack_require__(196);
   var usage = 'Usage: index.searchForFacetValues({facetName, facetQuery, ...params}[, callback])';
 
@@ -55787,7 +55788,7 @@ module.exports = function createAlgoliasearch(AlgoliaSearch, uaSuffix) {
   }
 
   function algoliasearch(applicationID, apiKey, opts) {
-    var cloneDeep = __webpack_require__(25);
+    var cloneDeep = __webpack_require__(26);
 
     var getDocumentProtocol = __webpack_require__(210);
 
@@ -57169,7 +57170,7 @@ return Promise$2;
 
 //# sourceMappingURL=es6-promise.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(8)))
 
 /***/ }),
 /* 205 */
@@ -57433,7 +57434,7 @@ var buildSearchMethod = __webpack_require__(95);
 
 function createPlacesClient(algoliasearch) {
   return function places(appID, apiKey, opts) {
-    var cloneDeep = __webpack_require__(25);
+    var cloneDeep = __webpack_require__(26);
 
     opts = opts && cloneDeep(opts) || {};
     opts.hosts = opts.hosts || [
@@ -57600,7 +57601,7 @@ var events = __webpack_require__(156);
 
 var flatten = __webpack_require__(134);
 var forEach = __webpack_require__(20);
-var isEmpty = __webpack_require__(36);
+var isEmpty = __webpack_require__(37);
 var map = __webpack_require__(11);
 
 var url = __webpack_require__(157);
@@ -60089,7 +60090,7 @@ module.exports = castArrayLikeObject;
 /* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseForOwn = __webpack_require__(30),
+var baseForOwn = __webpack_require__(31),
     castFunction = __webpack_require__(111);
 
 /**
@@ -60454,7 +60455,7 @@ var Stack = __webpack_require__(51),
     equalObjects = __webpack_require__(266),
     getTag = __webpack_require__(72),
     isArray = __webpack_require__(0),
-    isBuffer = __webpack_require__(27),
+    isBuffer = __webpack_require__(28),
     isTypedArray = __webpack_require__(43);
 
 /** Used to compose bitmasks for value comparisons. */
@@ -61052,9 +61053,9 @@ module.exports = baseHasIn;
 /***/ (function(module, exports, __webpack_require__) {
 
 var castPath = __webpack_require__(21),
-    isArguments = __webpack_require__(26),
+    isArguments = __webpack_require__(27),
     isArray = __webpack_require__(0),
-    isIndex = __webpack_require__(28),
+    isIndex = __webpack_require__(29),
     isLength = __webpack_require__(62),
     toKey = __webpack_require__(22);
 
@@ -61221,7 +61222,7 @@ var Stack = __webpack_require__(51),
     initCloneByTag = __webpack_require__(289),
     initCloneObject = __webpack_require__(130),
     isArray = __webpack_require__(0),
-    isBuffer = __webpack_require__(27),
+    isBuffer = __webpack_require__(28),
     isObject = __webpack_require__(3),
     keys = __webpack_require__(6);
 
@@ -61388,7 +61389,7 @@ module.exports = baseAssign;
 /***/ (function(module, exports, __webpack_require__) {
 
 var copyObject = __webpack_require__(14),
-    keysIn = __webpack_require__(34);
+    keysIn = __webpack_require__(35);
 
 /**
  * The base implementation of `_.assignIn` without support for multiple sources
@@ -61919,7 +61920,7 @@ module.exports = baseFlatten;
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(16),
-    isArguments = __webpack_require__(26),
+    isArguments = __webpack_require__(27),
     isArray = __webpack_require__(0);
 
 /** Built-in value references. */
@@ -61993,7 +61994,7 @@ module.exports = toFinite;
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(3),
-    isSymbol = __webpack_require__(31);
+    isSymbol = __webpack_require__(32);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -62204,7 +62205,7 @@ module.exports = castSlice;
 /* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIndexOf = __webpack_require__(29);
+var baseIndexOf = __webpack_require__(30);
 
 /**
  * Used by `_.trim` and `_.trimEnd` to get the index of the last string symbol
@@ -62229,7 +62230,7 @@ module.exports = charsEndIndex;
 /* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIndexOf = __webpack_require__(29);
+var baseIndexOf = __webpack_require__(30);
 
 /**
  * Used by `_.trim` and `_.trimStart` to get the index of the first string symbol
@@ -62377,7 +62378,7 @@ module.exports = unicodeToArray;
 
 var copyObject = __webpack_require__(14),
     createAssigner = __webpack_require__(139),
-    keysIn = __webpack_require__(34);
+    keysIn = __webpack_require__(35);
 
 /**
  * This method is like `_.assignIn` except that it accepts `customizer`
@@ -62421,7 +62422,7 @@ module.exports = assignInWith;
 
 var eq = __webpack_require__(18),
     isArrayLike = __webpack_require__(7),
-    isIndex = __webpack_require__(28),
+    isIndex = __webpack_require__(29),
     isObject = __webpack_require__(3);
 
 /**
@@ -62495,7 +62496,7 @@ var Stack = __webpack_require__(51),
     baseFor = __webpack_require__(110),
     baseMergeDeep = __webpack_require__(318),
     isObject = __webpack_require__(3),
-    keysIn = __webpack_require__(34);
+    keysIn = __webpack_require__(35);
 
 /**
  * The base implementation of `_.merge` without support for multiple sources.
@@ -62542,10 +62543,10 @@ var assignMergeValue = __webpack_require__(140),
     cloneTypedArray = __webpack_require__(129),
     copyArray = __webpack_require__(53),
     initCloneObject = __webpack_require__(130),
-    isArguments = __webpack_require__(26),
+    isArguments = __webpack_require__(27),
     isArray = __webpack_require__(0),
     isArrayLikeObject = __webpack_require__(109),
-    isBuffer = __webpack_require__(27),
+    isBuffer = __webpack_require__(28),
     isFunction = __webpack_require__(17),
     isObject = __webpack_require__(3),
     isPlainObject = __webpack_require__(81),
@@ -62637,7 +62638,7 @@ module.exports = baseMergeDeep;
 /***/ (function(module, exports, __webpack_require__) {
 
 var copyObject = __webpack_require__(14),
-    keysIn = __webpack_require__(34);
+    keysIn = __webpack_require__(35);
 
 /**
  * Converts `value` to a plain object flattening inherited enumerable string
@@ -62680,7 +62681,7 @@ module.exports = toPlainObject;
 var map = __webpack_require__(11);
 var isArray = __webpack_require__(0);
 var isNumber = __webpack_require__(135);
-var isString = __webpack_require__(37);
+var isString = __webpack_require__(38);
 function valToNumber(v) {
   if (isNumber(v)) {
     return v;
@@ -62706,7 +62707,7 @@ module.exports = valToNumber;
 var forEach = __webpack_require__(20);
 var filter = __webpack_require__(68);
 var map = __webpack_require__(11);
-var isEmpty = __webpack_require__(36);
+var isEmpty = __webpack_require__(37);
 var indexOf = __webpack_require__(55);
 
 function filterState(state, filters) {
@@ -62790,12 +62791,12 @@ module.exports = filterState;
  */
 
 var isUndefined = __webpack_require__(136);
-var isString = __webpack_require__(37);
+var isString = __webpack_require__(38);
 var isFunction = __webpack_require__(17);
-var isEmpty = __webpack_require__(36);
+var isEmpty = __webpack_require__(37);
 var defaults = __webpack_require__(82);
 
-var reduce = __webpack_require__(32);
+var reduce = __webpack_require__(33);
 var filter = __webpack_require__(68);
 var omit = __webpack_require__(126);
 
@@ -63037,10 +63038,10 @@ module.exports = baseSum;
 /* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIndexOf = __webpack_require__(29),
+var baseIndexOf = __webpack_require__(30),
     isArrayLike = __webpack_require__(7),
-    isString = __webpack_require__(37),
-    toInteger = __webpack_require__(35),
+    isString = __webpack_require__(38),
+    toInteger = __webpack_require__(36),
     values = __webpack_require__(327);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
@@ -63278,7 +63279,7 @@ module.exports = compareMultiple;
 /* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isSymbol = __webpack_require__(31);
+var isSymbol = __webpack_require__(32);
 
 /**
  * Compares values to sort them in ascending order.
@@ -63327,7 +63328,7 @@ module.exports = compareAscending;
 
 var baseRest = __webpack_require__(19),
     createWrap = __webpack_require__(84),
-    getHolder = __webpack_require__(38),
+    getHolder = __webpack_require__(39),
     replaceHolders = __webpack_require__(23);
 
 /** Used to compose bitmasks for function metadata. */
@@ -63419,7 +63420,7 @@ var apply = __webpack_require__(49),
     createCtor = __webpack_require__(57),
     createHybrid = __webpack_require__(145),
     createRecurry = __webpack_require__(148),
-    getHolder = __webpack_require__(38),
+    getHolder = __webpack_require__(39),
     replaceHolders = __webpack_require__(23),
     root = __webpack_require__(1);
 
@@ -63885,7 +63886,7 @@ module.exports = updateWrapDetails;
 /***/ (function(module, exports, __webpack_require__) {
 
 var copyArray = __webpack_require__(53),
-    isIndex = __webpack_require__(28);
+    isIndex = __webpack_require__(29);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMin = Math.min;
@@ -64066,7 +64067,7 @@ module.exports = mergeData;
 
 var baseRest = __webpack_require__(19),
     createWrap = __webpack_require__(84),
-    getHolder = __webpack_require__(38),
+    getHolder = __webpack_require__(39),
     replaceHolders = __webpack_require__(23);
 
 /** Used to compose bitmasks for function metadata. */
@@ -64121,7 +64122,7 @@ module.exports = partialRight;
 
 var baseClamp = __webpack_require__(351),
     baseToString = __webpack_require__(75),
-    toInteger = __webpack_require__(35),
+    toInteger = __webpack_require__(36),
     toString = __webpack_require__(74);
 
 /**
@@ -64199,7 +64200,7 @@ module.exports = generateTrees;
 
 var last = __webpack_require__(131);
 var map = __webpack_require__(11);
-var reduce = __webpack_require__(32);
+var reduce = __webpack_require__(33);
 var orderBy = __webpack_require__(142);
 var trim = __webpack_require__(138);
 var find = __webpack_require__(56);
@@ -64369,7 +64370,7 @@ module.exports = pickBy;
 
 var assignValue = __webpack_require__(77),
     castPath = __webpack_require__(21),
-    isIndex = __webpack_require__(28),
+    isIndex = __webpack_require__(29),
     isObject = __webpack_require__(3),
     toKey = __webpack_require__(22);
 
@@ -64509,7 +64510,7 @@ if (typeof Object.create === 'function') {
 
 var forEach = __webpack_require__(20);
 var map = __webpack_require__(11);
-var reduce = __webpack_require__(32);
+var reduce = __webpack_require__(33);
 var merge = __webpack_require__(83);
 var isArray = __webpack_require__(0);
 
@@ -64936,7 +64937,7 @@ module.exports = createInverter;
 /* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseForOwn = __webpack_require__(30);
+var baseForOwn = __webpack_require__(31);
 
 /**
  * The base implementation of `_.invert` and `_.invertBy` which inverts
@@ -65381,7 +65382,7 @@ module.exports = function (str, opts) {
 
 var baseRest = __webpack_require__(19),
     createWrap = __webpack_require__(84),
-    getHolder = __webpack_require__(38),
+    getHolder = __webpack_require__(39),
     replaceHolders = __webpack_require__(23);
 
 /** Used to compose bitmasks for function metadata. */
@@ -65498,8 +65499,8 @@ module.exports = basePick;
 /* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseAssignValue = __webpack_require__(33),
-    baseForOwn = __webpack_require__(30),
+var baseAssignValue = __webpack_require__(34),
+    baseForOwn = __webpack_require__(31),
     baseIteratee = __webpack_require__(5);
 
 /**
@@ -65540,8 +65541,8 @@ module.exports = mapKeys;
 /* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseAssignValue = __webpack_require__(33),
-    baseForOwn = __webpack_require__(30),
+var baseAssignValue = __webpack_require__(34),
+    baseForOwn = __webpack_require__(31),
     baseIteratee = __webpack_require__(5);
 
 /**
@@ -65675,7 +65676,7 @@ function escapeHtml(string) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(39)
+var normalizeComponent = __webpack_require__(24)
 /* script */
 var __vue_script__ = __webpack_require__(372)
 /* template */
@@ -65795,7 +65796,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(39)
+var normalizeComponent = __webpack_require__(24)
 /* script */
 var __vue_script__ = __webpack_require__(375)
 /* template */
@@ -66112,7 +66113,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(39)
+var normalizeComponent = __webpack_require__(24)
 /* script */
 var __vue_script__ = __webpack_require__(378)
 /* template */
@@ -66188,6 +66189,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -66196,8 +66218,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			takingTest: false,
 			finishedTest: false,
 			time: 0,
-			result: 0,
-			testPassage: 'Holmes was certainly not a difficult man to live with. He was quiet in his ways, and his habits were regular. It was rare for him to be up after ten at night, and he had invariably breakfasted and gone out before I rose in the morning. Sometimes he spent his day at the chemical laboratory, sometimes in the dissecting-rooms, and occasionally in long walks, which appeared to take him into the lowest portions of the City. Nothing could exceed his energy when the working fit was upon him; but now and again a reaction would seize him, and for days on end he would lie upon the sofa in the sitting-room, hardly uttering a word or moving a muscle from morning to night. On these occasions I have noticed such a dreamy, vacant expression in his eyes, that I might have suspected him of being addicted to the use of some narcotic, had not the temperance and cleanliness of his whole life forbidden such a notion. As the weeks went by, my interest in him and my curiosity as to his aims in life, gradually deepened and increased. His very person and appearance were such as to strike the attention of the most casual observer. In height he was rather over six feet, and so excessively lean that he seemed to be considerably taller. His eyes were sharp and piercing, save during those intervals of torpor to which I have alluded; and his thin, hawk-like nose gave his whole expression an air of alertness and decision. His chin, too, had the prominence and squareness which mark the man of determination. His hands were invariably blotted with ink and stained with chemicals, yet he was possessed of extraordinary delicacy of touch, as I frequently had occasion to observe when I watched him manipulating his fragile philosophical instruments.' + "\n" + 'The reader may set me down as a hopeless busybody, when I confess how much this man stimulated my curiosity, and how often I endeavoured to break through the reticence which he showed on all that concerned himself. Before pronouncing judgment, however, be it remembered, how objectless was my life, and how little there was to engage my attention. My health forbade me from venturing out unless the weather was exceptionally genial, and I had no friends who would call upon me and break the monotony of my daily existence. Under these circumstances, I eagerly hailed the little mystery which hung around my companion, and spent much of my time in endeavouring to unravel it.' + "\n" + 'He was not studying medicine. He had himself, in reply to a question, confirmed Stamford’s opinion upon that point. Neither did he appear to have pursued any course of reading which might fit him for a degree in science or any other recognized portal which would give him an entrance into the learned world. Yet his zeal for certain studies was remarkable, and within eccentric limits his knowledge was so extraordinarily ample and minute that his observations have fairly astounded me. Surely no man would work so hard or attain such precise information unless he had some definite end in view. Desultory readers are seldom remarkable for the exactness of their learning. No man burdens his mind with small matters unless he has some very good reason for doing so.' + "\n" + 'His ignorance was as remarkable as his knowledge. Of contemporary literature, philosophy and politics he appeared to know next to nothing. Upon my quoting Thomas Carlyle, he inquired in the naivest way who he might be and what he had done. My surprise reached a climax, however, when I found incidentally that he was ignorant of the Copernican Theory and of the composition of the Solar System. That any civilized human being in this nineteenth century should not be aware that the earth travelled round the sun appeared to be to me such an extraordinary fact that I could hardly realize it.' + "\n" + '“You appear to be astonished,” he said, smiling at my expression of surprise. “Now that I do know it I shall do my best to forget it.”' + "\n" + '“To forget it!”' + "\n" + '“You see,” he explained, “I consider that a man’s brain originally is like a little empty attic, and you have to stock it with such furniture as you choose. A fool takes in all the lumber of every sort that he comes across, so that the knowledge which might be useful to him gets crowded out, or at best is jumbled up with a lot of other things so that he has a difficulty in laying his hands upon it. Now the skilful workman is very careful indeed as to what he takes into his brain-attic. He will have nothing but the tools which may help him in doing his work, but of these he has a large assortment, and all in the most perfect order. It is a mistake to think that that little room has elastic walls and can distend to any extent. Depend upon it there comes a time when for every addition of knowledge you forget something that you knew before. It is of the highest importance, therefore, not to have useless facts elbowing out the useful ones.”' + "\n" + '“But the Solar System!” I protested.' + "\n" + '“What the deuce is it to me?” he interrupted impatiently; “you say that we go round the sun. If we went round the moon it would not make a pennyworth of difference to me or to my work.”'
+			result: 0
 
 		};
 	},
@@ -66294,7 +66315,57 @@ var render = function() {
           ? _c("div", { attrs: { id: "readingTest" } }, [
               _vm._m(0, false, false),
               _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(_vm.testPassage))]),
+              _c("p", [
+                _vm._v(
+                  "Holmes was certainly not a difficult man to live with. He was quiet in his ways, and his habits were regular. It was rare for him to be up after ten at night, and he had invariably breakfasted and gone out before I rose in the morning. Sometimes he spent his day at the chemical laboratory, sometimes in the dissecting-rooms, and occasionally in long walks, which appeared to take him into the lowest portions of the City. Nothing could exceed his energy when the working fit was upon him; but now and again a reaction would seize him, and for days on end he would lie upon the sofa in the sitting-room, hardly uttering a word or moving a muscle from morning to night. On these occasions I have noticed such a dreamy, vacant expression in his eyes, that I might have suspected him of being addicted to the use of some narcotic, had not the temperance and cleanliness of his whole life forbidden such a notion. As the weeks went by, my interest in him and my curiosity as to his aims in life, gradually deepened and increased. His very person and appearance were such as to strike the attention of the most casual observer. In height he was rather over six feet, and so excessively lean that he seemed to be considerably taller. His eyes were sharp and piercing, save during those intervals of torpor to which I have alluded; and his thin, hawk-like nose gave his whole expression an air of alertness and decision. His chin, too, had the prominence and squareness which mark the man of determination. His hands were invariably blotted with ink and stained with chemicals, yet he was possessed of extraordinary delicacy of touch, as I frequently had occasion to observe when I watched him manipulating his fragile philosophical instruments"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "The reader may set me down as a hopeless busybody, when I confess how much this man stimulated my curiosity, and how often I endeavoured to break through the reticence which he showed on all that concerned himself. Before pronouncing judgment, however, be it remembered, how objectless was my life, and how little there was to engage my attention. My health forbade me from venturing out unless the weather was exceptionally genial, and I had no friends who would call upon me and break the monotony of my daily existence. Under these circumstances, I eagerly hailed the little mystery which hung around my companion, and spent much of my time in endeavouring to unravel it."
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "He was not studying medicine. He had himself, in reply to a question, confirmed Stamford’s opinion upon that point. Neither did he appear to have pursued any course of reading which might fit him for a degree in science or any other recognized portal which would give him an entrance into the learned world. Yet his zeal for certain studies was remarkable, and within eccentric limits his knowledge was so extraordinarily ample and minute that his observations have fairly astounded me. Surely no man would work so hard or attain such precise information unless he had some definite end in view. Desultory readers are seldom remarkable for the exactness of their learning. No man burdens his mind with small matters unless he has some very good reason for doing so."
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "His ignorance was as remarkable as his knowledge. Of contemporary literature, philosophy and politics he appeared to know next to nothing. Upon my quoting Thomas Carlyle, he inquired in the naivest way who he might be and what he had done. My surprise reached a climax, however, when I found incidentally that he was ignorant of the Copernican Theory and of the composition of the Solar System. That any civilized human being in this nineteenth century should not be aware that the earth travelled round the sun appeared to be to me such an extraordinary fact that I could hardly realize it."
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "His ignorance was as remarkable as his knowledge. Of contemporary literature, philosophy and politics he appeared to know next to nothing. Upon my quoting Thomas Carlyle, he inquired in the naivest way who he might be and what he had done. My surprise reached a climax, however, when I found incidentally that he was ignorant of the Copernican Theory and of the composition of the Solar System. That any civilized human being in this nineteenth century should not be aware that the earth travelled round the sun appeared to be to me such an extraordinary fact that I could hardly realize it."
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "“You appear to be astonished,” he said, smiling at my expression of surprise. “Now that I do know it I shall do my best to forget it.”"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [_vm._v("“To forget it!”")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "“You see,” he explained, “I consider that a man’s brain originally is like a little empty attic, and you have to stock it with such furniture as you choose. A fool takes in all the lumber of every sort that he comes across, so that the knowledge which might be useful to him gets crowded out, or at best is jumbled up with a lot of other things so that he has a difficulty in laying his hands upon it. Now the skilful workman is very careful indeed as to what he takes into his brain-attic. He will have nothing but the tools which may help him in doing his work, but of these he has a large assortment, and all in the most perfect order. It is a mistake to think that that little room has elastic walls and can distend to any extent. Depend upon it there comes a time when for every addition of knowledge you forget something that you knew before. It is of the highest importance, therefore, not to have useless facts elbowing out the useful ones.”"
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", [_vm._v("“But the Solar System!” I protested.")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "“What the deuce is it to me?” he interrupted impatiently; “you say that we go round the sun. If we went round the moon it would not make a pennyworth of difference to me or to my work.”"
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "button",
@@ -66374,7 +66445,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(39)
+var normalizeComponent = __webpack_require__(24)
 /* script */
 var __vue_script__ = __webpack_require__(381)
 /* template */
@@ -66423,6 +66494,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -66648,21 +66721,27 @@ var render = function() {
                 { staticClass: "panel-body" },
                 _vm._l(_vm.movieResults, function(result) {
                   return _c("div", [
-                    _c("table", { staticClass: "table" }, [
-                      _c("tr", [
-                        _c("td", { attrs: { rowspan: "2" } }, [
-                          _c("img", {
-                            attrs: {
-                              src:
-                                "https://image.tmdb.org/t/p/w150" +
-                                result.poster_path
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(result.title))])
-                      ])
-                    ])
+                    _c(
+                      "a",
+                      { attrs: { href: "/search/movies/" + result.id } },
+                      [
+                        _c("table", { staticClass: "table" }, [
+                          _c("tr", [
+                            _c("td", { attrs: { rowspan: "2" } }, [
+                              _c("img", {
+                                attrs: {
+                                  src:
+                                    "https://image.tmdb.org/t/p/w150" +
+                                    result.poster_path
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(result.title))])
+                          ])
+                        ])
+                      ]
+                    )
                   ])
                 })
               )
@@ -66698,7 +66777,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(39)
+var normalizeComponent = __webpack_require__(24)
 /* script */
 var __vue_script__ = __webpack_require__(384)
 /* template */
@@ -66771,6 +66850,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66785,6 +66867,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			cover: ''
 		};
 	},
+
+
+	methods: {
+		addBacklog: function addBacklog() {
+			var data = {
+				title: this.title,
+				author: this.author,
+				pages: this.pages,
+				published: this.published,
+				description: this.description,
+				cover: this.cover
+			};
+			$.ajax({
+				type: "GET",
+				url: '/new-book',
+				data: data,
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success: function success() {
+					console.log(data);
+				}
+			});
+		}
+	},
+
 	created: function created() {
 		var vm = this;
 		$.ajax({
@@ -66848,6 +66956,12 @@ var render = function() {
           _vm._v(" "),
           _c("p", { staticClass: "bookSummary" }, [
             _vm._v(_vm._s(_vm.description))
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("button", { on: { click: _vm.addBacklog } }, [
+              _vm._v("Add to Backlog")
+            ])
           ])
         ])
       ])
@@ -66866,6 +66980,191 @@ if (false) {
 
 /***/ }),
 /* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(24)
+/* script */
+var __vue_script__ = __webpack_require__(387)
+/* template */
+var __vue_template__ = __webpack_require__(388)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/APIMovie.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7b0ef126", Component.options)
+  } else {
+    hotAPI.reload("data-v-7b0ef126", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 387 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['id'],
+	data: function data() {
+		return {
+			title: '',
+			director: '',
+			released: '',
+			description: '',
+			length: '',
+			poster: ''
+		};
+	},
+	created: function created() {
+		var vm = this;
+		this.movieResults = [];
+		$.ajax({
+			url: "https://api.themoviedb.org/3/movie/" + this.id + "?api_key=0b825591a48003863026cd7101cef2d0",
+			dataType: "json",
+			success: function success(data) {
+				vm.title = data.title;
+				vm.released = data.release_date;
+				vm.description = data.overview;
+				vm.length = data.runtime;
+				vm.poster = data.poster_path;
+			},
+			type: 'GET'
+
+		});
+
+		$.ajax({
+			url: "https://api.themoviedb.org/3/movie/" + this.id + "/credits?api_key=0b825591a48003863026cd7101cef2d0",
+			dataType: "json",
+			success: function success(data) {
+				console.log(data);
+				for (var i = 0; i < data.crew.length; i++) {
+					if (data.crew[i].job === "Director") {
+						vm.director = data.crew[i].name;
+					}
+				}
+			},
+			type: 'GET'
+
+		});
+	}
+});
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-4 col-md-offset-1 text-center bookCover" },
+        [
+          _c("img", {
+            attrs: {
+              src: "https://image.tmdb.org/t/p/w150" + _vm.poster,
+              height: "100%",
+              width: "100%"
+            }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "bookInfo" }, [
+          _c("h2", { staticClass: "bookTitle" }, [_vm._v(_vm._s(_vm.title))]),
+          _vm._v(" "),
+          _c("h4", { staticClass: "bookAuthor" }, [
+            _vm._v("Directed by " + _vm._s(_vm.director))
+          ]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "bookStats text-left" }, [
+            _c("li", { staticClass: "bookStat" }, [
+              _vm._v("Released: " + _vm._s(_vm.released))
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "bookStat" }, [
+              _vm._v("Run Time: " + _vm._s(_vm.length) + " minutes ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "bookSummary" }, [
+            _vm._v(_vm._s(_vm.description))
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7b0ef126", module.exports)
+  }
+}
+
+/***/ }),
+/* 389 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
