@@ -32,4 +32,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Book', 'book_user', 'user_id', 'book_id')->withPivot('is_finished', 'read_again');
     }
 
+    public function movieBacklog() {
+        return $this->belongsToMany('App\Movie', 'movie_user', 'user_id', 'movie_id')->withPivot('is_finished', 'watch_again');
+    }
+
 }

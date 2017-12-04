@@ -35,7 +35,47 @@
                     <input type="text" class="form-control" name="img" id="img">
                 </span>
                 <div class="form-group">
-                    <button type="submit" name="button" value="Add" class="btn btn-default">Save</button>
+                    <button type="submit" name="button" value="Add" class="btn btn-default">Add to Backlog</button>
+                </div>
+
+
+             </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <form class="form-horizonal" method="post" action="/movies/add">
+
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                <span class="form-group">
+                    <label for="movieTitle">Title:</label>
+                    <input type="text" class="form-control" name="movieTitle" id="movieTitle">
+                </span>
+                <span class="form-group">
+                    <label for="director">Director:</label>
+                    <input type="text" class="form-control" name="director" id="director">
+                </span>
+                <span class="form-group">
+                    <label for="release">Release Year:</label>
+                    <input type="number" class="form-control" name="release" id="release">
+                </span>
+                <span class="form-group">
+                    <label for="runtime">Runtime:</label>
+                    <input type="number" class="form-control" name="runtime" id="runtime">
+                </span>
+                <span class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" class="form-control" name="description" id="description">
+                </span>
+                <span class="form-group">
+                    <label for="poster">Poster URL:</label>
+                    <input type="text" class="form-control" name="poster" id="poster">
+                </span>
+                <div class="form-group">
+                    <button type="submit" name="button" value="Add" class="btn btn-default">Add to Backlog</button>
                 </div>
 
 

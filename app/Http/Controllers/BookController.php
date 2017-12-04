@@ -181,12 +181,6 @@ class BookController extends Controller
     public function wpmTest() {
         $user = \Auth::user();
 
-        // The time read is used to calculate new value of $wpm and store it in database
-
-        // Cancel test
-
-        // Stretch goal: comprehension test
-
         return view('wpm', compact('user'));
     }
 

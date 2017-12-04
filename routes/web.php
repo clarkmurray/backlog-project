@@ -59,3 +59,23 @@ Route::get('/new-book', 'BookController@newBook');
 Route::get('/new-book-read', 'BookController@newBookRead');
 
 Route::get('/validate-book/{author}/{title}/{isbn}', 'SearchController@validateBook');
+
+
+
+// Movies
+
+Route::post('/movies/add', 'MovieController@store');
+
+Route::get('/movie-backlog', 'MovieController@index');
+
+Route::get('/watched', 'MovieController@watched');
+
+Route::get('movies/{movie}', 'MovieController@show');
+
+Route::post('movies/{movie}/add', 'MovieController@addToBacklog');
+
+Route::post('movies/{movie}/remove', 'MovieController@destroy');
+
+Route::post('movies/{movie}/watched', 'MovieController@markAsWatched');
+
+Route::post('movies/{movie}/not-watched', 'MovieController@removeWatched');
