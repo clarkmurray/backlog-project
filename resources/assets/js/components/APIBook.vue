@@ -16,6 +16,7 @@
 				<p class="bookSummary">{{ description }}</p>
 				<div>
 					<button v-on:click="addBacklog">Add to Backlog</button>
+					<button v-on:click="addRead">Mark as Read</button>
 				</div>
 			</div>
 		</div>
@@ -53,6 +54,28 @@ export default  {
 				$.ajax({
 				    type: "GET",
 				    url: '/new-book',
+				    data: data,
+				    headers: {
+      					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    				},
+				    success: function() {
+				      console.log(data);
+				    }
+				})
+		},
+
+		addRead() {
+			var data = { 
+					title: this.title,
+					author: this.author,
+					pages: this.pages,
+					published: this.published,
+					description: this.description,
+					cover: this.cover
+				};
+				$.ajax({
+				    type: "GET",
+				    url: '/new-book-read',
 				    data: data,
 				    headers: {
       					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

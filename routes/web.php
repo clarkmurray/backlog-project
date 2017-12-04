@@ -55,3 +55,5 @@ Route::get('/books/{book}', 'BookController@show');
 Route::get('/param-store', 'SearchController@storeSearch');
 
 Route::get('/new-book', 'BookController@newBook');
+
+Route::get('/new-book-read', 'BookController@newBookRead');

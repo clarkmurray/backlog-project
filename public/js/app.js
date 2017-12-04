@@ -66853,6 +66853,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66882,6 +66883,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			$.ajax({
 				type: "GET",
 				url: '/new-book',
+				data: data,
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success: function success() {
+					console.log(data);
+				}
+			});
+		},
+		addRead: function addRead() {
+			var data = {
+				title: this.title,
+				author: this.author,
+				pages: this.pages,
+				published: this.published,
+				description: this.description,
+				cover: this.cover
+			};
+			$.ajax({
+				type: "GET",
+				url: '/new-book-read',
 				data: data,
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -66961,6 +66983,10 @@ var render = function() {
           _c("div", [
             _c("button", { on: { click: _vm.addBacklog } }, [
               _vm._v("Add to Backlog")
+            ]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.addRead } }, [
+              _vm._v("Mark as Read")
             ])
           ])
         ])
