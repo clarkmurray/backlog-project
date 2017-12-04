@@ -65,7 +65,7 @@ class BookController extends Controller
 
             DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => true]);
 
-            return back();
+            return redirect('home');
 
         } else {
 
@@ -79,7 +79,7 @@ class BookController extends Controller
 
         ]);
 
-            return back();
+            return redirect('home');
 
         }
 

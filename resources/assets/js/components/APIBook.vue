@@ -15,8 +15,8 @@
 				</ul>
 				<p class="bookSummary">{{ description }}</p>
 				<div>
-					<button v-on:click="addBacklog">Add to Backlog</button>
-					<button v-on:click="addRead">Mark as Read</button>
+					<button class="addBacklog btn btn-primary" v-on:click="addBacklog">Add to Backlog</button>
+					<button class="markRead btn btn-success" v-on:click="addRead">Mark as Read</button>
 				</div>
 			</div>
 		</div>
@@ -61,7 +61,11 @@ export default  {
 				    success: function() {
 				      console.log(data);
 				    }
-				})
+				});
+
+				location.replace('/home');
+
+
 		},
 
 		addRead() {
@@ -83,7 +87,9 @@ export default  {
 				    success: function() {
 				      console.log(data);
 				    }
-				})
+				});
+
+				location.replace('/finished');
 		}
 	},
 
@@ -105,6 +111,7 @@ export default  {
 			type: 'GET'
 
 		});
+
 	}
 }
 

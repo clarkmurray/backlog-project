@@ -66891,6 +66891,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					console.log(data);
 				}
 			});
+
+			location.replace('/home');
 		},
 		addRead: function addRead() {
 			var data = {
@@ -66912,6 +66914,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					console.log(data);
 				}
 			});
+
+			location.replace('/finished');
 		}
 	},
 
@@ -66981,13 +66985,23 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", [
-            _c("button", { on: { click: _vm.addBacklog } }, [
-              _vm._v("Add to Backlog")
-            ]),
+            _c(
+              "button",
+              {
+                staticClass: "addBacklog btn btn-primary",
+                on: { click: _vm.addBacklog }
+              },
+              [_vm._v("Add to Backlog")]
+            ),
             _vm._v(" "),
-            _c("button", { on: { click: _vm.addRead } }, [
-              _vm._v("Mark as Read")
-            ])
+            _c(
+              "button",
+              {
+                staticClass: "markRead btn btn-success",
+                on: { click: _vm.addRead }
+              },
+              [_vm._v("Mark as Read")]
+            )
           ])
         ])
       ])
