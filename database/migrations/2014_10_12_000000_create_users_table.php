@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('wpm');
+            $table->integer('wpm')->default(300);
             $table->string('search_param')->nullable();
             $table->string('search_type')->nullable();
             $table->rememberToken();

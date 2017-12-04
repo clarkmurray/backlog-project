@@ -30,6 +30,8 @@ class BookController extends Controller
     	$book->author = $request->input('author');
     	$book->published = $request->input('published');
     	$book->pages = $request->input('pages');
+        $book->summary = $request->input('summary');
+        $book->img_url = $request->input('img');
 
     	$book->save();
 

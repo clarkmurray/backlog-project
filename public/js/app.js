@@ -66555,6 +66555,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66638,6 +66640,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _vm._m(0, false, false),
+    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
         _c("div", { staticClass: "panel panel-default" }, [
@@ -66650,9 +66654,7 @@ var render = function() {
                   _vm._s(this.searchType) +
                   " "
               )
-            ]),
-            _vm._v(" "),
-            _vm._m(0, false, false)
+            ])
           ]),
           _vm._v(" "),
           _vm.books
@@ -66700,14 +66702,7 @@ var render = function() {
                           ]
                         )
                       ]
-                    ),
-                    _vm._v(" "),
-                    _c("h1", [
-                      _vm._v(
-                        "ISBN: " +
-                          _vm._s(result.industryIdentifiers[0].identifier)
-                      )
-                    ])
+                    )
                   ])
                 })
               )
@@ -66754,9 +66749,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "pull-right" }, [
-      _c("a", { attrs: { href: "/add" } }, [
-        _vm._v("Don't see what you're looking for? Make your own entry")
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
+        _c("span", { staticClass: "pull-right" }, [
+          _c("a", { attrs: { href: "/add" } }, [
+            _vm._v("Don't see what you're looking for? Make your own entry")
+          ])
+        ])
       ])
     ])
   }

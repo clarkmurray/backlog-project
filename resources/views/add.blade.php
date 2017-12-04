@@ -26,9 +26,18 @@
                     <label for="pages">Pages:</label>
                     <input type="number" class="form-control" name="pages" id="pages">
                 </span>
+                <span class="form-group">
+                    <label for="summary">Summary:</label>
+                    <input type="text" class="form-control" name="summary" id="summary">
+                </span>
+                <span class="form-group">
+                    <label for="img">Image URL:</label>
+                    <input type="text" class="form-control" name="img" id="img">
+                </span>
                 <div class="form-group">
                     <button type="submit" name="button" value="Add" class="btn btn-default">Save</button>
                 </div>
+
 
              </form>
         </div>

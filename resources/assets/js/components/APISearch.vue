@@ -1,13 +1,17 @@
 <template>
 
 	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<span class="pull-right"><a href="/add">Don't see what you're looking for? Make your own entry</a></span>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
 					<div class= "panel-heading">
 						<span>Search Results for "{{ this.apiSearch }}" in {{ this.searchType }} </span>
-						<span class="pull-right"><a href="/add">Don't see what you're looking for? Make your own entry</a></span>
 					</div>
 
 
@@ -26,8 +30,6 @@
 
 		                    </table>
 	                	</a>
-
-	                    <h1>ISBN: {{ result.industryIdentifiers[0].identifier }}</h1>
 
 	                	</div>
 
