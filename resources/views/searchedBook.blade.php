@@ -2,10 +2,6 @@
 
 @section('content')
 
-	<div class="container">
-		<div class="row">
-			<p>{{ $isbn }}</p>
-		</div>
-	</div>
+	<search-book :isbn='{!! json_encode($isbn) !!}'></search-book>
 
 @endsection

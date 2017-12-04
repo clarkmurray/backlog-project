@@ -28,7 +28,9 @@ Route::get('/search', [
 	'uses' =>'SearchController@books'
 ]);
 
-Route::get('/search/books/{isbn}', 'SearchController@isbn');
+Route::get('/search/books/{isbn}', function($isbn) {
+	return view('searchedBook')->with('isbn', $isbn);
+});
 
 Route::resource('/books', 'BookController');
 

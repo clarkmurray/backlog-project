@@ -13,9 +13,9 @@
 
 					<div class="panel-body" v-if="books">
 	                    <div v-for="result in apiResults">
-	                    <!-- <a :href="'/search/books/' + result.industryIdentifiers[0].identifier">  -->
-	                    	<a href="#" v-on:click="openLibraryRequest(result)">
-		                    <table class="table" id="apiSearchResults">
+	                    <a :href="'/search/books/' + result.industryIdentifiers[0].identifier"> 
+<!-- 	                    	<a href="#" v-on:click="openLibraryRequest(result)">
+ -->		                    <table class="table" id="apiSearchResults">
 
 		                    	<tr>
 		                    		<th rowspan="2"><img v-bind:src="result.imageLinks.smallThumbnail"></th>
@@ -116,30 +116,30 @@
 				});
 
 				// this.apiSearch = '';
-        	},
-
-        	openLibraryRequest(result) {
-        		var data = { value : result };
-        		$.ajax({
-					url: "http://openlibrary.org/api/books?bibkeys=ISBN:" + result.industryIdentifiers[0].identifier + "&jscmd=data&format=json",
-					dataType: "json",
-					data: data,
-					success: function (data) {
-						console.log(data);
-					},
-					type: 'GET'
-
-				});
-
-				this.passToController(data);
-
-				// console.log(result.industryIdentifiers[0].identifier);
-        	},
-
-        	passToController(data) {
-        		console.log("You were passed into the controller method");
-        		console.log(data);
         	}
+
+    //     	openLibraryRequest(result) {
+    //     		var data = { value : result };
+    //     		$.ajax({
+				// 	url: "http://openlibrary.org/api/books?bibkeys=ISBN:" + result.industryIdentifiers[0].identifier + "&jscmd=data&format=json",
+				// 	dataType: "json",
+				// 	data: data,
+				// 	success: function (data) {
+				// 		console.log(data);
+				// 	},
+				// 	type: 'GET'
+
+				// });
+
+				// this.passToController(data);
+
+				// // console.log(result.industryIdentifiers[0].identifier);
+    //     	},
+
+    //     	passToController(data) {
+    //     		console.log("You were passed into the controller method");
+    //     		console.log(data);
+    //     	}
         },
 
         mounted() {
