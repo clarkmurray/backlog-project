@@ -66612,12 +66612,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             // this.apiSearch = '';
         }
-
-        //     	passToController(data) {
-        //     		console.log("You were passed into the controller method");
-        //     		console.log(data);
-        //     	}
-
     },
 
     mounted: function mounted() {
@@ -66672,8 +66666,12 @@ var render = function() {
                       {
                         attrs: {
                           href:
-                            "/search/books/" +
-                            result.industryIdentifiers[0].identifier
+                            "/validate-book/" +
+                            encodeURI(result.authors[0]) +
+                            "/" +
+                            encodeURI(result.title) +
+                            "/" +
+                            encodeURI(result.industryIdentifiers[0].identifier)
                         }
                       },
                       [

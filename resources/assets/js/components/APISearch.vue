@@ -13,7 +13,7 @@
 
 					<div class="panel-body" v-if="books">
 	                    <div v-for="result in apiResults">
-	                    <a :href="'/search/books/' + result.industryIdentifiers[0].identifier"> 
+	                    <a :href="'/validate-book/' + encodeURI(result.authors[0]) + '/' + encodeURI(result.title) + '/' + encodeURI(result.industryIdentifiers[0].identifier)">
 		                    <table class="table" id="apiSearchResults">
 
 		                    	<tr>
@@ -117,7 +117,7 @@
 				});
 
 				// this.apiSearch = '';
-        	}
+        	},
 
     //     	passToController(data) {
     //     		console.log("You were passed into the controller method");

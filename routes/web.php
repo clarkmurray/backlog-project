@@ -57,3 +57,5 @@ Route::get('/param-store', 'SearchController@storeSearch');
 Route::get('/new-book', 'BookController@newBook');
 
 Route::get('/new-book-read', 'BookController@newBookRead');
+
+Route::get('/validate-book/{author}/{title}/{isbn}', 'SearchController@validateBook');
