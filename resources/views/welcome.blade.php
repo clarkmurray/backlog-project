@@ -19,16 +19,27 @@
             background-color: #548687;
             background-image: repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)), linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
             background-size: 70px 120px;
-
         }
 
+        .container {
+            height: 100% !important;
+            align-items: center !important;
+            display: flex !important;
+            position: absolute !important;
+            top: 50% !important; 
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+        }       
+
+
         h1 {
-            font-size: 100px;
+            /*font-size: 100px;*/
+            font-weight: bold;
         }
 
         h3 {
             margin-top: 30px;
-            font-size: 40px;
+            /*font-size: 40px;*/
         }
 
         h1, h3 {
@@ -46,6 +57,7 @@
             border: 3px solid white !important;
             margin-top: 50px;
             margin-right: 30px;
+            font-weight: bold !important;
         }
 
         button:hover {
@@ -55,13 +67,6 @@
 
         }
 
-        .vertical-align {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-top: 10%;
-        }
-
 
         </style>
 
@@ -69,11 +74,11 @@
 
     <body>
         <div class ="container">
-            <div class="row vertical-align">
-                <div class="col-xs-8 col-xs-offset-2">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 landing">
                     <h1 class="text-center">Backlogged</h1>
                     <h3 class="text-center">Insert a marketing slogan here</h3>
-                    <div class="flex-center position-ref full-height">
+                    <div class="text-center">
                         @if (Route::has('login'))
                             <div class="text-center links">
                                 @auth

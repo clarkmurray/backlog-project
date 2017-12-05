@@ -18,6 +18,8 @@ class BookController extends Controller
     		$totalPages += $book->pages;
     	}
 
+
+
     	return view('home', compact('books', 'wpm', 'totalPages'));
     }
 

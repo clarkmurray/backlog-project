@@ -18,7 +18,7 @@
 					<li class="bookStat">Time to Read: {{ \App\Http\Controllers\BookController::timeToRead($book->pages) }}</li>
 				</ul>
 				<p class="bookSummary">{{ $book->summary }}</p>
-				<div class="bookButtons text-center">
+				<div class="bookButtons">
 
 
 					@if((!$user->backlog()->where('book_id', $book->id)->exists()) or ($user->backlog()->where('book_id', $book->id)->where('read_again', false)->where('is_finished', true)->first()))

@@ -5,6 +5,10 @@
 <div class="container">
     <div class="row bookForm addForm">
         <div class="col-md-8 col-md-offset-2">
+            <ul>
+                <li>Add Book</li>
+                <li>Add Movie</li>
+            </ul>
 
             <h1 class="text-center">Add Book</h1>
 

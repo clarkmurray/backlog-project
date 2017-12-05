@@ -187,7 +187,7 @@ class MovieController extends Controller
         $movie->release = substr($movie->release, 0, 4);
 
 
-        $movie->save();
+        $movie->save(); 
 
         $this->addToBacklog($movie->id);
     }
