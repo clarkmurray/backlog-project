@@ -15,8 +15,11 @@
         <style>
 
         body {
-            background-color: #548687;
             font-family: 'Raleway', sans-serif;
+            background-color: #548687;
+            background-image: repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)), linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
+            background-size: 70px 120px;
+
         }
 
         h1 {
@@ -45,21 +48,12 @@
             margin-right: 30px;
         }
 
-        button > a{
-            text-decoration: none !important;
-            color: white !important;
-        }
-
         button:hover {
             background-color: white !important;
             border: 2px solid white;
+            color: #548687 !important;;
 
         }
-
-        button:hover > a {
-            color: #548687 !important;            
-        }
-
 
         .vertical-align {
             display: flex;
@@ -83,10 +77,10 @@
                         @if (Route::has('login'))
                             <div class="text-center links">
                                 @auth
-                                    <button class="btn btn-default btn-lg"><a href="{{ url('/home') }}">Home</a></button>
+                                    <a href="{{ url('/home') }}"><button class="btn btn-default btn-lg">Home</button></a>
                                 @else
-                                    <button class="btn btn-default btn-lg"><a href="{{ route('login') }}">Login</a></button>
-                                    <button class="btn btn-default btn-lg"><a href="{{ route('register') }}">Sign Up</a></button>
+                                    <a href="{{ route('login') }}"><button class="btn btn-default btn-lg">Login</button></a>
+                                    <a href="{{ route('register') }}"><button class="btn btn-default btn-lg">Sign Up</button></a>
                                 @endauth
                             </div>
                         @endif
