@@ -13,6 +13,10 @@
 					<li class="bookStat">Run Time: {{ length }} minutes </li>
 				</ul>
 				<p class="bookSummary">{{ description }}</p>
+				<div>
+					<button class="addBacklog btn btn-primary" v-on:click="addBacklog">Add to Backlog</button>
+					<button class="markRead btn btn-success" v-on:click="addWatched">Mark as Watched</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -34,6 +38,58 @@ export default  {
 			length: '',
 			poster: ''
 		}
+	},
+
+	methods: {
+		addBacklog() {
+			var data = { 
+					title: this.title,
+					director: this.director,
+					release: this.released,
+					description: this.description,
+					runtime: this.length,
+					poster_url: this.poster
+				}; 
+				$.ajax({
+				    type: "GET",
+				    url: '/new-movie',
+				    data: data,
+				    headers: {
+      					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    				},
+				    success: function() {
+				      console.log(data);
+				    }
+				});
+
+				location.replace('/movie-backlog');
+		},
+
+		addWatched() {
+			var data = { 
+					title: this.title,
+					director: this.director,
+					release: this.released,
+					description: this.description,
+					runtime: this.length,
+					poster_url: this.poster
+				};
+				$.ajax({
+				    type: "GET",
+				    url: '/new-movie-watched',
+				    data: data,
+				    headers: {
+      					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    				},
+				    success: function() {
+				      console.log(data);
+				    }
+				});
+
+				location.replace('/watched');
+		}
+
+
 	},
 
 	created() {

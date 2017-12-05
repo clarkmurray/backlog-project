@@ -172,5 +172,46 @@ class MovieController extends Controller
         return back();
     }
 
+    public function newMovie(Request $request){
+
+        $movie = new \App\Movie;
+        
+
+        $movie->title = request('title');
+        $movie->director = request('director');
+        $movie->release = request('release');
+        $movie->runtime = request('runtime');
+        $movie->description = request('description');
+        $movie->poster_url = request('poster_url');
+
+        $movie->release = substr($movie->release, 0, 4);
+
+
+        $movie->save();
+
+        $this->addToBacklog($movie->id);
+    }
+
+    public function newMovieWatched(Request $request) {
+
+        $movie = new \App\Movie;
+        
+
+        $movie->title = request('title');
+        $movie->director = request('director');
+        $movie->release = request('release');
+        $movie->runtime = request('runtime');
+        $movie->description = request('description');
+        $movie->poster_url = request('poster_url');
+
+        $movie->release = substr($movie->release, 0, 4);
+
+
+        $movie->save();
+
+        $this->markAsWatched($movie->id);
+
+    }
+
     
 }

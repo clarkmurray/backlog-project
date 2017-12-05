@@ -20,10 +20,16 @@
             <ais-results v-show="searchStore.query.length > 0">
                 <template slot-scope="{ result }">
                     <div class="searchResultsContainer">
-                    <div class="searchResult">
+                    <div v-if="result.author" class="searchResult">
                         <a :href="'/books/' + result.id">
                         <h4 v-text="result.title"></h4>
                         <p v-text="result.author"></p>
+                        </a>
+                    </div>
+                    <div v-else-if="result.director" class="searchResult">
+                        <a :href="'/movies/' + result.id">
+                        <h4 v-text="result.title"></h4>
+                        <p v-text="result.director"></p>
                         </a>
                     </div>
                     </div>

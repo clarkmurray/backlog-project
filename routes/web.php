@@ -79,3 +79,7 @@ Route::post('movies/{movie}/remove', 'MovieController@destroy');
 Route::post('movies/{movie}/watched', 'MovieController@markAsWatched');
 
 Route::post('movies/{movie}/not-watched', 'MovieController@removeWatched');
+
+Route::get('/new-movie', 'MovieController@newMovie');
+
+Route::get('/new-movie-watched', 'MovieController@newMovieWatched');

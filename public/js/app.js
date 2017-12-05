@@ -65881,6 +65881,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 var searchStore = Object(__WEBPACK_IMPORTED_MODULE_0_vue_instantsearch__["a" /* createFromAlgoliaCredentials */])(window.algolia.app_id, window.algolia.search_key);
@@ -66076,17 +66082,39 @@ var render = function() {
                 var result = ref.result
                 return [
                   _c("div", { staticClass: "searchResultsContainer" }, [
-                    _c("div", { staticClass: "searchResult" }, [
-                      _c("a", { attrs: { href: "/books/" + result.id } }, [
-                        _c("h4", {
-                          domProps: { textContent: _vm._s(result.title) }
-                        }),
-                        _vm._v(" "),
-                        _c("p", {
-                          domProps: { textContent: _vm._s(result.author) }
-                        })
-                      ])
-                    ])
+                    result.author
+                      ? _c("div", { staticClass: "searchResult" }, [
+                          _c("a", { attrs: { href: "/books/" + result.id } }, [
+                            _c("h4", {
+                              domProps: { textContent: _vm._s(result.title) }
+                            }),
+                            _vm._v(" "),
+                            _c("p", {
+                              domProps: { textContent: _vm._s(result.author) }
+                            })
+                          ])
+                        ])
+                      : result.director
+                        ? _c("div", { staticClass: "searchResult" }, [
+                            _c(
+                              "a",
+                              { attrs: { href: "/movies/" + result.id } },
+                              [
+                                _c("h4", {
+                                  domProps: {
+                                    textContent: _vm._s(result.title)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("p", {
+                                  domProps: {
+                                    textContent: _vm._s(result.director)
+                                  }
+                                })
+                              ]
+                            )
+                          ])
+                        : _vm._e()
                   ])
                 ]
               }
@@ -67092,6 +67120,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -67106,6 +67138,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			poster: ''
 		};
 	},
+
+
+	methods: {
+		addBacklog: function addBacklog() {
+			var data = {
+				title: this.title,
+				director: this.director,
+				release: this.released,
+				description: this.description,
+				runtime: this.length,
+				poster_url: this.poster
+			};
+			$.ajax({
+				type: "GET",
+				url: '/new-movie',
+				data: data,
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success: function success() {
+					console.log(data);
+				}
+			});
+
+			location.replace('/movie-backlog');
+		},
+		addWatched: function addWatched() {
+			var data = {
+				title: this.title,
+				director: this.director,
+				release: this.released,
+				description: this.description,
+				runtime: this.length,
+				poster_url: this.poster
+			};
+			$.ajax({
+				type: "GET",
+				url: '/new-movie-watched',
+				data: data,
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success: function success() {
+					console.log(data);
+				}
+			});
+
+			location.replace('/watched');
+		}
+	},
+
 	created: function created() {
 		var vm = this;
 		this.movieResults = [];
@@ -67184,6 +67267,26 @@ var render = function() {
           _vm._v(" "),
           _c("p", { staticClass: "bookSummary" }, [
             _vm._v(_vm._s(_vm.description))
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c(
+              "button",
+              {
+                staticClass: "addBacklog btn btn-primary",
+                on: { click: _vm.addBacklog }
+              },
+              [_vm._v("Add to Backlog")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "markRead btn btn-success",
+                on: { click: _vm.addWatched }
+              },
+              [_vm._v("Mark as Watched")]
+            )
           ])
         ])
       ])
