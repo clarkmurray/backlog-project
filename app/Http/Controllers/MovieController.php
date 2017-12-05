@@ -182,7 +182,7 @@ class MovieController extends Controller
         $movie->release = request('release');
         $movie->runtime = request('runtime');
         $movie->description = request('description');
-        $movie->poster_url = request('poster_url');
+        $movie->poster_url = 'https://image.tmdb.org/t/p/w150/' . request('poster_url');
 
         $movie->release = substr($movie->release, 0, 4);
 
@@ -202,7 +202,7 @@ class MovieController extends Controller
         $movie->release = request('release');
         $movie->runtime = request('runtime');
         $movie->description = request('description');
-        $movie->poster_url = request('poster_url');
+        $movie->poster_url = 'https://image.tmdb.org/t/p/w150/' . request('poster_url');
 
         $movie->release = substr($movie->release, 0, 4);
 
