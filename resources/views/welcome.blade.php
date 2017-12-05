@@ -22,19 +22,29 @@
         }
 
         .container {
-            height: 100% !important;
-            align-items: center !important;
-            display: flex !important;
-            position: absolute !important;
-            top: 50% !important; 
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-        }       
+            height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+        }      
 
 
         h1 {
-            /*font-size: 100px;*/
+            font-size: 100px;
             font-weight: bold;
+        }
+
+        @media screen and (max-width: 640px) {
+            h1 {
+                font-size: 75px;
+            }
+        }
+
+        @media screen and (max-width: 540px) {
+            h1 {
+                font-size: 40px;
+            }
         }
 
         h3 {
@@ -75,7 +85,6 @@
     <body>
         <div class ="container">
             <div class="row">
-                <div class="col-xs-10 col-xs-offset-1 landing">
                     <h1 class="text-center">Backlogged</h1>
                     <h3 class="text-center">Insert a marketing slogan here</h3>
                     <div class="text-center">
@@ -90,7 +99,6 @@
                             </div>
                         @endif
 
-                    </div>
                 </div>
             </div>
         </div>
