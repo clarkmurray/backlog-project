@@ -38,7 +38,7 @@
 					<div class="panel-body" v-if="moviesAndTV">
 
 	                    <div v-for="result in movieResults">
-	                    	<a :href="'/search/movies/' + result.id">
+	                    	<a :href="'/validate-movie/' + encodeURI(result.release_date) + '/' + encodeURI(result.title) + '/' + encodeURI(result.id)">
 	                    	<table class="table">
 
 	                    	<tr>

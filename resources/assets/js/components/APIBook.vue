@@ -50,7 +50,7 @@ export default  {
 					published: this.published,
 					description: this.description,
 					cover: this.cover
-				};
+				}; 
 				$.ajax({
 				    type: "GET",
 				    url: '/new-book',

@@ -67,4 +67,27 @@ class SearchController extends Controller
 
     }
 
+    public function validateMovie(Request $request) {
+
+        $title = $request->segment(3);
+
+        $release = $request->segment(2);
+
+        $release = substr($release, 0, 4);
+
+        $id = $request->segment(4);
+
+        $movie = DB::table('movies')->where('title', $title)->where('release', $release)->first();
+
+        if ($movie) {
+            // Send to movie blade
+            return redirect('/movies/' . $movie->id);
+
+        } else {
+            // Send to APIMovie
+            return redirect('/search/movies/' . $id);
+            
+        }
+    }
+
 }

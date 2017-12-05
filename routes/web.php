@@ -83,3 +83,5 @@ Route::post('movies/{movie}/not-watched', 'MovieController@removeWatched');
 Route::get('/new-movie', 'MovieController@newMovie');
 
 Route::get('/new-movie-watched', 'MovieController@newMovieWatched');
+
+Route::get('/validate-movie/{release}/{title}/{id}', 'SearchController@validateMovie');

@@ -66744,7 +66744,17 @@ var render = function() {
                   return _c("div", [
                     _c(
                       "a",
-                      { attrs: { href: "/search/movies/" + result.id } },
+                      {
+                        attrs: {
+                          href:
+                            "/validate-movie/" +
+                            encodeURI(result.release_date) +
+                            "/" +
+                            encodeURI(result.title) +
+                            "/" +
+                            encodeURI(result.id)
+                        }
+                      },
                       [
                         _c("table", { staticClass: "table" }, [
                           _c("tr", [
