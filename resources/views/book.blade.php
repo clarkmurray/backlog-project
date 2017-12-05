@@ -5,20 +5,20 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-1 text-center bookCover">
+		<div class="col-sm-4 col-sm-offset-1 text-center bookCover">
 			<img src="{{ $book->img_url }}" height="100%" width="100%">
 		</div>
-		<div class="col-md-6">
+		<div class="col-sm-6">
 			<div class="bookInfo">
-				<h2 class="bookTitle">{{ $book->title }}</h2>
-				<h4 class="bookAuthor">by {{ $book->author }}</h4>
+				<h2 class="bookTitle text-center">{{ $book->title }}</h2>
+				<h4 class="bookAuthor text-center">by {{ $book->author }}</h4>
 				<ul class="bookStats text-left">
 					<li class="bookStat">Published: {{ $book->published }}</li>
 					<li class="bookStat">Pages: {{ $book->pages }}</li>
 					<li class="bookStat">Time to Read: {{ \App\Http\Controllers\BookController::timeToRead($book->pages) }}</li>
 				</ul>
 				<p class="bookSummary">{{ $book->summary }}</p>
-				<div class="text-center">
+				<div class="bookButtons text-center">
 
 
 					@if((!$user->backlog()->where('book_id', $book->id)->exists()) or ($user->backlog()->where('book_id', $book->id)->where('read_again', false)->where('is_finished', true)->first()))

@@ -3,8 +3,10 @@
 @section('content')
 
 <div class="container">
-    <div class="row">
+    <div class="row bookForm addForm">
         <div class="col-md-8 col-md-offset-2">
+
+            <h1 class="text-center">Add Book</h1>
 
             <form class="form-horizonal" method="post" action="/books">
 
@@ -43,8 +45,10 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row movieForm addForm">
         <div class="col-md-8 col-md-offset-2">
+
+            <h1 class="text-center">Add Movie</h1>
 
             <form class="form-horizonal" method="post" action="/movies/add">
 

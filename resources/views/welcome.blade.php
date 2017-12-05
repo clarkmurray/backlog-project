@@ -5,91 +5,96 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Backlogged</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
 
-            .full-height {
-                height: 100vh;
-            }
+        body {
+            background-color: #548687;
+            font-family: 'Raleway', sans-serif;
+        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        h1 {
+            font-size: 100px;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        h3 {
+            margin-top: 30px;
+            font-size: 40px;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        h1, h3 {
+            color: white;
+        }
 
-            .content {
-                text-align: center;
-            }
+        button {
+            padding: 10px;
+            border-radius: 0px;
+            width: 100px;
+            color: white !important;
+            text-decoration: none;
+            background-color: #548687 !important;
+            text-decoration: none !important;
+            border: 3px solid white !important;
+            margin-top: 50px;
+            margin-right: 30px;
+        }
 
-            .title {
-                font-size: 84px;
-            }
+        button > a{
+            text-decoration: none !important;
+            color: white !important;
+        }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        button:hover {
+            background-color: white !important;
+            border: 2px solid white;
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
+        }
+
+        button:hover > a {
+            color: #548687 !important;            
+        }
+
+
+        .vertical-align {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 10%;
+        }
+
+
         </style>
+
     </head>
+
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+        <div class ="container">
+            <div class="row vertical-align">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <h1 class="text-center">Backlogged</h1>
+                    <h3 class="text-center">Insert a marketing slogan here</h3>
+                    <div class="flex-center position-ref full-height">
+                        @if (Route::has('login'))
+                            <div class="text-center links">
+                                @auth
+                                    <button class="btn btn-default btn-lg"><a href="{{ url('/home') }}">Home</a></button>
+                                @else
+                                    <button class="btn btn-default btn-lg"><a href="{{ route('login') }}">Login</a></button>
+                                    <button class="btn btn-default btn-lg"><a href="{{ route('register') }}">Sign Up</a></button>
+                                @endauth
+                            </div>
+                        @endif
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Booklog
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    </div>
                 </div>
             </div>
         </div>
     </body>
+
 </html>
