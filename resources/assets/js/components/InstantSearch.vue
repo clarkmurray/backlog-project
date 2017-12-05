@@ -1,5 +1,4 @@
 <template>
-    <ais-index :search-store="searchStore">
         <div id="instantInput">
             <div class="input-group searchBar" v-on:keyup.enter="secondSearch">
                 <div class="input-group-btn bs-dropdown-to-select-group" id="dropdownSelect">
@@ -14,19 +13,28 @@
                         <li data-value="Movies"><a href="#">Movies</a></li>
                     </ul>
                 </div>
-                <ais-input placeholder="Find a book, movie, or show" class="form-control" id="aisSearchBar"></ais-input>
+                <input placeholder="Find a book, movie, or show" class="form-control" id="aisSearchBar" v-model="query">
                 <span class="input-group-addon" id="searchButton" v-on:click="secondSearch"><i class="fa fa-search" aria-hidden="true"></i></span>
             </div>
+        <ais-index :search-store="searchStore" index-name="title" :query="query">
             <ais-results v-show="searchStore.query.length > 0">
                 <template slot-scope="{ result }">
                     <div class="searchResultsContainer">
-                    <div v-if="result.author" class="searchResult">
+                    <div class="searchResult">
                         <a :href="'/books/' + result.id">
                         <h4 v-text="result.title"></h4>
                         <p v-text="result.author"></p>
                         </a>
                     </div>
-                    <div v-else-if="result.director" class="searchResult">
+                    </div>
+                </template>
+            </ais-results>
+        </ais-index>
+         <ais-index :search-store="store" index-name="movies" :query="query">
+            <ais-results v-show="store.query.length > 0">
+                <template slot-scope="{ result }">
+                    <div class="searchResultsContainer">
+                    <div class="searchResult">
                         <a :href="'/movies/' + result.id">
                         <h4 v-text="result.title"></h4>
                         <p v-text="result.director"></p>
@@ -35,23 +43,29 @@
                     </div>
                 </template>
             </ais-results>
+        </ais-index>
         </div>
-    </ais-index>
 </template>
 
 <script>
     import { createFromAlgoliaCredentials } from 'vue-instantsearch';
     const searchStore = createFromAlgoliaCredentials(window.algolia.app_id, window.algolia.search_key);
 
+    const store = createFromAlgoliaCredentials(window.algolia.app_id, window.algolia.search_key);
+
     searchStore.indexName = 'title';
+
+    store.indexName = 'movies';
 
 
     export default {
         data() {
             return { 
                 searchStore,
+                store,
                 backupParam: '',
-                searchType: 'Books'
+                searchType: 'Books',
+                query: ''
             };
         },
         methods: {

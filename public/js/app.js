@@ -65887,18 +65887,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var searchStore = Object(__WEBPACK_IMPORTED_MODULE_0_vue_instantsearch__["a" /* createFromAlgoliaCredentials */])(window.algolia.app_id, window.algolia.search_key);
 
+var store = Object(__WEBPACK_IMPORTED_MODULE_0_vue_instantsearch__["a" /* createFromAlgoliaCredentials */])(window.algolia.app_id, window.algolia.search_key);
+
 searchStore.indexName = 'title';
+
+store.indexName = 'movies';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             searchStore: searchStore,
+            store: store,
             backupParam: '',
-            searchType: 'Books'
+            searchType: 'Books',
+            query: ''
         };
     },
 
@@ -65952,181 +65966,234 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("ais-index", { attrs: { "search-store": _vm.searchStore } }, [
-    _c(
-      "div",
-      { attrs: { id: "instantInput" } },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "input-group searchBar",
+  return _c(
+    "div",
+    { attrs: { id: "instantInput" } },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "input-group searchBar",
+          on: {
+            keyup: function($event) {
+              if (
+                !("button" in $event) &&
+                _vm._k($event.keyCode, "enter", 13, $event.key)
+              ) {
+                return null
+              }
+              _vm.secondSearch($event)
+            }
+          }
+        },
+        [
+          _vm._m(0, false, false),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.query,
+                expression: "query"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              placeholder: "Find a book, movie, or show",
+              id: "aisSearchBar"
+            },
+            domProps: { value: _vm.query },
             on: {
-              keyup: function($event) {
-                if (
-                  !("button" in $event) &&
-                  _vm._k($event.keyCode, "enter", 13, $event.key)
-                ) {
-                  return null
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-                _vm.secondSearch($event)
+                _vm.query = $event.target.value
               }
             }
+          }),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "input-group-addon",
+              attrs: { id: "searchButton" },
+              on: { click: _vm.secondSearch }
+            },
+            [
+              _c("i", {
+                staticClass: "fa fa-search",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "ais-index",
+        {
+          attrs: {
+            "search-store": _vm.searchStore,
+            "index-name": "title",
+            query: _vm.query
+          }
+        },
+        [
+          _c("ais-results", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.searchStore.query.length > 0,
+                expression: "searchStore.query.length > 0"
+              }
+            ],
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(ref) {
+                  var result = ref.result
+                  return [
+                    _c("div", { staticClass: "searchResultsContainer" }, [
+                      _c("div", { staticClass: "searchResult" }, [
+                        _c("a", { attrs: { href: "/books/" + result.id } }, [
+                          _c("h4", {
+                            domProps: { textContent: _vm._s(result.title) }
+                          }),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: { textContent: _vm._s(result.author) }
+                          })
+                        ])
+                      ])
+                    ])
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "ais-index",
+        {
+          attrs: {
+            "search-store": _vm.store,
+            "index-name": "movies",
+            query: _vm.query
+          }
+        },
+        [
+          _c("ais-results", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.store.query.length > 0,
+                expression: "store.query.length > 0"
+              }
+            ],
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(ref) {
+                  var result = ref.result
+                  return [
+                    _c("div", { staticClass: "searchResultsContainer" }, [
+                      _c("div", { staticClass: "searchResult" }, [
+                        _c("a", { attrs: { href: "/movies/" + result.id } }, [
+                          _c("h4", {
+                            domProps: { textContent: _vm._s(result.title) }
+                          }),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: { textContent: _vm._s(result.director) }
+                          })
+                        ])
+                      ])
+                    ])
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "input-group-btn bs-dropdown-to-select-group",
+        attrs: { id: "dropdownSelect" }
+      },
+      [
+        _c(
+          "button",
+          {
+            staticClass:
+              "btn btn-default dropdown-toggle as-is bs-dropdown-to-select",
+            attrs: { type: "button", "data-toggle": "dropdown", tabindex: "-1" }
           },
           [
-            _c(
-              "div",
-              {
-                staticClass: "input-group-btn bs-dropdown-to-select-group",
-                attrs: { id: "dropdownSelect" }
-              },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn btn-default dropdown-toggle as-is bs-dropdown-to-select",
-                    attrs: {
-                      type: "button",
-                      "data-toggle": "dropdown",
-                      tabindex: "-1"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "data-bind": "bs-drp-sel-label" } }, [
-                      _vm._v("Books")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      attrs: {
-                        type: "hidden",
-                        name: "country_path",
-                        "data-bind": "bs-drp-sel-value",
-                        value: "Books",
-                        id: "dropdownSelectValue"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "caret" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "sr-only" }, [
-                      _vm._v("Toggle Dropdown")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  {
-                    staticClass: "dropdown-menu",
-                    staticStyle: {
-                      "max-height": "300px",
-                      overflow: "scroll",
-                      "overflow-y": "scroll",
-                      "overflow-x": "hidden"
-                    },
-                    attrs: { role: "menu" }
-                  },
-                  [
-                    _c("li", { attrs: { "data-value": "Books" } }, [
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("Books")])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", { attrs: { "data-value": "Movies" } }, [
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("Movies")])
-                    ])
-                  ]
-                )
-              ]
-            ),
+            _c("span", { attrs: { "data-bind": "bs-drp-sel-label" } }, [
+              _vm._v("Books")
+            ]),
             _vm._v(" "),
-            _c("ais-input", {
-              staticClass: "form-control",
+            _c("input", {
               attrs: {
-                placeholder: "Find a book, movie, or show",
-                id: "aisSearchBar"
+                type: "hidden",
+                name: "country_path",
+                "data-bind": "bs-drp-sel-value",
+                value: "Books",
+                id: "dropdownSelectValue"
               }
             }),
             _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass: "input-group-addon",
-                attrs: { id: "searchButton" },
-                on: { click: _vm.secondSearch }
-              },
-              [
-                _c("i", {
-                  staticClass: "fa fa-search",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]
-            )
-          ],
-          1
+            _c("span", { staticClass: "caret" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "sr-only" }, [_vm._v("Toggle Dropdown")])
+          ]
         ),
         _vm._v(" "),
-        _c("ais-results", {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.searchStore.query.length > 0,
-              expression: "searchStore.query.length > 0"
-            }
-          ],
-          scopedSlots: _vm._u([
-            {
-              key: "default",
-              fn: function(ref) {
-                var result = ref.result
-                return [
-                  _c("div", { staticClass: "searchResultsContainer" }, [
-                    result.author
-                      ? _c("div", { staticClass: "searchResult" }, [
-                          _c("a", { attrs: { href: "/books/" + result.id } }, [
-                            _c("h4", {
-                              domProps: { textContent: _vm._s(result.title) }
-                            }),
-                            _vm._v(" "),
-                            _c("p", {
-                              domProps: { textContent: _vm._s(result.author) }
-                            })
-                          ])
-                        ])
-                      : result.director
-                        ? _c("div", { staticClass: "searchResult" }, [
-                            _c(
-                              "a",
-                              { attrs: { href: "/movies/" + result.id } },
-                              [
-                                _c("h4", {
-                                  domProps: {
-                                    textContent: _vm._s(result.title)
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("p", {
-                                  domProps: {
-                                    textContent: _vm._s(result.director)
-                                  }
-                                })
-                              ]
-                            )
-                          ])
-                        : _vm._e()
-                  ])
-                ]
-              }
-            }
-          ])
-        })
-      ],
-      1
+        _c(
+          "ul",
+          {
+            staticClass: "dropdown-menu",
+            staticStyle: {
+              "max-height": "300px",
+              overflow: "scroll",
+              "overflow-y": "scroll",
+              "overflow-x": "hidden"
+            },
+            attrs: { role: "menu" }
+          },
+          [
+            _c("li", { attrs: { "data-value": "Books" } }, [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Books")])
+            ]),
+            _vm._v(" "),
+            _c("li", { attrs: { "data-value": "Movies" } }, [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Movies")])
+            ])
+          ]
+        )
+      ]
     )
-  ])
-}
-var staticRenderFns = []
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

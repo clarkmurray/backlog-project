@@ -11,7 +11,7 @@ class Movie extends Model
 
 	public function searchableAs() 
 	{
-		return 'title';
+		return 'movies';
 	}
 
 	public function movieBacklogged() 
