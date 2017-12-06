@@ -193,3 +193,15 @@ button.btn.btn-default.dropdown-toggle.as-is.bs-dropdown-to-select {
 #passageTitle {
 	font-style: italic;
 }
+
+.credit {
+	margin-top: 30px;
+	background-color: white;
+	padding: 15px;
+}
+
+.movieDBimg {
+	height: 35px;
+	width: 35px;
+	margin-right: 10px;
+}

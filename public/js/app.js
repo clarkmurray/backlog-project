@@ -67253,6 +67253,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -67372,7 +67375,9 @@ var render = function() {
               height: "100%",
               width: "100%"
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm._m(0, false, false)
         ]
       ),
       _vm._v(" "),
@@ -67422,7 +67427,27 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "credit" }, [
+      _c("span", [
+        _c("img", {
+          staticClass: "movieDBimg",
+          attrs: {
+            src:
+              "https://www.themoviedb.org/static_cache/v4/logos/primary-green-d70eebe18a5eb5b166d5c1ef0796715b8d1a2cbc698f96d311d62f894ae87085.svg"
+          }
+        }),
+        _vm._v(
+          "This product uses the TMDb API but is not endorsed or certified by TMDb"
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

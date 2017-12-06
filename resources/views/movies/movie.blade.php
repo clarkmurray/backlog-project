@@ -7,6 +7,9 @@
 	<div class="row">
 		<div class="col-md-4 col-md-offset-1 text-center bookCover">
 			<img src="{{ $movie->poster_url }}" height="100%" width="100%">
+			<div class="credit">
+				<span><img class="movieDBimg" src="https://www.themoviedb.org/static_cache/v4/logos/primary-green-d70eebe18a5eb5b166d5c1ef0796715b8d1a2cbc698f96d311d62f894ae87085.svg">This product uses the TMDb API but is not endorsed or certified by TMDb</span>
+			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="bookInfo">
