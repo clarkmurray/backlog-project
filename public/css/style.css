@@ -185,3 +185,7 @@ button.btn.btn-default.dropdown-toggle.as-is.bs-dropdown-to-select {
 #addMovieForm {
 	display: none;
 }
+
+.addFormButton {
+	margin-top: 30px !important;
+}
