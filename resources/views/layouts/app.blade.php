@@ -32,16 +32,20 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        Backlogged
-                    </a>
+                    <!-- <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="./backlog-logo.png" height="100px" width="100px">
+                    </a> -->
                 </div>
-
-                @auth
                 <div>
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                        <li>
+                            <a class="logo" href="{{ url('/') }}">
+                                <img src="./logo.png" height="80px" width="80px">
+                            </a>
+                        </li>
                         &nbsp;
+                        @auth
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My Books</a>
                             <ul class="dropdown-menu">
@@ -55,13 +59,6 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/movie-backlog">Backlog</a></li>
                                 <li><a href="/watched">Watched</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My TV</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Backlog</a></li>
-                                <li><a href="#">Finished</a></li>
                             </ul>
                         </li>
                         <li><algolia-instantsearch></algolia-instantsearch></li>

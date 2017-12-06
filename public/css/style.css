@@ -80,10 +80,9 @@ nav button {
 
 .searchResultsContainer {
 	background-color: white;
-	width: 100%;
+	width: 80%;
 	padding: 20px;
 	border: 1px solid black;
-	border-radius: 5px;
 }
 
 #searchButton {
@@ -204,4 +203,8 @@ button.btn.btn-default.dropdown-toggle.as-is.bs-dropdown-to-select {
 	height: 35px;
 	width: 35px;
 	margin-right: 10px;
+}
+
+a.logo {
+	padding-top: 1px !important
 }
