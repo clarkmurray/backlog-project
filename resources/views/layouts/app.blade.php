@@ -114,6 +114,25 @@
     }
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+    $(document).ready(function() {
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        $('#addBookButton').on('click', () => {
+            $('#addMovieForm').hide();
+            $('#addBookForm').show();
+        });
+
+        $('#addMovieButton').on('click', () => {
+            $('#addMovieForm').show();
+            $('#addBookForm').hide();
+        })
+
+    });
+    </script>
 
 
 </body>

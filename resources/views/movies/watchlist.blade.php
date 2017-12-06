@@ -38,16 +38,16 @@
                             <td>
                                 <form method="post" action="/movies/{{ $movie->id }}/watched" class="form-inline">
                                 {{ csrf_field() }}
-                                    <button type="submit">
-                                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                                    <button type="submit" class="checkOff">
+                                        <i class="fa fa-check-square fa-lg" aria-hidden="true"></i>
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <form method="post" action="/movies/{{ $movie->id }}/remove" class="form-inline">
                                 {{ csrf_field() }}
-                                    <button type="submit">
-                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    <button type="submit" class="remove">
+                                        <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
                                     </button>
                                 </form>
                             </td>

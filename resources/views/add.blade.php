@@ -4,12 +4,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
+        <div class="col-xs-10 col-xs-offset-1 text-center" class="addButtonGroup">
             <button class="btn btn-default" id="addBookButton">Add Book</button>
             <button class="btn btn-default" id="addMovieButton">Add Movie</button>
         </div>
     </div>
-    </div>
+
     <div class="row addForm" id="addBookForm">
         <div class="col-md-10 col-md-offset-1">
 
@@ -46,19 +46,18 @@
                 <div class="form-group">
                     <button type="submit" name="button" value="Add" class="btn btn-default">Add to Backlog</button>
                 </div>
+            </form>
 
-            </div>
-
-             </form>
         </div>
+
     </div>
 
-    <div class="row addForm" id="addMovieForm">
-        <div class="col-xs-10 col-xs-offset-1">
+    <div class="row addForm">
+        <div class="col-xs-10 col-xs-offset-1" id="addMovieForm">
 
             <h1 class="text-center">Add Movie</h1>
 
-            <form class="form-horizonal" method="post" action="/movies/add">
+            <form method="post" action="/movies/add">
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

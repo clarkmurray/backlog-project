@@ -4,9 +4,11 @@
 
 			<div class="col-md-10 col-md-offset-1">
 				<div v-if="startTest">
+					<div class="panel wpmPrompt">
 					<h1 class="text-center">WPM Test</h1>
 					<p>Click the button below to begin your reading speed test. You will have 60 seconds to read a selected text. After 60 seconds, you will be prompted to specify the last word you read, after which your WPM (words per minute) will be calculated and used in your reading estimates.</p>
 					<button v-on:click="takeTest()" class="btn btn-success">Take Test</button>
+					</div>
 				</div>
 				<div v-if="takingTest" id="readingTest">
 					<h1>from <span id="passageTitle">A Study in Scarlet</span> by Arthur Conan Doyle</h1>

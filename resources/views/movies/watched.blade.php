@@ -37,15 +37,15 @@
                                 <td>
                                     <form method="post" action="/movies/{{ $movie->id }}/add" class="form-inline">
                                     {{ csrf_field() }}
-                                    <button type="submit">
-                                        <i class="fa fa-book" aria-hidden="true"></i></td>
+                                    <button type="submit" class="watchAgain">
+                                        <i class="fa fa-film fa-lg" aria-hidden="true"></i></td>
                                     </button>
                                     </form>
                                 <td>
                                     <form method="post" action="/movies/{{ $movie->id }}/not-watched" class="form-inline">
                                     {{ csrf_field() }}
-                                    <button type="submit">
-                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    <button type="submit" class="remove" data-toggle="tooltip" data-placement="bottom" title="Remove from list">
+                                        <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
                                     </button>
                                     </form>
                                 </td>

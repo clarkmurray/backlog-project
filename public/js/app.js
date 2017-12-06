@@ -12164,16 +12164,6 @@ var app = new Vue({
   el: '#app'
 });
 
-$('#addBookButton').on('click', function () {
-  $('#addBookForm').show();
-  $('#addMovieForm').hide();
-});
-
-$('#addMovieButton').on('click', function () {
-  $('#addMovieForm').show();
-  $('#addBookForm').hide();
-});
-
 /***/ }),
 /* 163 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -66315,6 +66305,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -66393,26 +66385,28 @@ var render = function() {
       _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
         _vm.startTest
           ? _c("div", [
-              _c("h1", { staticClass: "text-center" }, [_vm._v("WPM Test")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Click the button below to begin your reading speed test. You will have 60 seconds to read a selected text. After 60 seconds, you will be prompted to specify the last word you read, after which your WPM (words per minute) will be calculated and used in your reading estimates."
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success",
-                  on: {
-                    click: function($event) {
-                      _vm.takeTest()
+              _c("div", { staticClass: "panel wpmPrompt" }, [
+                _c("h1", { staticClass: "text-center" }, [_vm._v("WPM Test")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Click the button below to begin your reading speed test. You will have 60 seconds to read a selected text. After 60 seconds, you will be prompted to specify the last word you read, after which your WPM (words per minute) will be calculated and used in your reading estimates."
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    on: {
+                      click: function($event) {
+                        _vm.takeTest()
+                      }
                     }
-                  }
-                },
-                [_vm._v("Take Test")]
-              )
+                  },
+                  [_vm._v("Take Test")]
+                )
+              ])
             ])
           : _vm._e(),
         _vm._v(" "),

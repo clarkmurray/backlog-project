@@ -161,6 +161,27 @@ button.btn.btn-default.dropdown-toggle.as-is.bs-dropdown-to-select {
 	margin-top: 20px;
 }
 
+#wpmPrompt {
+	padding: 35px;
+}
+
+.remove, .checkOff, .readAgain, .watchAgain {
+	border: none;
+	background-color: none;
+}
+
+.remove:hover i {
+	color: red;
+}
+
+.checkOff:hover i, .readAgain:hover i, .watchAgain:hover i {
+	color: green;
+}
+
+.addButtonGroup {
+	margin-bottom: 40px !important;
+}
+
 #addMovieForm {
-	display: hidden !important;
+	display: none;
 }
