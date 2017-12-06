@@ -39,14 +39,14 @@
                                 <td>
                                     <form method="post" action="/books/{{ $book->id }}/add" class="form-inline">
                                     {{ csrf_field() }}
-                                    <button type="submit" class="readAgain">
+                                    <button type="submit" class="readAgain" data-toggle="tooltip" data-placement="bottom" title="Read again">
                                         <i class="fa fa-book fa-lg" aria-hidden="true"></i></td>
                                     </button>
                                     </form>
                                 <td>
                                     <form method="post" action="/books/{{ $book->id }}/not-read" class="form-inline">
                                     {{ csrf_field() }}
-                                    <button type="submit" class="remove">
+                                    <button type="submit" class="remove" data-toggle="tooltip" data-placement="bottom" title="Remove from list">
                                         <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
                                     </button>
                                     </form>

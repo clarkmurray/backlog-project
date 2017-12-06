@@ -37,7 +37,7 @@
                                 <td>
                                     <form method="post" action="/movies/{{ $movie->id }}/add" class="form-inline">
                                     {{ csrf_field() }}
-                                    <button type="submit" class="watchAgain">
+                                    <button type="submit" class="watchAgain" data-toggle="tooltip" data-placement="bottom" title="Watch again">
                                         <i class="fa fa-film fa-lg" aria-hidden="true"></i></td>
                                     </button>
                                     </form>

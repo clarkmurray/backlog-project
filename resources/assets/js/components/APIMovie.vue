@@ -13,7 +13,7 @@
 					<li class="bookStat">Run Time: {{ length }} minutes </li>
 				</ul>
 				<p class="bookSummary">{{ description }}</p>
-				<div>
+				<div class="bookButtons text-center">
 					<button class="addBacklog btn btn-primary" v-on:click="addBacklog">Add to Backlog</button>
 					<button class="markRead btn btn-success" v-on:click="addWatched">Mark as Watched</button>
 				</div>

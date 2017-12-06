@@ -14,10 +14,10 @@
 				<h4 class="bookAuthor">Directed by {{ $movie->director }}</h4>
 				<ul class="bookStats text-left">
 					<li class="bookStat">Released: {{ $movie->release }}</li>
-					<li class="bookStat">Runtime: {{ $movie->runtime }}</li>
+					<li class="bookStat">Runtime: {{ $movie->runtime }} minutes</li>
 				</ul>
 				<p class="bookSummary">{{ $movie->description }}</p>
-				<div class="text-center">
+				<div class="bookButtons text-center">
 
 
 					@if((!$user->movieBacklog()->where('movie_id', $movie->id)->exists()) or ($user->movieBacklog()->where('movie_id', $movie->id)->where('watch_again', false)->where('is_finished', true)->first()))

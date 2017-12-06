@@ -41,7 +41,7 @@
                             <td>
                                 <form method="post" action="/books/{{ $book->id }}/read" class="form-inline">
                                 {{ csrf_field() }}
-                                    <button type="submit" class="checkOff">
+                                    <button type="submit" class="checkOff" data-toggle="tooltip" data-placement="bottom" title="Mark as Read">
                                         <i class="fa fa-check-square fa-lg" aria-hidden="true"></i>
                                     </button>
                                 </form>
@@ -49,7 +49,7 @@
                             <td>
                                 <form method="post" action="/books/{{ $book->id }}/remove" class="form-inline">
                                 {{ csrf_field() }}
-                                    <button type="submit" class="remove">
+                                    <button type="submit" class="remove" data-toggle="tooltip" data-placement="bottom" title="Remove from list">
                                         <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
                                     </button>
                                 </form>

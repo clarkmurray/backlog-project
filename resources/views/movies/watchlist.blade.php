@@ -38,7 +38,7 @@
                             <td>
                                 <form method="post" action="/movies/{{ $movie->id }}/watched" class="form-inline">
                                 {{ csrf_field() }}
-                                    <button type="submit" class="checkOff">
+                                    <button type="submit" class="checkOff" data-toggle="tooltip" data-placement="bottom" title="Mark as Watched">
                                         <i class="fa fa-check-square fa-lg" aria-hidden="true"></i>
                                     </button>
                                 </form>
@@ -46,7 +46,7 @@
                             <td>
                                 <form method="post" action="/movies/{{ $movie->id }}/remove" class="form-inline">
                                 {{ csrf_field() }}
-                                    <button type="submit" class="remove">
+                                    <button type="submit" class="remove" data-toggle="tooltip" data-placement="bottom" title="Remove from list">
                                         <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
                                     </button>
                                 </form>
