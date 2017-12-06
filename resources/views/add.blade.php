@@ -3,12 +3,15 @@
 @section('content')
 
 <div class="container">
-    <div class="row bookForm addForm">
-        <div class="col-md-8 col-md-offset-2">
-            <ul>
-                <li>Add Book</li>
-                <li>Add Movie</li>
-            </ul>
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <button class="btn btn-default" id="addBookButton">Add Book</button>
+            <button class="btn btn-default" id="addMovieButton">Add Movie</button>
+        </div>
+    </div>
+    </div>
+    <div class="row addForm" id="addBookForm">
+        <div class="col-md-10 col-md-offset-1">
 
             <h1 class="text-center">Add Book</h1>
 
@@ -44,13 +47,14 @@
                     <button type="submit" name="button" value="Add" class="btn btn-default">Add to Backlog</button>
                 </div>
 
+            </div>
 
              </form>
         </div>
     </div>
 
-    <div class="row movieForm addForm">
-        <div class="col-md-8 col-md-offset-2">
+    <div class="row addForm" id="addMovieForm">
+        <div class="col-xs-10 col-xs-offset-1">
 
             <h1 class="text-center">Add Movie</h1>
 

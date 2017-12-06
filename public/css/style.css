@@ -18,6 +18,26 @@ nav a {
 	padding-top: 30px !important;
 }
 
+@media screen and (max-width: 1200px) {
+    #instantInput {
+    	width: 400px !important;
+    }
+}
+
+@media screen and (max-width: 992px) {
+	#instantInput {
+		width: 300px !important;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.hidden-xs > #instantInput {
+		display: inline !important;
+		width: 3500px !important;
+	}
+}
+
+
 ul.dropdown-menu {
 	background-color: #548687 !important;
 }
@@ -141,21 +161,6 @@ button.btn.btn-default.dropdown-toggle.as-is.bs-dropdown-to-select {
 	margin-top: 20px;
 }
 
-.addForm {
-	background-color: white;
-	padding-top: 50px;
+#addMovieForm {
+	display: hidden !important;
 }
-
-.movieForm {
-	display: none;
-}
-
-/*Vertically align list items in header
-
-Vertically align search bar & style it
-
-Set button next to search bar to search APIs
-
-Way to select what medium you are searching
-
-Instant search results drop down below bar & over rest of content*/

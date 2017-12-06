@@ -12164,6 +12164,16 @@ var app = new Vue({
   el: '#app'
 });
 
+$('#addBookButton').on('click', function () {
+  $('#addBookForm').show();
+  $('#addMovieForm').hide();
+});
+
+$('#addMovieButton').on('click', function () {
+  $('#addMovieForm').show();
+  $('#addBookForm').hide();
+});
+
 /***/ }),
 /* 163 */
 /***/ (function(module, exports, __webpack_require__) {

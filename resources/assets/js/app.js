@@ -32,3 +32,13 @@ Vue.component('search-movie', require('./components/APIMovie.vue'));
 const app = new Vue({
     el: '#app'
 });
+
+$('#addBookButton').on('click', () => {
+	$('#addBookForm').show();
+	$('#addMovieForm').hide();
+});
+
+$('#addMovieButton').on('click', () => {
+	$('#addMovieForm').show();
+	$('#addBookForm').hide();
+})
