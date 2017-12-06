@@ -11,9 +11,14 @@ class MovieController extends Controller
     public function index() {
     	$user = \Auth::user();
     	$movies = \Auth::user()->movieBacklog()->where('user_id', $user->id)->where('is_finished', false)->orWhere('watch_again', true)->get();
+        $totalRuntime = 0;
+
+        foreach ($movies as $movie) {
+            $totalRuntime += $movie->runtime;
+        }
 
 
-    	return view('movies.watchlist', compact('movies'));
+    	return view('movies.watchlist', compact('movies', 'totalRuntime'));
     }
 
     public function store(Request $request) {
@@ -170,6 +175,20 @@ class MovieController extends Controller
 
 
         return back();
+    }
+
+     public static function timeToWatch($minutes) {
+        $user = \Auth::user();
+        
+        $hours = floor($minutes/60);
+        $minutes = $minutes % 60;
+
+        if ($minutes > 0) {
+            return $hours . 'h, ' . $minutes . 'm';
+        }
+
+        return $hours . ' hours';
+
     }
 
     public function newMovie(Request $request){

@@ -8,6 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span>My Movies</span>
+                    <span class="pull-right">Total Time to Watch: {{ \App\Http\Controllers\MovieController::timeToWatch($totalRuntime) }} </span>
                 </div>
 
                 <div class="panel-body">
@@ -34,7 +35,7 @@
                             <td><a href="/movies/{{ $movie->id }}">{{ $movie->title }}</a>
                             <td>{{ $movie->director }}</td>
                             <td>{{ $movie->release }}</td>
-                            <td>{{ $movie->runtime }}</td>
+                            <td>{{ \App\Http\Controllers\MovieController::timeToWatch($movie->runtime) }}</td>
                             <td>
                                 <form method="post" action="/movies/{{ $movie->id }}/watched" class="form-inline">
                                 {{ csrf_field() }}

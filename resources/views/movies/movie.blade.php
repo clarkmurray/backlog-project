@@ -14,7 +14,7 @@
 				<h4 class="bookAuthor">Directed by {{ $movie->director }}</h4>
 				<ul class="bookStats text-left">
 					<li class="bookStat">Released: {{ $movie->release }}</li>
-					<li class="bookStat">Runtime: {{ $movie->runtime }} minutes</li>
+					<li class="bookStat">Runtime: {{ \App\Http\Controllers\MovieController::timeToWatch($movie->runtime) }}</li>
 				</ul>
 				<p class="bookSummary">{{ $movie->description }}</p>
 				<div class="bookButtons text-center">
