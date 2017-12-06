@@ -86,7 +86,6 @@
         <div class ="container">
             <div class="row">
                     <h1 class="text-center">Backlogged</h1>
-                    <h3 class="text-center">Insert a marketing slogan here</h3>
                     <div class="text-center">
                         @if (Route::has('login'))
                             <div class="text-center links">
