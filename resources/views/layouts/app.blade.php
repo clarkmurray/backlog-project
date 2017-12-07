@@ -41,7 +41,7 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <a class="logo" href="{{ url('/') }}">
-                                <img src="./logo.png" height="80px" width="80px">
+                                <img src="{{asset('logo.png')}}"height="80px" width="80px">
                             </a>
                         </li>
                         &nbsp;
