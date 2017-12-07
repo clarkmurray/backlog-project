@@ -87,6 +87,9 @@
             <div class="row">
                     <h1 class="text-center">Backlogged</h1>
                     <div class="text-center">
+                    <img src="./logo.png" height="300px" width="300px">
+                    </div>
+                    <div class="text-center">
                         @if (Route::has('login'))
                             <div class="text-center links">
                                 @auth
