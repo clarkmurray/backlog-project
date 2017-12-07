@@ -21,11 +21,11 @@
 		                    <table class="table" id="apiSearchResults">
 
 		                    	<tr>
-		                    		<th rowspan="2"><img v-bind:src="result.imageLinks.smallThumbnail"></th>
-		                    		<th>{{ result.title }}</th>
+		                    		<th class="coverCell" rowspan="2"><img v-bind:src="result.imageLinks.smallThumbnail"></th>
+		                    		<th class="text-left">{{ result.title }}</th>
 		                    	</tr>
 		                    	<tr>
-		                    		<td>{{ result.authors[0] }}</td>
+		                    		<td class="text-left">{{ result.authors[0] }}</td>
 		                    	</tr>
 
 		                    </table>
@@ -42,8 +42,8 @@
 	                    	<table class="table">
 
 	                    	<tr>
-	                    		<td rowspan="2"><img v-bind:src="'https://image.tmdb.org/t/p/w150' + result.poster_path"></td>
-	                    		<td>{{ result.title }}</td>
+	                    		<td class="coverCell" rowspan="2"><img v-bind:src="'https://image.tmdb.org/t/p/w150' + result.poster_path"></td>
+	                    		<td class="text-left">{{ result.title }}</td>
 	                    	</tr>
 
 	                   	 	</table>

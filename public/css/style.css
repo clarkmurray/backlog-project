@@ -214,3 +214,7 @@ button.btn.btn-default.dropdown-toggle.as-is.bs-dropdown-to-select {
 a.logo {
 	padding-top: 1px !important
 }
+
+th.coverCell, td.coverCell {
+	width: 350px;
+}

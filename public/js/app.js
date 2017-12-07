@@ -66327,8 +66327,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -66457,12 +66455,6 @@ var render = function() {
                   _c("p", [
                     _vm._v(
                       "He was not studying medicine. He had himself, in reply to a question, confirmed Stamford’s opinion upon that point. Neither did he appear to have pursued any course of reading which might fit him for a degree in science or any other recognized portal which would give him an entrance into the learned world. Yet his zeal for certain studies was remarkable, and within eccentric limits his knowledge was so extraordinarily ample and minute that his observations have fairly astounded me. Surely no man would work so hard or attain such precise information unless he had some definite end in view. Desultory readers are seldom remarkable for the exactness of their learning. No man burdens his mind with small matters unless he has some very good reason for doing so."
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "His ignorance was as remarkable as his knowledge. Of contemporary literature, philosophy and politics he appeared to know next to nothing. Upon my quoting Thomas Carlyle, he inquired in the naivest way who he might be and what he had done. My surprise reached a climax, however, when I found incidentally that he was ignorant of the Copernican Theory and of the composition of the Solar System. That any civilized human being in this nineteenth century should not be aware that the earth travelled round the sun appeared to be to me such an extraordinary fact that I could hardly realize it."
                     )
                   ]),
                   _vm._v(" "),
@@ -66832,19 +66824,30 @@ var render = function() {
                           },
                           [
                             _c("tr", [
-                              _c("th", { attrs: { rowspan: "2" } }, [
-                                _c("img", {
-                                  attrs: {
-                                    src: result.imageLinks.smallThumbnail
-                                  }
-                                })
-                              ]),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "coverCell",
+                                  attrs: { rowspan: "2" }
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src: result.imageLinks.smallThumbnail
+                                    }
+                                  })
+                                ]
+                              ),
                               _vm._v(" "),
-                              _c("th", [_vm._v(_vm._s(result.title))])
+                              _c("th", { staticClass: "text-left" }, [
+                                _vm._v(_vm._s(result.title))
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("td", [_vm._v(_vm._s(result.authors[0]))])
+                              _c("td", { staticClass: "text-left" }, [
+                                _vm._v(_vm._s(result.authors[0]))
+                              ])
                             ])
                           ]
                         )
@@ -66877,17 +66880,26 @@ var render = function() {
                       [
                         _c("table", { staticClass: "table" }, [
                           _c("tr", [
-                            _c("td", { attrs: { rowspan: "2" } }, [
-                              _c("img", {
-                                attrs: {
-                                  src:
-                                    "https://image.tmdb.org/t/p/w150" +
-                                    result.poster_path
-                                }
-                              })
-                            ]),
+                            _c(
+                              "td",
+                              {
+                                staticClass: "coverCell",
+                                attrs: { rowspan: "2" }
+                              },
+                              [
+                                _c("img", {
+                                  attrs: {
+                                    src:
+                                      "https://image.tmdb.org/t/p/w150" +
+                                      result.poster_path
+                                  }
+                                })
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(result.title))])
+                            _c("td", { staticClass: "text-left" }, [
+                              _vm._v(_vm._s(result.title))
+                            ])
                           ])
                         ])
                       ]
