@@ -22,6 +22,10 @@ nav a {
     #instantInput {
     	width: 400px !important;
     }
+
+    .searchResultsContainer {
+    	width: 66% !important;
+    }
 }
 
 @media screen and (max-width: 992px) {
@@ -80,8 +84,9 @@ nav button {
 
 .searchResultsContainer {
 	background-color: white;
-	width: 80%;
+	width: 72.5%;
 	padding: 20px;
+	margin-left: 100px;
 	border: 1px solid black;
 }
 
