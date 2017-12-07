@@ -85,9 +85,10 @@ nav button {
 .searchResultsContainer {
 	background-color: white;
 	width: 72.5%;
-	padding: 20px;
+	padding: 10px;
 	margin-left: 100px;
 	border: 1px solid black;
+	text-align: center;
 }
 
 #searchButton {

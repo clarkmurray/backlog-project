@@ -66413,7 +66413,7 @@ var render = function() {
                 _c("div", { staticClass: "panel-body" }, [
                   _c("p", [
                     _vm._v(
-                      "Click the button below to begin your reading speed test. You will have 60 seconds to read a selected text. After 60 seconds, you will be prompted to specify the last word you read, after which your WPM (words per minute) will be calculated and used in your reading estimates."
+                      'This test is meant to calculate your WPM (Words Per Minute) reading speed, which will be used to calculate an estimate for how long a given book will take you to finish. To begin the test, click the "Take Test" button, upon which you will be provided with a passage to read. After you have finished reading the passage in its entirety, click on the button marked "Finished" to receive your WPM.'
                     )
                   ]),
                   _vm._v(" "),
