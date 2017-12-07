@@ -11,7 +11,6 @@
 				<ul class="bookStats text-left">
 					<li class="bookStat">Published: {{ published }}</li>
 					<li class="bookStat">Pages: {{ pages }}</li>
-					<li class="bookStat">Time to Read: </li>
 				</ul>
 				<p class="bookSummary">{{ description }}</p>
 				<div class="bookButtons text-center">

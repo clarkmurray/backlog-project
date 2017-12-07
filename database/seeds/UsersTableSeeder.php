@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
     	DB::table('users')->insert([
 	        'name' => 'Clark',
 	        'email' => 'clarkamurray@gmail.com',
-	        'password' => bcrypt('password'),
+	        'password' => bcrypt('halloweddev'),
 	        'wpm' => 450,
 	        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
 	        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
 
       	DB::table('users')->insert([
 	        'name' => 'Andrew',
-	        'email' => 'andrew@gmail.com',
+	        'email' => 'andrew@backlogged.com',
 	        'password' => bcrypt('password'),
 	        'wpm' => 300,
 	        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -32,7 +32,7 @@ class UsersTableSeeder extends Seeder
 
       	DB::table('users')->insert([
 	        'name' => 'Murray',
-	        'email' => 'murray@gmail.com',
+	        'email' => 'murray@backlogged.com',
 	        'password' => bcrypt('password'),
 	        'wpm' => 400,
 	        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
