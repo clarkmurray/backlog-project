@@ -39,6 +39,15 @@ nav a {
 		display: inline !important;
 		width: 3500px !important;
 	}
+	li > a.logo {
+		height: 90px;
+		width: 110px;
+	}
+
+	#logoNav {
+		height: 90px;
+		width: 110px;
+	}
 }
 
 
@@ -90,6 +99,10 @@ nav button {
 	border: 1px solid black;
 	text-align: center;
 	overflow: scroll;
+}
+
+img.algoliaLogo.img-responsive {
+	margin: auto;
 }
 
 #searchButton {

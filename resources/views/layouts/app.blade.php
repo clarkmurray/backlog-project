@@ -39,9 +39,9 @@
                 <div>
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li>
+                        <li id="logoNav">
                             <a class="logo" href="{{ url('/') }}">
-                                <img src="{{asset('logo.png')}}"height="80px" width="80px">
+                                <img src="{{asset('logo.png')}}" height="80px" width="80px">
                             </a>
                         </li>
                         &nbsp;

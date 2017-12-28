@@ -48,9 +48,8 @@
         </ais-index>
         <div v-if="query">
             <div class="searchResultsContainer">
-                <div class="searchResult algoliaLogo">
-                    <!-- <img :src="asset('search-by-algolia.png')"> -->
-                    <p>Search by Algolia</p>
+                <div class="searchResult text-center">
+                    <img class="algoliaLogo img-responsive" src="../../search-by-algolia.png">
                 </div>
             </div>
         </div>
