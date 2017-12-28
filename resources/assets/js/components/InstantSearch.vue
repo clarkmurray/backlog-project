@@ -1,21 +1,23 @@
 <template>
-        <div id="instantInput">
-            <div class="input-group searchBar" v-on:keyup.enter="secondSearch">
-                <div class="input-group-btn bs-dropdown-to-select-group" id="dropdownSelect">
-                    <button type="button" class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown" tabindex="-1">
-                        <span data-bind="bs-drp-sel-label">Books</span>
-                        <input type="hidden" name="country_path" data-bind="bs-drp-sel-value" value="Books" id="dropdownSelectValue">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" style=" max-height: 300px; overflow: scroll; overflow-y: scroll; overflow-x: hidden; ">
-                        <li data-value="Books"><a href="#">Books</a></li>
-                        <li data-value="Movies"><a href="#">Movies</a></li>
-                    </ul>
-                </div>
-                <input placeholder="Find a book, movie, or show" class="form-control" id="aisSearchBar" v-model="query">
-                <span class="input-group-addon" id="searchButton" v-on:click="secondSearch"><i class="fa fa-search" aria-hidden="true"></i></span>
-            </div>
+<div id="instantInput">
+    <div class="input-group searchBar" v-on:keyup.enter="secondSearch">
+        <div class="input-group-btn bs-dropdown-to-select-group" id="dropdownSelect">
+            <button type="button" class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown" tabindex="-1">
+                <span data-bind="bs-drp-sel-label">Books</span>
+                <input type="hidden" name="country_path" data-bind="bs-drp-sel-value" value="Books" id="dropdownSelectValue">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu" style=" max-height: 300px; overflow: scroll; overflow-y: scroll; overflow-x: hidden; ">
+                <li data-value="Books"><a href="#">Books</a></li>
+                <li data-value="Movies"><a href="#">Movies</a></li>
+            </ul>
+        </div>
+        <input placeholder="Find a book, movie, or show" class="form-control" id="aisSearchBar" v-model="query">
+        <span class="input-group-addon" id="searchButton" v-on:click="secondSearch"><i class="fa fa-search" aria-hidden="true"></i></span>
+    </div>
+    <div id="allResults">
+    <div id="allResultsScroll">
         <ais-index :search-store="searchStore" index-name="title" :query="query">
             <ais-results v-show="searchStore.query.length > 0">
                 <template slot-scope="{ result }">
@@ -44,7 +46,17 @@
                 </template>
             </ais-results>
         </ais-index>
+        <div v-if="query">
+            <div class="searchResultsContainer">
+                <div class="searchResult algoliaLogo">
+                    <!-- <img :src="asset('search-by-algolia.png')"> -->
+                    <p>Search by Algolia</p>
+                </div>
+            </div>
         </div>
+    </div>
+    </div>
+</div>
 </template>
 
 <script>

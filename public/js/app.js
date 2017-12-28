@@ -65895,6 +65895,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var searchStore = Object(__WEBPACK_IMPORTED_MODULE_0_vue_instantsearch__["a" /* createFromAlgoliaCredentials */])(window.algolia.app_id, window.algolia.search_key);
@@ -65966,167 +65978,189 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "instantInput" } },
-    [
+  return _c("div", { attrs: { id: "instantInput" } }, [
+    _c(
+      "div",
+      {
+        staticClass: "input-group searchBar",
+        on: {
+          keyup: function($event) {
+            if (
+              !("button" in $event) &&
+              _vm._k($event.keyCode, "enter", 13, $event.key)
+            ) {
+              return null
+            }
+            _vm.secondSearch($event)
+          }
+        }
+      },
+      [
+        _vm._m(0, false, false),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.query,
+              expression: "query"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            placeholder: "Find a book, movie, or show",
+            id: "aisSearchBar"
+          },
+          domProps: { value: _vm.query },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.query = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass: "input-group-addon",
+            attrs: { id: "searchButton" },
+            on: { click: _vm.secondSearch }
+          },
+          [
+            _c("i", {
+              staticClass: "fa fa-search",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "allResults" } }, [
       _c(
         "div",
-        {
-          staticClass: "input-group searchBar",
-          on: {
-            keyup: function($event) {
-              if (
-                !("button" in $event) &&
-                _vm._k($event.keyCode, "enter", 13, $event.key)
-              ) {
-                return null
-              }
-              _vm.secondSearch($event)
-            }
-          }
-        },
+        { attrs: { id: "allResultsScroll" } },
         [
-          _vm._m(0, false, false),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.query,
-                expression: "query"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              placeholder: "Find a book, movie, or show",
-              id: "aisSearchBar"
-            },
-            domProps: { value: _vm.query },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.query = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
           _c(
-            "span",
+            "ais-index",
             {
-              staticClass: "input-group-addon",
-              attrs: { id: "searchButton" },
-              on: { click: _vm.secondSearch }
+              attrs: {
+                "search-store": _vm.searchStore,
+                "index-name": "title",
+                query: _vm.query
+              }
             },
             [
-              _c("i", {
-                staticClass: "fa fa-search",
-                attrs: { "aria-hidden": "true" }
+              _c("ais-results", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.searchStore.query.length > 0,
+                    expression: "searchStore.query.length > 0"
+                  }
+                ],
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(ref) {
+                      var result = ref.result
+                      return [
+                        _c("div", { staticClass: "searchResultsContainer" }, [
+                          _c("div", { staticClass: "searchResult" }, [
+                            _c(
+                              "a",
+                              { attrs: { href: "/books/" + result.id } },
+                              [
+                                _c("h4", {
+                                  domProps: {
+                                    textContent: _vm._s(result.title)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("p", {
+                                  domProps: {
+                                    textContent: _vm._s(result.author)
+                                  }
+                                })
+                              ]
+                            )
+                          ])
+                        ])
+                      ]
+                    }
+                  }
+                ])
               })
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "ais-index",
-        {
-          attrs: {
-            "search-store": _vm.searchStore,
-            "index-name": "title",
-            query: _vm.query
-          }
-        },
-        [
-          _c("ais-results", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.searchStore.query.length > 0,
-                expression: "searchStore.query.length > 0"
-              }
             ],
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(ref) {
-                  var result = ref.result
-                  return [
-                    _c("div", { staticClass: "searchResultsContainer" }, [
-                      _c("div", { staticClass: "searchResult" }, [
-                        _c("a", { attrs: { href: "/books/" + result.id } }, [
-                          _c("h4", {
-                            domProps: { textContent: _vm._s(result.title) }
-                          }),
-                          _vm._v(" "),
-                          _c("p", {
-                            domProps: { textContent: _vm._s(result.author) }
-                          })
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "ais-index",
+            {
+              attrs: {
+                "search-store": _vm.store,
+                "index-name": "movies",
+                query: _vm.query
+              }
+            },
+            [
+              _c("ais-results", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.store.query.length > 0,
+                    expression: "store.query.length > 0"
+                  }
+                ],
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(ref) {
+                      var result = ref.result
+                      return [
+                        _c("div", { staticClass: "searchResultsContainer" }, [
+                          _c("div", { staticClass: "searchResult" }, [
+                            _c(
+                              "a",
+                              { attrs: { href: "/movies/" + result.id } },
+                              [
+                                _c("h4", {
+                                  domProps: {
+                                    textContent: _vm._s(result.title)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("p", {
+                                  domProps: {
+                                    textContent: _vm._s(result.director)
+                                  }
+                                })
+                              ]
+                            )
+                          ])
                         ])
-                      ])
-                    ])
-                  ]
-                }
-              }
-            ])
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "ais-index",
-        {
-          attrs: {
-            "search-store": _vm.store,
-            "index-name": "movies",
-            query: _vm.query
-          }
-        },
-        [
-          _c("ais-results", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.store.query.length > 0,
-                expression: "store.query.length > 0"
-              }
+                      ]
+                    }
+                  }
+                ])
+              })
             ],
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(ref) {
-                  var result = ref.result
-                  return [
-                    _c("div", { staticClass: "searchResultsContainer" }, [
-                      _c("div", { staticClass: "searchResult" }, [
-                        _c("a", { attrs: { href: "/movies/" + result.id } }, [
-                          _c("h4", {
-                            domProps: { textContent: _vm._s(result.title) }
-                          }),
-                          _vm._v(" "),
-                          _c("p", {
-                            domProps: { textContent: _vm._s(result.director) }
-                          })
-                        ])
-                      ])
-                    ])
-                  ]
-                }
-              }
-            ])
-          })
+            1
+          ),
+          _vm._v(" "),
+          _vm.query ? _c("div", [_vm._m(1, false, false)]) : _vm._e()
         ],
         1
       )
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -66192,6 +66226,16 @@ var staticRenderFns = [
         )
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "searchResultsContainer" }, [
+      _c("div", { staticClass: "searchResult algoliaLogo" }, [
+        _c("p", [_vm._v("Search by Algolia")])
+      ])
+    ])
   }
 ]
 render._withStripped = true

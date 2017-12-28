@@ -18,7 +18,8 @@
                         </div>
                     @endif
 
-                    <table class="table">
+                    <div class="table-responsive">
+                    <table class="table table-condensed">
                         <thead>
                             <th></th>
                             <th>Title</th>
@@ -40,9 +41,10 @@
                                     <form method="post" action="/books/{{ $book->id }}/add" class="form-inline">
                                     {{ csrf_field() }}
                                     <button type="submit" class="readAgain" data-toggle="tooltip" data-placement="bottom" title="Read again">
-                                        <i class="fa fa-book fa-lg" aria-hidden="true"></i></td>
+                                        <i class="fa fa-book fa-lg" aria-hidden="true"></i>
                                     </button>
                                     </form>
+                                </td>
                                 <td>
                                     <form method="post" action="/books/{{ $book->id }}/not-read" class="form-inline">
                                     {{ csrf_field() }}
@@ -55,6 +57,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
 
             </div>

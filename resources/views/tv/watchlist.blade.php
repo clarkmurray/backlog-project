@@ -7,8 +7,8 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span>My Movies</span>
-                    <span class="pull-right">Total Time to Watch: {{ \App\Http\Controllers\MovieController::timeToWatch($totalRuntime) }} </span>
+                    <span>My TV</span>
+                    <span class="pull-right">Total Time to Watch: {{ \App\Http\Controllers\TVController::timeToWatch($totalRuntime) }} </span>
                 </div>
 
                 <div class="panel-body">
@@ -18,19 +18,18 @@
                         </div>
                     @endif
 
-                    <div class="table-responsive">
-                    <table class="table table-condensed">
+                    <table class="table">
                         <thead>
                             <th></th>
                             <th>Title</th>
-                            <th>Director</th>
+                            <th>Showrunner</th>
                             <th>Released</th>
                             <th>Run Time</th>
                             <th></th>
                             <th></th>
                         </thead>
                         <tbody>
-                            @foreach ($movies as $movie) 
+                            @foreach ($tvShows as $tvShow) 
                             <tr>
                             <td></td>
                             <td><a href="/movies/{{ $movie->id }}">{{ $movie->title }}</a>
@@ -57,7 +56,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    </div>
                 </div>
 
             </div>

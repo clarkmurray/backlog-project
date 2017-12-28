@@ -89,6 +89,7 @@ nav button {
 	margin-left: 100px;
 	border: 1px solid black;
 	text-align: center;
+	overflow: scroll;
 }
 
 #searchButton {

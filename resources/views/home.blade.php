@@ -18,7 +18,8 @@
                         </div>
                     @endif
 
-                    <table class="table">
+                    <div class="table-responsive">
+                    <table class="table table-condensed">
                         <thead>
                             <th></th>
                             <th>Title</th>
@@ -58,6 +59,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
 
             </div>
