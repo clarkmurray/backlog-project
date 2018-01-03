@@ -42,8 +42,6 @@ nav.navbar.navbar-default.navbar-static-top {
 	#instantInput {
 		width: 300px !important;
 	}
-
-
 }
 
 @media screen and (max-width: 767px) {
@@ -147,7 +145,7 @@ nav button {
 	margin-left: -50px;
 }
 
-#instantInput {
+div#instantInput {
 	width: 500px;
 	display: inline-block !important;
 }
