@@ -12164,6 +12164,10 @@ var app = new Vue({
   el: '#app'
 });
 
+$(window).resize(function () {
+  if ($(window).width() <= 768) $('.resize-move').addClass("moved");else $('.resize-move').removeClass("moved");
+});
+
 /***/ }),
 /* 163 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -66231,7 +66235,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "searchResultsContainer" }, [
-      _c("div", { staticClass: "searchResult" }, [
+      _c("div", { staticClass: "searchResult text-center" }, [
         _c("img", {
           staticClass: "algoliaLogo img-responsive",
           attrs: { src: __webpack_require__(377) }

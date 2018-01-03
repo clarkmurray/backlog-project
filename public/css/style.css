@@ -18,8 +18,18 @@ nav a {
 	padding-top: 30px !important;
 }
 
+#logoNav > a > img {
+	padding-top: 0px !important;
+	margin-bottom: 0px !important;
+	vertical-align: top;
+}
+
+nav.navbar.navbar-default.navbar-static-top {
+	margin-bottom: 0px !important;
+}
+
 @media screen and (max-width: 1200px) {
-    #instantInput {
+    div#instantInput {
     	width: 400px !important;
     }
 
@@ -32,24 +42,86 @@ nav a {
 	#instantInput {
 		width: 300px !important;
 	}
+
+
 }
 
 @media screen and (max-width: 767px) {
 	.hidden-xs > #instantInput {
 		display: inline !important;
-		width: 3500px !important;
-	}
-	li > a.logo {
-		height: 90px;
-		width: 110px;
+		width: 250px !important;
 	}
 
-	#logoNav {
-		height: 90px;
-		width: 110px;
+	div.container {
+		padding-left: 15px !important;
+		margin-left: 9px;
 	}
 }
 
+@media screen and (max-width: 570px) {
+	div#instantInput {
+		width: 350px !important;
+	}
+
+	#logoNav > a >img {
+		height: 70px;
+		width: 70px;
+	}
+
+	.searchBar {
+		margin-left: 15px !important;
+	}
+}
+
+@media screen and (max-width: 510px) {
+	div#instantInput {
+		width: 300px !important;
+	}
+
+	#logoNav > a >img {
+		height: 60px;
+		width: 60px;
+		margin-top: 7px !important;
+	}
+
+	.searchBar {
+		margin-left: 10px !important;
+	}
+}
+
+@media screen and (max-width: 460px) {
+	div#instantInput {
+		width: 300px !important;
+	}
+
+	.searchBar {
+		margin-left: 5px !important;
+	}
+}
+
+@media screen and (max-width: 440px) {
+	div#instantInput {
+		width: 300px !important;
+	}
+
+	.searchBar {
+		margin-left: 3px !important;
+	}
+
+	#logoNav {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 395px) {
+	div#instantInput {
+		width: 275px !important;
+	}
+	
+	.searchBar {
+		margin-left: 0px !important;
+	}
+}
 
 ul.dropdown-menu {
 	background-color: #548687 !important;
@@ -77,6 +149,7 @@ nav button {
 
 #instantInput {
 	width: 500px;
+	display: inline-block !important;
 }
 
 #main {
@@ -231,4 +304,12 @@ a.logo {
 
 th.coverCell, td.coverCell {
 	width: 350px;
+}
+
+div.navbar-collapse.collapse.in {
+	background-color: #548687;
+}
+
+button.navbar-toggle.collapsed {
+	margin-top: 18px !important;
 }

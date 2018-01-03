@@ -22,29 +22,24 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
+                    <span id="logoNav">
+                        <a class="logo" href="{{ url('/') }}">
+                            <img src="{{asset('logo.png')}}" height="80px" width="80px">
+                        </a>
+                    </span>
+                    <algolia-instantsearch></algolia-instantsearch>
 
                     <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
                         <span class="sr-only">Toggle Navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
-                    <!-- Branding Image -->
-                    <!-- <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="./backlog-logo.png" height="100px" width="100px">
-                    </a> -->
                 </div>
-                <div>
+                <div class="collapse navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li id="logoNav">
-                            <a class="logo" href="{{ url('/') }}">
-                                <img src="{{asset('logo.png')}}" height="80px" width="80px">
-                            </a>
-                        </li>
-                        &nbsp;
                         @auth
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My Books</a>
@@ -61,7 +56,7 @@
                                 <li><a href="/watched">Watched</a></li>
                             </ul>
                         </li>
-                        <li><algolia-instantsearch></algolia-instantsearch></li>
+                        <!-- <li class="resize-move"><algolia-instantsearch></algolia-instantsearch></li> -->
                     </ul>
 
                     <!-- Right Side Of Navbar -->
