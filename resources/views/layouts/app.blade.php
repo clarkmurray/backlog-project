@@ -24,11 +24,9 @@
                 <div class="navbar-header">
                     <span id="logoNav">
                         <a class="logo" href="{{ url('/') }}">
-                            <img src="{{asset('logo.png')}}" height="80px" width="80px">
+                            <img src="{{asset('logo.png')}}" height="70px" width="70px">
                         </a>
                     </span>
-                    <algolia-instantsearch></algolia-instantsearch>
-
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
                         <span class="sr-only">Toggle Navigation</span>
@@ -54,6 +52,20 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/movie-backlog">Backlog</a></li>
                                 <li><a href="/watched">Watched</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My TV</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Backlog</a></li>
+                                <li><a href="#">Watched</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My Games</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Backlog</a></li>
+                                <li><a href="#">Played</a></li>
                             </ul>
                         </li>
                         <!-- <li class="resize-move"><algolia-instantsearch></algolia-instantsearch></li> -->
@@ -89,6 +101,11 @@
                     </ul>
                 </div>
                 @endauth
+            </div>
+            <div class="row algolia-search-bar">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <algolia-instantsearch></algolia-instantsearch>
+                </div>
             </div>
         </nav>
 

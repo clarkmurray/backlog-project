@@ -12164,10 +12164,6 @@ var app = new Vue({
   el: '#app'
 });
 
-$(window).resize(function () {
-  if ($(window).width() <= 768) $('.resize-move').addClass("moved");else $('.resize-move').removeClass("moved");
-});
-
 /***/ }),
 /* 163 */
 /***/ (function(module, exports, __webpack_require__) {
