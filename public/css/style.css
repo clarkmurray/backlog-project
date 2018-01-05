@@ -19,8 +19,11 @@ nav a {
 	padding-top: 30px !important;
 }
 
-.algolia-search-bar {
+div.row.algolia-search-bar {
 	background-color: #548687;
+	position: fixed !important;
+	height: 64px;
+	width: 100% !important;
 }
 
 #logoNav > a > img {
@@ -167,6 +170,11 @@ nav button {
 
 .searchResult > a {
 	color: black !important;
+}
+
+div.ais-results {
+	height: 400px;
+	overflow: scroll;
 }
 
 .searchResultsContainer {
