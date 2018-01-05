@@ -18,6 +18,13 @@
     </div>
     <div id="allResults">
     <div id="allResultsScroll">
+         <div v-if="query">
+            <div class="searchResultsContainer">
+                <div class="searchResult text-center">
+                    <img class="algoliaLogo img-responsive" src="../../search-by-algolia.png">
+                </div>
+            </div>
+        </div>
         <ais-index :search-store="searchStore" index-name="title" :query="query">
             <ais-results v-show="searchStore.query.length > 0">
                 <template slot-scope="{ result }">
@@ -46,13 +53,6 @@
                 </template>
             </ais-results>
         </ais-index>
-        <div v-if="query">
-            <div class="searchResultsContainer">
-                <div class="searchResult text-center">
-                    <img class="algoliaLogo img-responsive" src="../../search-by-algolia.png">
-                </div>
-            </div>
-        </div>
     </div>
     </div>
 </div>
