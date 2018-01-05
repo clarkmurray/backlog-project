@@ -103,10 +103,8 @@
                 @endauth
             </div>
             @if (Auth::check())
-            <div class="row algolia-search-bar">
-                <div class="col-md-10 col-md-offset-1 text-center">
+            <div class="algolia-search-bar">
                     <algolia-instantsearch></algolia-instantsearch>
-                </div>
             </div>
             @endif
         </nav>
