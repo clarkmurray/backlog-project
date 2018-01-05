@@ -65,8 +65,10 @@
     const store = createFromAlgoliaCredentials(window.algolia.app_id, window.algolia.search_key);
 
     searchStore.indexName = 'title';
+    searchStore.resultsPerPage = 2;
 
     store.indexName = 'movies';
+    store.resultsperPage = 2;
 
 
     export default {

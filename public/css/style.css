@@ -27,6 +27,10 @@ nav a {
 	text-align: center;
 }
 
+input#aisSearchBar.form-control {
+	height: 40px !important;
+}
+
 #logoNav > a > img {
 	padding-top: 0px !important;
 	margin-bottom: 0px !important;
