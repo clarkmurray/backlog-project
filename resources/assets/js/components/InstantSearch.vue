@@ -25,16 +25,17 @@
                 </div>
             </div>
         </div>
+        <div v-show="query" class="allResultsContainer">
         <ais-index :search-store="searchStore" index-name="title" :query="query">
             <ais-results v-show="searchStore.query.length > 0">
                 <template slot-scope="{ result }">
                     <div class="searchResultsContainer">
-                    <div class="searchResult">
-                        <a :href="'/books/' + result.id">
-                        <h4 v-text="result.title"></h4>
-                        <p v-text="result.author"></p>
-                        </a>
-                    </div>
+                        <div class="searchResult">
+                            <a :href="'/books/' + result.id">
+                            <h4 v-text="result.title"></h4>
+                            <p v-text="result.author"></p>
+                            </a>
+                        </div>
                     </div>
                 </template>
             </ais-results>
@@ -43,16 +44,17 @@
             <ais-results v-show="store.query.length > 0">
                 <template slot-scope="{ result }">
                     <div class="searchResultsContainer">
-                    <div class="searchResult">
-                        <a :href="'/movies/' + result.id">
-                        <h4 v-text="result.title"></h4>
-                        <p v-text="result.director"></p>
-                        </a>
-                    </div>
+                        <div class="searchResult">
+                            <a :href="'/movies/' + result.id">
+                            <h4 v-text="result.title"></h4>
+                            <p v-text="result.director"></p>
+                            </a>
+                        </div>
                     </div>
                 </template>
             </ais-results>
         </ais-index>
+        </div>
     </div>
     </div>
 </div>
@@ -65,10 +67,7 @@
     const store = createFromAlgoliaCredentials(window.algolia.app_id, window.algolia.search_key);
 
     searchStore.indexName = 'title';
-    searchStore.resultsPerPage = 2;
-
     store.indexName = 'movies';
-    store.resultsperPage = 2;
 
 
     export default {
