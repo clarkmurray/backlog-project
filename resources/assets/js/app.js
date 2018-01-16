@@ -28,6 +28,7 @@ Vue.component('reading-test', require('./components/ReadingTest.vue'));
 Vue.component('api-search', require('./components/APISearch.vue'));
 Vue.component('search-book', require('./components/APIBook.vue'));
 Vue.component('search-movie', require('./components/APIMovie.vue'));
+Vue.component('books-backlog', require('./components/BooksBacklog.vue'));
 
 const app = new Vue({
     el: '#app'

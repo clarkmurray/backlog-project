@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
@@ -34,7 +34,7 @@
                             @foreach ($books as $book) 
                             <tr>
                             <td></td>
-                            <td><a href="/books/{{ $book->id }}">{{ $book->title }}</a></td>
+                            <td><a href="/books/{{ $book->id }}" class="bookTitleSlot">{{ $book->title }}</a></td>
                             <td>{{ $book->author }}</td>
                             <td>{{ $book->published }}</td>
                             <td>{{ $book->pages }}</td>
@@ -67,5 +67,7 @@
     </div>
 
 
-</div>
+</div> -->
+
+    <books-backlog :books='{!! json_encode($books) !!}' :wpm='{!! json_encode($wpm) !!}' :totalPages='{!! json_encode($totalPages) !!}'></books-backlog>
 @endsection

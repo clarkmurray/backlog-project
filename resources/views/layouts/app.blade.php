@@ -111,6 +111,15 @@
 
         <div id="main">
 
+            <div class="container notify-action">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="alert alert-success alert-dismissable text-center">
+                        <span>Item was added to or removed from list</span>
+                        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                    </div>
+                </div>
+            </div>
+
             @yield('content')
 
 
@@ -144,6 +153,16 @@
         })
 
     });
+
+    $('.checkOff').on('click', (e) => {
+        var cell = $(e.target).closest('tr').find('td.bookTitleSlot');
+        console.log(cell);
+        alert(cell.html() + " has been checked off");
+        $('.notify-action').show();
+    });
+
+
+    //Save title, list name and category for display
     </script>
 
 
