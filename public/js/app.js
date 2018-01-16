@@ -67647,7 +67647,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['books', 'wpm', 'totalPages']
+    data: function data() {
+        return {
+            books: [],
+            wpm: 0,
+            totalPages: 0
+        };
+    },
+
+
+    methods: {
+        submitCheckOff: function submitCheckOff(id) {
+            var vm = this;
+            console.log("Check off is working");
+            var data = {
+                id: id
+            };
+            $.ajax({
+                type: "POST",
+                url: '/books/' + id + '/read',
+                data: data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function success() {
+                    console.log(data);
+                }
+            });
+            this.getBooks();
+        },
+
+        submitRemove: function submitRemove() {
+            console.log("Removal is working");
+        },
+
+        getBooks: function getBooks() {
+            var vm = this;
+            $.ajax({
+                type: "GET",
+                url: '/get-books',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function success(data) {
+                    console.log(data);
+                    vm.books = data[0];
+                    vm.wpm = data[1];
+                    vm.totalPages = data[2];
+                }
+            });
+        }
+    },
+
+    created: function created() {
+        this.getBooks();
+    }
 });
 
 /***/ }),
@@ -67707,16 +67761,35 @@ var render = function() {
                           "form",
                           {
                             staticClass: "form-inline",
-                            attrs: {
-                              method: "post",
-                              action: "/books/" + book.id + "/read"
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                _vm.submitCheckOff(book.id)
+                              }
                             }
                           },
                           [_vm._m(1, true, false)]
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(2, true, false)
+                      _c("td", [
+                        _c(
+                          "form",
+                          {
+                            staticClass: "form-inline",
+                            attrs: {
+                              action: "'/books/' + book.id + '/remove'"
+                            },
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                _vm.submitRemove($event)
+                              }
+                            }
+                          },
+                          [_vm._m(2, true, false)]
+                        )
+                      ])
                     ])
                   })
                 )
@@ -67778,35 +67851,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "form",
-        {
-          staticClass: "form-inline",
-          attrs: { method: "post", action: "'/books/' + book.id + '/remove'" }
-        },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "remove",
-              attrs: {
-                type: "submit",
-                "data-toggle": "tooltip",
-                "data-placement": "bottom",
-                title: "Remove from list"
-              }
-            },
-            [
-              _c("i", {
-                staticClass: "fa fa-minus-circle fa-lg",
-                attrs: { "aria-hidden": "true" }
-              })
-            ]
-          )
-        ]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "remove",
+        attrs: {
+          type: "submit",
+          "data-toggle": "tooltip",
+          "data-placement": "bottom",
+          title: "Remove from list"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fa fa-minus-circle fa-lg",
+          attrs: { "aria-hidden": "true" }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true

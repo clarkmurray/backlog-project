@@ -9,18 +9,21 @@ use App\Book;
 class BookController extends Controller
 {
     public function index() {
-    	$user = \Auth::user();
-    	$books = \Auth::user()->backlog()->where('user_id', $user->id)->where('is_finished', false)->orWhere('read_again', true)->get();
-    	$wpm = $user->wpm;
-    	$totalPages = 0;
 
-    	foreach ($books as $book) {
-    		$totalPages += $book->pages;
-    	}
+    	return view('home');
+    }
 
+    public function getBooks() {
+        $user = \Auth::user();
+        $books = \Auth::user()->backlog()->where('user_id', $user->id)->where('is_finished', false)->orWhere('read_again', true)->get();
+        $wpm = $user->wpm;
+        $totalPages = 0;
 
+        foreach ($books as $book) {
+            $totalPages += $book->pages;
+        }
 
-    	return view('home', compact('books', 'wpm', 'totalPages'));
+        return $bookBacklog = [$books, $wpm, $totalPages];
     }
 
     public function store(Request $request) {

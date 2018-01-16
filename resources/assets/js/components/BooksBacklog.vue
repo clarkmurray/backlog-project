@@ -32,14 +32,14 @@
                                         <td>{{ book.pages }}</td>
                                         <td>{{ book.pages / wpm }}</td>
                                         <td>
-                                            <form method="post" :action="'/books/' + book.id + '/read'" class="form-inline">
+                                            <form @submit.prevent="submitCheckOff(book.id)" class="form-inline">
                                                 <button type="submit" class="checkOff" data-toggle="tooltip" data-placement="bottom" title="Mark as Read">
                                                     <i class="fa fa-check-square fa-lg" aria-hidden="true"></i>
                                                 </button>
                                             </form>
                                         </td>
                                         <td>
-                                            <form method="post" action="'/books/' + book.id + '/remove'" class="form-inline">
+                                            <form @submit.prevent="submitRemove" action="'/books/' + book.id + '/remove'" class="form-inline">
                                                 <button type="submit" class="remove" data-toggle="tooltip" data-placement="bottom" title="Remove from list">
                                                     <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
                                                 </button>
@@ -59,6 +59,59 @@
 
 <script>
     export default{
-        props: ['books', 'wpm', 'totalPages']
+        data() {
+            return {
+                books: [],
+                wpm: 0,
+                totalPages: 0
+            }
+        },
+
+        methods: {
+            submitCheckOff: function(id) {
+                var vm = this;
+                console.log("Check off is working");
+                var data = { 
+                    id: id
+                }; 
+                $.ajax({
+                    type: "POST",
+                    url: '/books/' + id + '/read',
+                    data: data,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function() {
+                      console.log(data);
+                    }
+                });
+                this.getBooks();
+            },
+
+            submitRemove: function() {
+                console.log("Removal is working");
+            },
+
+            getBooks: function() {
+                var vm = this;
+                $.ajax({
+                    type: "GET",
+                    url: '/get-books',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        vm.books = data[0];
+                        vm.wpm = data[1];
+                        vm.totalPages = data[2];
+                    }
+                 });
+            }
+        },
+
+        created() {
+            this.getBooks();
+        }
     }
 </script>
