@@ -67659,14 +67659,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         submitCheckOff: function submitCheckOff(id) {
             var vm = this;
-            console.log("Check off is working");
             var data = {
                 id: id
             };
             $.ajax({
                 type: "POST",
                 url: '/books/' + id + '/read',
-                data: data,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -67677,8 +67675,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.getBooks();
         },
 
-        submitRemove: function submitRemove() {
-            console.log("Removal is working");
+        submitRemove: function submitRemove(id) {
+            var vm = this;
+            var data = {
+                id: id
+            };
+            $.ajax({
+                type: "POST",
+                url: '/books/' + id + '/remove',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function success() {
+                    console.log(data);
+                }
+            });
+            this.getBooks();
         },
 
         getBooks: function getBooks() {
@@ -67690,7 +67702,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function success(data) {
-                    console.log(data);
                     vm.books = data[0];
                     vm.wpm = data[1];
                     vm.totalPages = data[2];
@@ -67777,13 +67788,10 @@ var render = function() {
                           "form",
                           {
                             staticClass: "form-inline",
-                            attrs: {
-                              action: "'/books/' + book.id + '/remove'"
-                            },
                             on: {
                               submit: function($event) {
                                 $event.preventDefault()
-                                _vm.submitRemove($event)
+                                _vm.submitRemove(book.id)
                               }
                             }
                           },

@@ -39,7 +39,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <form @submit.prevent="submitRemove" action="'/books/' + book.id + '/remove'" class="form-inline">
+                                            <form @submit.prevent="submitRemove(book.id)" class="form-inline">
                                                 <button type="submit" class="remove" data-toggle="tooltip" data-placement="bottom" title="Remove from list">
                                                     <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
                                                 </button>
@@ -70,14 +70,12 @@
         methods: {
             submitCheckOff: function(id) {
                 var vm = this;
-                console.log("Check off is working");
                 var data = { 
                     id: id
                 }; 
                 $.ajax({
                     type: "POST",
                     url: '/books/' + id + '/read',
-                    data: data,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -88,8 +86,22 @@
                 this.getBooks();
             },
 
-            submitRemove: function() {
-                console.log("Removal is working");
+            submitRemove: function(id) {
+                var vm = this;
+                var data = {
+                    id: id
+                };
+                $.ajax({
+                    type: "POST",
+                    url: '/books/' + id + '/remove',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function() {
+                      console.log(data);
+                    }
+                });
+                this.getBooks();
             },
 
             getBooks: function() {
@@ -101,7 +113,6 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data);
                         vm.books = data[0];
                         vm.wpm = data[1];
                         vm.totalPages = data[2];
