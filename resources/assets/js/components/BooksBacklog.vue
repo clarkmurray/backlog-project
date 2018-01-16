@@ -6,7 +6,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <span>Books Backlog</span>
-                        <span class="pull-right">Time to Read: {{totalPages * wpm / 60}} </span>
+                        <span class="pull-right">Time to Read: {{ totalPages }} </span>
                     </div>
 
                     <div class="panel-body">

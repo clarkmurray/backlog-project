@@ -67731,9 +67731,7 @@ var render = function() {
             _c("span", [_vm._v("Books Backlog")]),
             _vm._v(" "),
             _c("span", { staticClass: "pull-right" }, [
-              _vm._v(
-                "Time to Read: " + _vm._s(_vm.totalPages * _vm.wpm / 60) + " "
-              )
+              _vm._v("Time to Read: " + _vm._s(_vm.totalPages) + " ")
             ])
           ]),
           _vm._v(" "),

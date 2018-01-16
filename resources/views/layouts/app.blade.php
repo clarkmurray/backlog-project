@@ -55,18 +55,10 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My TV</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Backlog</a></li>
-                                <li><a href="#">Watched</a></li>
-                            </ul>
+                            <a href="#"><del>My TV</del></a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My Games</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Backlog</a></li>
-                                <li><a href="#">Played</a></li>
-                            </ul>
+                            <a href="#"><del>My Games</del></a>
                         </li>
                         <!-- <li class="resize-move"><algolia-instantsearch></algolia-instantsearch></li> -->
                     </ul>
