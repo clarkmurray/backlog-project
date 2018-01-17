@@ -1,18 +1,7 @@
 <template>
     <div class="container">
 
-        <div class="row alertNotification">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="alert alert-success text-center"">
-                    <button type="button" class="close" data-hide="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <span>
-                        <a :href="itemURL" class="alert-link">{{ itemTitle }}</a> was {{ action }} <a :href="destinationURL" class="alert-link">{{ destination }}</a>
-                    </span>
-                </div>
-            </div>
-        </div>
+        <action-alert :itemURL="itemURL" :itemTitle="itemTitle" :action="action" :destinationURL="destinationURL" :destination="destination"></action-alert>
 
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -154,11 +143,6 @@
 
         created() {
             this.getBooks();
-            $(function(){
-                $("[data-hide]").on("click", function(){
-                    $("." + $(this).attr("data-hide")).hide();
-                });
-            });
         }
     }
 </script>

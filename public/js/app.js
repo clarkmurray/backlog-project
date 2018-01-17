@@ -498,7 +498,7 @@ module.exports = isObjectLike;
 
 var baseMatches = __webpack_require__(256),
     baseMatchesProperty = __webpack_require__(271),
-    identity = __webpack_require__(13),
+    identity = __webpack_require__(14),
     isArray = __webpack_require__(0),
     property = __webpack_require__(277);
 
@@ -760,102 +760,6 @@ module.exports = map;
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsNative = __webpack_require__(227),
-    getValue = __webpack_require__(230);
-
-/**
- * Gets the native function at `key` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the method to get.
- * @returns {*} Returns the function if it's native, else `undefined`.
- */
-function getNative(object, key) {
-  var value = getValue(object, key);
-  return baseIsNative(value) ? value : undefined;
-}
-
-module.exports = getNative;
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-/**
- * This method returns the first argument it receives.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'a': 1 };
- *
- * console.log(_.identity(object) === object);
- * // => true
- */
-function identity(value) {
-  return value;
-}
-
-module.exports = identity;
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var assignValue = __webpack_require__(77),
-    baseAssignValue = __webpack_require__(34);
-
-/**
- * Copies properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy properties from.
- * @param {Array} props The property identifiers to copy.
- * @param {Object} [object={}] The object to copy properties to.
- * @param {Function} [customizer] The function to customize copied values.
- * @returns {Object} Returns `object`.
- */
-function copyObject(source, props, object, customizer) {
-  var isNew = !object;
-  object || (object = {});
-
-  var index = -1,
-      length = props.length;
-
-  while (++index < length) {
-    var key = props[index];
-
-    var newValue = customizer
-      ? customizer(object[key], source[key], key, object, source)
-      : undefined;
-
-    if (newValue === undefined) {
-      newValue = source[key];
-    }
-    if (isNew) {
-      baseAssignValue(object, key, newValue);
-    } else {
-      assignValue(object, key, newValue);
-    }
-  }
-  return object;
-}
-
-module.exports = copyObject;
-
-
-/***/ }),
-/* 15 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -961,6 +865,102 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsNative = __webpack_require__(227),
+    getValue = __webpack_require__(230);
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+module.exports = getNative;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+module.exports = identity;
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assignValue = __webpack_require__(77),
+    baseAssignValue = __webpack_require__(34);
+
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+
+  var index = -1,
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index];
+
+    var newValue = customizer
+      ? customizer(object[key], source[key], key, object, source)
+      : undefined;
+
+    if (newValue === undefined) {
+      newValue = source[key];
+    }
+    if (isNew) {
+      baseAssignValue(object, key, newValue);
+    } else {
+      assignValue(object, key, newValue);
+    }
+  }
+  return object;
+}
+
+module.exports = copyObject;
 
 
 /***/ }),
@@ -1093,7 +1093,7 @@ module.exports = eq;
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(13),
+var identity = __webpack_require__(14),
     overRest = __webpack_require__(105),
     setToString = __webpack_require__(66);
 
@@ -2317,7 +2317,7 @@ module.exports = isPrototype;
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(12);
+var getNative = __webpack_require__(13);
 
 /* Built-in method references that are verified to be native. */
 var nativeCreate = getNative(Object, 'create');
@@ -4674,7 +4674,7 @@ module.exports = MapCache;
 /* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(12),
+var getNative = __webpack_require__(13),
     root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
@@ -8562,7 +8562,7 @@ module.exports = constant;
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(12);
+var getNative = __webpack_require__(13);
 
 var defineProperty = (function() {
   try {
@@ -8683,7 +8683,7 @@ module.exports = baseFor;
 /* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(13);
+var identity = __webpack_require__(14);
 
 /**
  * Casts `value` to `identity` if it's not a function.
@@ -8960,7 +8960,7 @@ module.exports = stubArray;
 /* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(12),
+var getNative = __webpack_require__(13),
     root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
@@ -9131,7 +9131,7 @@ var arrayMap = __webpack_require__(10),
     baseClone = __webpack_require__(281),
     baseUnset = __webpack_require__(297),
     castPath = __webpack_require__(22),
-    copyObject = __webpack_require__(14),
+    copyObject = __webpack_require__(15),
     customOmitClone = __webpack_require__(299),
     flatRest = __webpack_require__(133),
     getAllKeysIn = __webpack_require__(79);
@@ -10515,7 +10515,7 @@ module.exports = orderBy;
 /* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(13),
+var identity = __webpack_require__(14),
     metaMap = __webpack_require__(144);
 
 /**
@@ -12055,7 +12055,7 @@ exports.getQueryStringFromState = function(state, options) {
 
 var constant = __webpack_require__(106),
     createInverter = __webpack_require__(360),
-    identity = __webpack_require__(13);
+    identity = __webpack_require__(14);
 
 /**
  * Creates an object composed of the inverted keys and values of `object`.
@@ -12122,7 +12122,7 @@ module.exports = '2.23.0';
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(162);
-module.exports = __webpack_require__(393);
+module.exports = __webpack_require__(396);
 
 
 /***/ }),
@@ -12160,6 +12160,7 @@ Vue.component('api-search', __webpack_require__(381));
 Vue.component('search-book', __webpack_require__(384));
 Vue.component('search-movie', __webpack_require__(387));
 Vue.component('books-backlog', __webpack_require__(390));
+Vue.component('action-alert', __webpack_require__(393));
 
 var app = new Vue({
   el: '#app'
@@ -60045,7 +60046,7 @@ module.exports = arrayIncludesWith;
 
 var constant = __webpack_require__(106),
     defineProperty = __webpack_require__(107),
-    identity = __webpack_require__(13);
+    identity = __webpack_require__(14);
 
 /**
  * The base implementation of `setToString` without support for hot loop shorting.
@@ -60781,7 +60782,7 @@ module.exports = equalObjects;
 /* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(12),
+var getNative = __webpack_require__(13),
     root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
@@ -60794,7 +60795,7 @@ module.exports = DataView;
 /* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(12),
+var getNative = __webpack_require__(13),
     root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
@@ -60807,7 +60808,7 @@ module.exports = Promise;
 /* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(12),
+var getNative = __webpack_require__(13),
     root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
@@ -61366,7 +61367,7 @@ module.exports = baseClone;
 /* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(14),
+var copyObject = __webpack_require__(15),
     keys = __webpack_require__(6);
 
 /**
@@ -61389,7 +61390,7 @@ module.exports = baseAssign;
 /* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(14),
+var copyObject = __webpack_require__(15),
     keysIn = __webpack_require__(35);
 
 /**
@@ -61477,7 +61478,7 @@ module.exports = nativeKeysIn;
 /* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(14),
+var copyObject = __webpack_require__(15),
     getSymbols = __webpack_require__(71);
 
 /**
@@ -61499,7 +61500,7 @@ module.exports = copySymbols;
 /* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(14),
+var copyObject = __webpack_require__(15),
     getSymbolsIn = __webpack_require__(128);
 
 /**
@@ -62377,7 +62378,7 @@ module.exports = unicodeToArray;
 /* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(14),
+var copyObject = __webpack_require__(15),
     createAssigner = __webpack_require__(139),
     keysIn = __webpack_require__(35);
 
@@ -62638,7 +62639,7 @@ module.exports = baseMergeDeep;
 /* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(14),
+var copyObject = __webpack_require__(15),
     keysIn = __webpack_require__(35);
 
 /**
@@ -63169,7 +63170,7 @@ var arrayMap = __webpack_require__(10),
     baseSortBy = __webpack_require__(330),
     baseUnary = __webpack_require__(63),
     compareMultiple = __webpack_require__(331),
-    identity = __webpack_require__(13);
+    identity = __webpack_require__(14);
 
 /**
  * The base implementation of `_.orderBy` without param guards.
@@ -65677,7 +65678,7 @@ function escapeHtml(string) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(372)
 /* template */
@@ -65797,7 +65798,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(375)
 /* template */
@@ -66274,7 +66275,7 @@ module.exports = "/images/search-by-algolia.png?3f22d84b817bb896bd5bef0705ff8fc7
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(379)
 /* template */
@@ -66650,7 +66651,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(382)
 /* template */
@@ -67009,7 +67010,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(385)
 /* template */
@@ -67252,7 +67253,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(388)
 /* template */
@@ -67537,7 +67538,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(391)
 /* template */
@@ -67586,17 +67587,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -67743,11 +67733,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     created: function created() {
         this.getBooks();
-        $(function () {
-            $("[data-hide]").on("click", function () {
-                $("." + $(this).attr("data-hide")).hide();
-            });
-        });
     }
 });
 
@@ -67759,129 +67744,106 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row alertNotification" }, [
-      _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
-        _c("div", { staticClass: "alert alert-success text-center" }, [
-          _vm._m(0, false, false),
-          _vm._v(" "),
-          _c("span", [
-            _c(
-              "a",
-              { staticClass: "alert-link", attrs: { href: _vm.itemURL } },
-              [_vm._v(_vm._s(_vm.itemTitle))]
-            ),
-            _vm._v(" was " + _vm._s(_vm.action) + " "),
-            _c(
-              "a",
-              {
-                staticClass: "alert-link",
-                attrs: { href: _vm.destinationURL }
-              },
-              [_vm._v(_vm._s(_vm.destination))]
-            )
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
-        _c("div", { staticClass: "panel panel-default" }, [
-          _c("div", { staticClass: "panel-heading" }, [
-            _c("span", [_vm._v("Books Backlog")]),
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("action-alert", {
+        attrs: {
+          itemURL: _vm.itemURL,
+          itemTitle: _vm.itemTitle,
+          action: _vm.action,
+          destinationURL: _vm.destinationURL,
+          destination: _vm.destination
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
+          _c("div", { staticClass: "panel panel-default" }, [
+            _c("div", { staticClass: "panel-heading" }, [
+              _c("span", [_vm._v("Books Backlog")]),
+              _vm._v(" "),
+              _c("span", { staticClass: "pull-right" }, [
+                _vm._v("Time to Read: " + _vm._s(_vm.totalPages) + " ")
+              ])
+            ]),
             _vm._v(" "),
-            _c("span", { staticClass: "pull-right" }, [
-              _vm._v("Time to Read: " + _vm._s(_vm.totalPages) + " ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table table-condensed" }, [
-                _vm._m(1, false, false),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.books, function(book) {
-                    return _c("tr", [
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "bookTitleSlot",
-                            attrs: { href: "/books/" + book.id }
-                          },
-                          [_vm._v(_vm._s(book.title))]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(book.author))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(book.published))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(book.pages))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(book.pages / _vm.wpm))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "form",
-                          {
-                            staticClass: "form-inline",
-                            on: {
-                              submit: function($event) {
-                                $event.preventDefault()
-                                _vm.submitCheckOff(book.id, book.title)
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "table-responsive" }, [
+                _c("table", { staticClass: "table table-condensed" }, [
+                  _vm._m(0, false, false),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.books, function(book) {
+                      return _c("tr", [
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "bookTitleSlot",
+                              attrs: { href: "/books/" + book.id }
+                            },
+                            [_vm._v(_vm._s(book.title))]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(book.author))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(book.published))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(book.pages))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(book.pages / _vm.wpm))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "form",
+                            {
+                              staticClass: "form-inline",
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  _vm.submitCheckOff(book.id, book.title)
+                                }
                               }
-                            }
-                          },
-                          [_vm._m(2, true, false)]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "form",
-                          {
-                            staticClass: "form-inline",
-                            on: {
-                              submit: function($event) {
-                                $event.preventDefault()
-                                _vm.submitRemove(book.id, book.title)
+                            },
+                            [_vm._m(1, true, false)]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "form",
+                            {
+                              staticClass: "form-inline",
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  _vm.submitRemove(book.id, book.title)
+                                }
                               }
-                            }
-                          },
-                          [_vm._m(3, true, false)]
-                        )
+                            },
+                            [_vm._m(2, true, false)]
+                          )
+                        ])
                       ])
-                    ])
-                  })
-                )
+                    })
+                  )
+                ])
               ])
             ])
           ])
         ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: { type: "button", "data-hide": "alert", "aria-label": "Close" }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -67962,6 +67924,139 @@ if (false) {
 
 /***/ }),
 /* 393 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(12)
+/* script */
+var __vue_script__ = __webpack_require__(394)
+/* template */
+var __vue_template__ = __webpack_require__(395)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ActionAlert.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-58b1a542", Component.options)
+  } else {
+    hotAPI.reload("data-v-58b1a542", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 394 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['itemURL', 'itemTitle', 'action', 'destinationURL', 'destination'],
+    created: function created() {
+        $(function () {
+            $("[data-hide]").on("click", function () {
+                $("." + $(this).attr("data-hide")).hide();
+            });
+        });
+    }
+});
+
+/***/ }),
+/* 395 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row alertNotification" }, [
+    _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
+      _c("div", { staticClass: "alert alert-success text-center" }, [
+        _vm._m(0, false, false),
+        _vm._v(" "),
+        _c("span", [
+          _c("a", { staticClass: "alert-link", attrs: { href: _vm.itemURL } }, [
+            _vm._v(_vm._s(_vm.itemTitle))
+          ]),
+          _vm._v(" was " + _vm._s(_vm.action) + " "),
+          _c(
+            "a",
+            { staticClass: "alert-link", attrs: { href: _vm.destinationURL } },
+            [_vm._v(_vm._s(_vm.destination))]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: { type: "button", "data-hide": "alert", "aria-label": "Close" }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-58b1a542", module.exports)
+  }
+}
+
+/***/ }),
+/* 396 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
