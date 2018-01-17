@@ -67645,10 +67645,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            itemURL: '',
+            itemTitle: '',
+            action: '',
+            destination: '',
+            destinationURL: '',
             books: [],
             wpm: 0,
             totalPages: 0
@@ -67657,8 +67676,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        submitCheckOff: function submitCheckOff(id) {
+        submitCheckOff: function submitCheckOff(id, book) {
             var vm = this;
+            this.itemURL = '/books/' + id;
+            this.itemTitle = book;
+            this.action = "added to";
+            this.destination = "Finished Books";
+            this.destinationURL = '/finished';
+            $('.alert').show();
             var data = {
                 id: id
             };
@@ -67675,8 +67700,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.getBooks();
         },
 
-        submitRemove: function submitRemove(id) {
+        submitRemove: function submitRemove(id, book) {
             var vm = this;
+            this.itemURL = '/books/' + id;
+            this.itemTitle = book;
+            this.action = "removed from";
+            this.destination = "Books Backlog";
+            this.destinationURL = '/home';
+            $('.alert').show();
             var data = {
                 id: id
             };
@@ -67712,6 +67743,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     created: function created() {
         this.getBooks();
+        $(function () {
+            $("[data-hide]").on("click", function () {
+                $("." + $(this).attr("data-hide")).hide();
+            });
+        });
     }
 });
 
@@ -67724,6 +67760,31 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row alertNotification" }, [
+      _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
+        _c("div", { staticClass: "alert alert-success text-center" }, [
+          _vm._m(0, false, false),
+          _vm._v(" "),
+          _c("span", [
+            _c(
+              "a",
+              { staticClass: "alert-link", attrs: { href: _vm.itemURL } },
+              [_vm._v(_vm._s(_vm.itemTitle))]
+            ),
+            _vm._v(" was " + _vm._s(_vm.action) + " "),
+            _c(
+              "a",
+              {
+                staticClass: "alert-link",
+                attrs: { href: _vm.destinationURL }
+              },
+              [_vm._v(_vm._s(_vm.destination))]
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
         _c("div", { staticClass: "panel panel-default" }, [
@@ -67738,7 +67799,7 @@ var render = function() {
           _c("div", { staticClass: "panel-body" }, [
             _c("div", { staticClass: "table-responsive" }, [
               _c("table", { staticClass: "table table-condensed" }, [
-                _vm._m(0, false, false),
+                _vm._m(1, false, false),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -67773,11 +67834,11 @@ var render = function() {
                             on: {
                               submit: function($event) {
                                 $event.preventDefault()
-                                _vm.submitCheckOff(book.id)
+                                _vm.submitCheckOff(book.id, book.title)
                               }
                             }
                           },
-                          [_vm._m(1, true, false)]
+                          [_vm._m(2, true, false)]
                         )
                       ]),
                       _vm._v(" "),
@@ -67789,11 +67850,11 @@ var render = function() {
                             on: {
                               submit: function($event) {
                                 $event.preventDefault()
-                                _vm.submitRemove(book.id)
+                                _vm.submitRemove(book.id, book.title)
                               }
                             }
                           },
-                          [_vm._m(2, true, false)]
+                          [_vm._m(3, true, false)]
                         )
                       ])
                     ])
@@ -67808,6 +67869,19 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: { type: "button", "data-hide": "alert", "aria-label": "Close" }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -333,3 +333,7 @@ button.navbar-toggle.collapsed {
 .notify-action {
 	display: none;
 }
+
+.alert {
+	display: none;
+}

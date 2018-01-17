@@ -1,5 +1,19 @@
 <template>
     <div class="container">
+
+        <div class="row alertNotification">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="alert alert-success text-center"">
+                    <button type="button" class="close" data-hide="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <span>
+                        <a :href="itemURL" class="alert-link">{{ itemTitle }}</a> was {{ action }} <a :href="destinationURL" class="alert-link">{{ destination }}</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
@@ -32,14 +46,14 @@
                                         <td>{{ book.pages }}</td>
                                         <td>{{ book.pages / wpm }}</td>
                                         <td>
-                                            <form @submit.prevent="submitCheckOff(book.id)" class="form-inline">
+                                            <form @submit.prevent="submitCheckOff(book.id, book.title)" class="form-inline">
                                                 <button type="submit" class="checkOff" data-toggle="tooltip" data-placement="bottom" title="Mark as Read">
                                                     <i class="fa fa-check-square fa-lg" aria-hidden="true"></i>
                                                 </button>
                                             </form>
                                         </td>
                                         <td>
-                                            <form @submit.prevent="submitRemove(book.id)" class="form-inline">
+                                            <form @submit.prevent="submitRemove(book.id, book.title)" class="form-inline">
                                                 <button type="submit" class="remove" data-toggle="tooltip" data-placement="bottom" title="Remove from list">
                                                     <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
                                                 </button>
@@ -61,6 +75,11 @@
     export default{
         data() {
             return {
+                itemURL: '',
+                itemTitle: '',
+                action: '',
+                destination: '',
+                destinationURL: '',
                 books: [],
                 wpm: 0,
                 totalPages: 0
@@ -68,8 +87,14 @@
         },
 
         methods: {
-            submitCheckOff: function(id) {
+            submitCheckOff: function(id, book) {
                 var vm = this;
+                this.itemURL = '/books/' + id;
+                this.itemTitle = book;
+                this.action = "added to";
+                this.destination = "Finished Books";
+                this.destinationURL = '/finished';
+                $('.alert').show()
                 var data = { 
                     id: id
                 }; 
@@ -86,8 +111,14 @@
                 this.getBooks();
             },
 
-            submitRemove: function(id) {
+            submitRemove: function(id, book) {
                 var vm = this;
+                this.itemURL= '/books/' + id;
+                this.itemTitle = book;
+                this.action = "removed from";
+                this.destination = "Books Backlog";
+                this.destinationURL = '/home';
+                $('.alert').show();
                 var data = {
                     id: id
                 };
@@ -118,11 +149,16 @@
                         vm.totalPages = data[2];
                     }
                  });
-            }
+            },
         },
 
         created() {
             this.getBooks();
+            $(function(){
+                $("[data-hide]").on("click", function(){
+                    $("." + $(this).attr("data-hide")).hide();
+                });
+            });
         }
     }
 </script>
