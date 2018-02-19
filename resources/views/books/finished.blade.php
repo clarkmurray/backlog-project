@@ -3,6 +3,7 @@
 @section('content')
 <books-finished :book_props="{{ $books }}" :pages_props="{{ $totalPages }}" inline-template>
     <div class="container v-cloak">
+        <action-alert :itemurl="itemURL" :title="itemTitle" :action="action" :destinationurl="destinationURL" :destination="destination"></action-alert>
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">

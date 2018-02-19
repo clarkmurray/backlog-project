@@ -18,9 +18,9 @@
                 var vm = this;
                 this.itemURL= '/books/' + id;
                 this.itemTitle = book;
-                this.action = "removed from";
+                this.action = "added to";
                 this.destination = "Books Backlog";
-                this.destinationURL = '/home';
+                this.destinationURL = '/books/backlog';
                 $('.alert').show();
                 var data = {
                     id: id
@@ -39,8 +39,8 @@
                 this.itemURL= '/books/' + id;
                 this.itemTitle = book;
                 this.action = "removed from";
-                this.destination = "Books Backlog";
-                this.destinationURL = '/home';
+                this.destination = "Finished Books";
+                this.destinationURL = '/books/finished';
                 $('.alert').show();
                 var data = {
                     id: id
