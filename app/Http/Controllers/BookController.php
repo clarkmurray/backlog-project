@@ -10,10 +10,6 @@ class BookController extends Controller
 {
     public function index() {
 
-    	return view('home');
-    }
-
-    public function getBooks() {
         $user = \Auth::user();
         $books = \Auth::user()->backlog()->where('user_id', $user->id)->where('is_finished', false)->orWhere('read_again', true)->get();
         $wpm = $user->wpm;
@@ -23,7 +19,20 @@ class BookController extends Controller
             $totalPages += $book->pages;
         }
 
-        return $bookBacklog = [$books, $wpm, $totalPages];
+    	// return view('home', compact('books', 'wpm', 'totalPages'));
+        // return ['books' => $books, 'wpm' => $wpm, 'totalPages' => $totalPages];
+        return view('books.backlog', compact('books', 'wpm', 'totalPages'));
+    }
+
+    public function finished() {
+        $user = \Auth::user();
+        $books = \Auth::user()->backlog()->where('user_id', $user->id)->where('is_finished', true)->get();
+        $totalPages = 0;
+
+        foreach ($books as $book) {
+            $totalPages += $book->pages;
+        }
+        return view('books.finished', compact('books', 'totalPages'));
     }
 
     public function store(Request $request) {
@@ -43,7 +52,7 @@ class BookController extends Controller
     	$user->backlog()->attach($book);
 
 
-    	return redirect('home');
+    	return view('books.backlog');
     }
 
     public function create() {
@@ -53,7 +62,7 @@ class BookController extends Controller
     public function show($id) {
         $book = Book::find($id);
         $user = \Auth::user();
-        return view('book', compact('book', 'user'));
+        return view('books.book', compact('book', 'user'));
     }
 
     public function addToBacklog($id) 
@@ -72,25 +81,22 @@ class BookController extends Controller
 
             DB::table('book_user')->where('book_id', $book->id)->where('user_id', $user->id)->update(['read_again' => true]);
 
-            return redirect('home');
+            return redirect('books.backlog');
 
         } else {
 
             // If no, add the record to the book_user table
 
             $user->backlog()->attach($user, [
-            'book_id' => $book->id,
-            'user_id' => $user->id,
-            'is_finished' => false,
-            'read_again' => false,
+                'book_id' => $book->id,
+                'user_id' => $user->id,
+                'is_finished' => false,
+                'read_again' => false,
+            ]);
 
-        ]);
-
-            return redirect('home');
+            return redirect('books.backlog');
 
         }
-
-
     }
 
     public function markAsRead($id) 
@@ -145,17 +151,6 @@ class BookController extends Controller
 
     }
 
-    public function finished() {
-    	$user = \Auth::user();
-    	$books = \Auth::user()->backlog()->where('user_id', $user->id)->where('is_finished', true)->get();
-    	$totalPages = 0;
-
-    	foreach ($books as $book) {
-    		$totalPages += $book->pages;
-    	}
-    	return view('finished', compact('books', 'totalPages'));
-    }
-
     public function destroy($id) {
         $user = \Auth::user();
         $book = Book::find($id);
@@ -179,14 +174,13 @@ class BookController extends Controller
             $user->backlog()->detach($book->id);
         }
 
-
         return back();
     }
 
     public function wpmTest() {
         $user = \Auth::user();
 
-        return view('wpm', compact('user'));
+        return view('books.wpm', compact('user'));
     }
 
     public function storeWPM(Request $request) {
@@ -241,7 +235,6 @@ class BookController extends Controller
     public function newBookRead(Request $request) {
         $book = new \App\Book;
         
-
         $book->title = request('title');
         $book->author = request('author');
         $book->published = request('published');
@@ -255,7 +248,5 @@ class BookController extends Controller
         $book->save();
 
         $this->markAsRead($book->id);
-
     }
-
 }

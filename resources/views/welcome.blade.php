@@ -75,12 +75,9 @@
             background-color: white !important;
             border: 2px solid white;
             color: #548687 !important;;
-
         }
 
-
         </style>
-
     </head>
 
     <body>
@@ -94,7 +91,7 @@
                         @if (Route::has('login'))
                             <div class="text-center links">
                                 @auth
-                                    <a href="{{ url('/home') }}"><button class="btn btn-default btn-lg">Home</button></a>
+                                    <a href="{{ url('/books/backlog') }}"><button class="btn btn-default btn-lg">Home</button></a>
                                 @else
                                     <a href="{{ route('login') }}"><button class="btn btn-default btn-lg">Login</button></a>
                                     <a href="{{ route('register') }}"><button class="btn btn-default btn-lg">Sign Up</button></a>

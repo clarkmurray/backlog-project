@@ -615,153 +615,6 @@ module.exports = isArrayLike;
 /* 8 */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(17),
-    getRawTag = __webpack_require__(216),
-    objectToString = __webpack_require__(217);
-
-/** `Object#toString` result references. */
-var nullTag = '[object Null]',
-    undefinedTag = '[object Undefined]';
-
-/** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
- * The base implementation of `getTag` without fallbacks for buggy environments.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-function baseGetTag(value) {
-  if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
-  }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? getRawTag(value)
-    : objectToString(value);
-}
-
-module.exports = baseGetTag;
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `_.map` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function arrayMap(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      result = Array(length);
-
-  while (++index < length) {
-    result[index] = iteratee(array[index], index, array);
-  }
-  return result;
-}
-
-module.exports = arrayMap;
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayMap = __webpack_require__(10),
-    baseIteratee = __webpack_require__(5),
-    baseMap = __webpack_require__(125),
-    isArray = __webpack_require__(0);
-
-/**
- * Creates an array of values by running each element in `collection` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, index|key, collection).
- *
- * Many lodash methods are guarded to work as iteratees for methods like
- * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
- *
- * The guarded methods are:
- * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
- * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
- * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
- * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- * @example
- *
- * function square(n) {
- *   return n * n;
- * }
- *
- * _.map([4, 8], square);
- * // => [16, 64]
- *
- * _.map({ 'a': 4, 'b': 8 }, square);
- * // => [16, 64] (iteration order is not guaranteed)
- *
- * var users = [
- *   { 'user': 'barney' },
- *   { 'user': 'fred' }
- * ];
- *
- * // The `_.property` iteratee shorthand.
- * _.map(users, 'user');
- * // => ['barney', 'fred']
- */
-function map(collection, iteratee) {
-  var func = isArray(collection) ? arrayMap : baseMap;
-  return func(collection, baseIteratee(iteratee, 3));
-}
-
-module.exports = map;
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
 /* globals __VUE_SSR_CONTEXT__ */
 
 // IMPORTANT: Do NOT use ES2015 features in this file.
@@ -865,6 +718,153 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(17),
+    getRawTag = __webpack_require__(216),
+    objectToString = __webpack_require__(217);
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.map` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  return result;
+}
+
+module.exports = arrayMap;
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayMap = __webpack_require__(11),
+    baseIteratee = __webpack_require__(5),
+    baseMap = __webpack_require__(125),
+    isArray = __webpack_require__(0);
+
+/**
+ * Creates an array of values by running each element in `collection` thru
+ * `iteratee`. The iteratee is invoked with three arguments:
+ * (value, index|key, collection).
+ *
+ * Many lodash methods are guarded to work as iteratees for methods like
+ * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
+ *
+ * The guarded methods are:
+ * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
+ * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
+ * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
+ * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ * @example
+ *
+ * function square(n) {
+ *   return n * n;
+ * }
+ *
+ * _.map([4, 8], square);
+ * // => [16, 64]
+ *
+ * _.map({ 'a': 4, 'b': 8 }, square);
+ * // => [16, 64] (iteration order is not guaranteed)
+ *
+ * var users = [
+ *   { 'user': 'barney' },
+ *   { 'user': 'fred' }
+ * ];
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.map(users, 'user');
+ * // => ['barney', 'fred']
+ */
+function map(collection, iteratee) {
+  var func = isArray(collection) ? arrayMap : baseMap;
+  return func(collection, baseIteratee(iteratee, 3));
+}
+
+module.exports = map;
 
 
 /***/ }),
@@ -1007,7 +1007,7 @@ module.exports = Symbol;
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(9),
+var baseGetTag = __webpack_require__(10),
     isObject = __webpack_require__(3);
 
 /** `Object#toString` result references. */
@@ -1614,7 +1614,7 @@ module.exports = baseForOwn;
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(9),
+var baseGetTag = __webpack_require__(10),
     isObjectLike = __webpack_require__(4);
 
 /** `Object#toString` result references. */
@@ -1900,7 +1900,7 @@ module.exports = isEmpty;
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(9),
+var baseGetTag = __webpack_require__(10),
     isArray = __webpack_require__(0),
     isObjectLike = __webpack_require__(4);
 
@@ -2863,7 +2863,7 @@ var intersection = __webpack_require__(222);
 var forOwn = __webpack_require__(252);
 var forEach = __webpack_require__(21);
 var filter = __webpack_require__(68);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var reduce = __webpack_require__(33);
 var omit = __webpack_require__(126);
 var indexOf = __webpack_require__(55);
@@ -4890,7 +4890,7 @@ var DataView = __webpack_require__(267),
     Promise = __webpack_require__(268),
     Set = __webpack_require__(269),
     WeakMap = __webpack_require__(120),
-    baseGetTag = __webpack_require__(9),
+    baseGetTag = __webpack_require__(10),
     toSource = __webpack_require__(101);
 
 /** `Object#toString` result references. */
@@ -5019,7 +5019,7 @@ module.exports = toString;
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(17),
-    arrayMap = __webpack_require__(10),
+    arrayMap = __webpack_require__(11),
     isArray = __webpack_require__(0),
     isSymbol = __webpack_require__(32);
 
@@ -5184,7 +5184,7 @@ module.exports = cloneArrayBuffer;
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(9),
+var baseGetTag = __webpack_require__(10),
     getPrototype = __webpack_require__(78),
     isObjectLike = __webpack_require__(4);
 
@@ -8288,7 +8288,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 module.exports = freeGlobal;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 98 */
@@ -9127,7 +9127,7 @@ module.exports = baseMap;
 /* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(10),
+var arrayMap = __webpack_require__(11),
     baseClone = __webpack_require__(281),
     baseUnset = __webpack_require__(297),
     castPath = __webpack_require__(22),
@@ -9422,7 +9422,7 @@ module.exports = flatten;
 /* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(9),
+var baseGetTag = __webpack_require__(10),
     isObjectLike = __webpack_require__(4);
 
 /** `Object#toString` result references. */
@@ -9691,7 +9691,7 @@ var get = __webpack_require__(123);
 var sumBy = __webpack_require__(324);
 var find = __webpack_require__(56);
 var includes = __webpack_require__(326);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var orderBy = __webpack_require__(142);
 
 var defaults = __webpack_require__(82);
@@ -11561,7 +11561,7 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(25)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(25)))
 
 /***/ }),
 /* 156 */
@@ -11892,7 +11892,7 @@ var qs = __webpack_require__(362);
 var bind = __webpack_require__(365);
 var forEach = __webpack_require__(21);
 var pick = __webpack_require__(366);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var mapKeys = __webpack_require__(368);
 var mapValues = __webpack_require__(369);
 var isString = __webpack_require__(38);
@@ -12122,7 +12122,7 @@ module.exports = '2.23.0';
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(162);
-module.exports = __webpack_require__(396);
+module.exports = __webpack_require__(397);
 
 
 /***/ }),
@@ -12160,7 +12160,8 @@ Vue.component('api-search', __webpack_require__(381));
 Vue.component('search-book', __webpack_require__(384));
 Vue.component('search-movie', __webpack_require__(387));
 Vue.component('books-backlog', __webpack_require__(390));
-Vue.component('action-alert', __webpack_require__(393));
+Vue.component('books-finished', __webpack_require__(392));
+Vue.component('action-alert', __webpack_require__(394));
 
 var app = new Vue({
   el: '#app'
@@ -29314,7 +29315,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(40)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(40)(module)))
 
 /***/ }),
 /* 165 */
@@ -53574,7 +53575,7 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(187).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(187).setImmediate))
 
 /***/ }),
 /* 187 */
@@ -53826,7 +53827,7 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(25)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(25)))
 
 /***/ }),
 /* 189 */
@@ -55396,7 +55397,7 @@ function cleanup() {
   }
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 200 */
@@ -56008,7 +56009,7 @@ if (typeof window !== "undefined") {
 
 module.exports = win;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 204 */
@@ -57172,7 +57173,7 @@ return Promise$2;
 
 //# sourceMappingURL=es6-promise.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25), __webpack_require__(9)))
 
 /***/ }),
 /* 205 */
@@ -57604,7 +57605,7 @@ var events = __webpack_require__(156);
 var flatten = __webpack_require__(134);
 var forEach = __webpack_require__(21);
 var isEmpty = __webpack_require__(37);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 
 var url = __webpack_require__(157);
 var version = __webpack_require__(160);
@@ -59004,7 +59005,7 @@ module.exports = baseTimes;
 /* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(9),
+var baseGetTag = __webpack_require__(10),
     isObjectLike = __webpack_require__(4);
 
 /** `Object#toString` result references. */
@@ -59132,7 +59133,7 @@ module.exports = stubFalse;
 /* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(9),
+var baseGetTag = __webpack_require__(10),
     isLength = __webpack_require__(62),
     isObjectLike = __webpack_require__(4);
 
@@ -59239,7 +59240,7 @@ module.exports = nativeKeys;
 /* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(10),
+var arrayMap = __webpack_require__(11),
     baseIntersection = __webpack_require__(223),
     baseRest = __webpack_require__(20),
     castArrayLikeObject = __webpack_require__(251);
@@ -59278,7 +59279,7 @@ module.exports = intersection;
 var SetCache = __webpack_require__(100),
     arrayIncludes = __webpack_require__(102),
     arrayIncludesWith = __webpack_require__(249),
-    arrayMap = __webpack_require__(10),
+    arrayMap = __webpack_require__(11),
     baseUnary = __webpack_require__(63),
     cacheHas = __webpack_require__(104);
 
@@ -62680,7 +62681,7 @@ module.exports = toPlainObject;
 "use strict";
 
 
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var isArray = __webpack_require__(0);
 var isNumber = __webpack_require__(135);
 var isString = __webpack_require__(38);
@@ -62708,7 +62709,7 @@ module.exports = valToNumber;
 
 var forEach = __webpack_require__(21);
 var filter = __webpack_require__(68);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var isEmpty = __webpack_require__(37);
 var indexOf = __webpack_require__(55);
 
@@ -63139,7 +63140,7 @@ module.exports = values;
 /* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(10);
+var arrayMap = __webpack_require__(11);
 
 /**
  * The base implementation of `_.values` and `_.valuesIn` which creates an
@@ -63164,7 +63165,7 @@ module.exports = baseValues;
 /* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(10),
+var arrayMap = __webpack_require__(11),
     baseIteratee = __webpack_require__(5),
     baseMap = __webpack_require__(125),
     baseSortBy = __webpack_require__(330),
@@ -64201,7 +64202,7 @@ module.exports = baseClamp;
 module.exports = generateTrees;
 
 var last = __webpack_require__(131);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var reduce = __webpack_require__(33);
 var orderBy = __webpack_require__(142);
 var trim = __webpack_require__(138);
@@ -64327,7 +64328,7 @@ function formatHierarchicalFacetValue(hierarchicalSeparator, currentRefinement) 
 /* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(10),
+var arrayMap = __webpack_require__(11),
     baseIteratee = __webpack_require__(5),
     basePickBy = __webpack_require__(154),
     getAllKeysIn = __webpack_require__(79);
@@ -64511,7 +64512,7 @@ if (typeof Object.create === 'function') {
 
 
 var forEach = __webpack_require__(21);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var reduce = __webpack_require__(33);
 var merge = __webpack_require__(83);
 var isArray = __webpack_require__(0);
@@ -65678,7 +65679,7 @@ function escapeHtml(string) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(8)
 /* script */
 var __vue_script__ = __webpack_require__(372)
 /* template */
@@ -65798,7 +65799,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(8)
 /* script */
 var __vue_script__ = __webpack_require__(375)
 /* template */
@@ -66275,7 +66276,7 @@ module.exports = "/images/search-by-algolia.png?3f22d84b817bb896bd5bef0705ff8fc7
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(8)
 /* script */
 var __vue_script__ = __webpack_require__(379)
 /* template */
@@ -66651,7 +66652,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(8)
 /* script */
 var __vue_script__ = __webpack_require__(382)
 /* template */
@@ -67010,7 +67011,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(8)
 /* script */
 var __vue_script__ = __webpack_require__(385)
 /* template */
@@ -67253,7 +67254,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(8)
 /* script */
 var __vue_script__ = __webpack_require__(388)
 /* template */
@@ -67538,11 +67539,11 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(8)
 /* script */
 var __vue_script__ = __webpack_require__(391)
 /* template */
-var __vue_template__ = __webpack_require__(392)
+var __vue_template__ = null
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67587,92 +67588,31 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['book_props', 'wpm_prop', 'pages_props'],
     data: function data() {
         return {
+            books: this.book_props,
+            wpm: this.wpm_prop,
+            totalPages: this.pages_props,
             itemURL: '',
             itemTitle: '',
             action: '',
             destination: '',
-            destinationURL: '',
-            books: [],
-            wpm: 0,
-            totalPages: 0
+            destinationURL: ''
         };
     },
 
 
     methods: {
-        submitCheckOff: function submitCheckOff(id, book) {
+        submitCheckOff: function submitCheckOff(id, book, index) {
             var vm = this;
             this.itemURL = '/books/' + id;
             this.itemTitle = book;
             this.action = "added to";
             this.destination = "Finished Books";
-            this.destinationURL = '/finished';
+            this.destinationURL = '/books/finished';
             $('.alert').show();
             var data = {
                 id: id
@@ -67682,15 +67622,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 url: '/books/' + id + '/read',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function success() {
-                    console.log(data);
                 }
             });
-            this.getBooks();
+            this.books.splice(index, 1);
         },
 
-        submitRemove: function submitRemove(id, book) {
+        submitRemove: function submitRemove(id, book, index) {
             var vm = this;
             this.itemURL = '/books/' + id;
             this.itemTitle = book;
@@ -67706,33 +67643,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 url: '/books/' + id + '/remove',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function success() {
-                    console.log(data);
                 }
             });
-            this.getBooks();
-        },
-
-        getBooks: function getBooks() {
-            var vm = this;
-            $.ajax({
-                type: "GET",
-                url: '/get-books',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function success(data) {
-                    vm.books = data[0];
-                    vm.wpm = data[1];
-                    vm.totalPages = data[2];
-                }
-            });
+            this.books.splice(index, 1);
         }
-    },
-
-    created: function created() {
-        this.getBooks();
     }
 });
 
@@ -67740,198 +67654,126 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("action-alert", {
-        attrs: {
-          itemURL: _vm.itemURL,
-          itemTitle: _vm.itemTitle,
-          action: _vm.action,
-          destinationURL: _vm.destinationURL,
-          destination: _vm.destination
-        }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
-          _c("div", { staticClass: "panel panel-default" }, [
-            _c("div", { staticClass: "panel-heading" }, [
-              _c("span", [_vm._v("Books Backlog")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "pull-right" }, [
-                _vm._v("Time to Read: " + _vm._s(_vm.totalPages) + " ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "panel-body" }, [
-              _c("div", { staticClass: "table-responsive" }, [
-                _c("table", { staticClass: "table table-condensed" }, [
-                  _vm._m(0, false, false),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.books, function(book) {
-                      return _c("tr", [
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "bookTitleSlot",
-                              attrs: { href: "/books/" + book.id }
-                            },
-                            [_vm._v(_vm._s(book.title))]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(book.author))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(book.published))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(book.pages))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(book.pages / _vm.wpm))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "form",
-                            {
-                              staticClass: "form-inline",
-                              on: {
-                                submit: function($event) {
-                                  $event.preventDefault()
-                                  _vm.submitCheckOff(book.id, book.title)
-                                }
-                              }
-                            },
-                            [_vm._m(1, true, false)]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "form",
-                            {
-                              staticClass: "form-inline",
-                              on: {
-                                submit: function($event) {
-                                  $event.preventDefault()
-                                  _vm.submitRemove(book.id, book.title)
-                                }
-                              }
-                            },
-                            [_vm._m(2, true, false)]
-                          )
-                        ])
-                      ])
-                    })
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
-    ],
-    1
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("th"),
-      _vm._v(" "),
-      _c("th", [_vm._v("Title")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Author")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Published")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Pages")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Estimated Time")]),
-      _vm._v(" "),
-      _c("th"),
-      _vm._v(" "),
-      _c("th")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "checkOff",
-        attrs: {
-          type: "submit",
-          "data-toggle": "tooltip",
-          "data-placement": "bottom",
-          title: "Mark as Read"
-        }
-      },
-      [
-        _c("i", {
-          staticClass: "fa fa-check-square fa-lg",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "remove",
-        attrs: {
-          type: "submit",
-          "data-toggle": "tooltip",
-          "data-placement": "bottom",
-          title: "Remove from list"
-        }
-      },
-      [
-        _c("i", {
-          staticClass: "fa fa-minus-circle fa-lg",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]
-    )
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
+var disposed = false
+var normalizeComponent = __webpack_require__(8)
+/* script */
+var __vue_script__ = __webpack_require__(393)
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/BooksFinished.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
   module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3364832a", module.exports)
-  }
-}
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8bfb92d6", Component.options)
+  } else {
+    hotAPI.reload("data-v-8bfb92d6", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 /* 393 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['book_props', 'pages_props'],
+    data: function data() {
+        return {
+            books: this.book_props,
+            totalPages: this.pages_props,
+            itemURL: '',
+            itemTitle: '',
+            action: '',
+            destination: '',
+            destinationURL: ''
+        };
+    },
+
+
+    methods: {
+        reRead: function reRead(id, book, index) {
+            var vm = this;
+            this.itemURL = '/books/' + id;
+            this.itemTitle = book;
+            this.action = "removed from";
+            this.destination = "Books Backlog";
+            this.destinationURL = '/home';
+            $('.alert').show();
+            var data = {
+                id: id
+            };
+            $.ajax({
+                type: "POST",
+                url: '/books/' + id + '/add',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        },
+
+        submitRemove: function submitRemove(id, book, index) {
+            var vm = this;
+            this.itemURL = '/books/' + id;
+            this.itemTitle = book;
+            this.action = "removed from";
+            this.destination = "Books Backlog";
+            this.destinationURL = '/home';
+            $('.alert').show();
+            var data = {
+                id: id
+            };
+            $.ajax({
+                type: "POST",
+                url: '/books/' + id + '/not-read',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            this.books.splice(index, 1);
+        }
+    }
+});
+
+/***/ }),
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(8)
 /* script */
-var __vue_script__ = __webpack_require__(394)
+var __vue_script__ = __webpack_require__(395)
 /* template */
-var __vue_template__ = __webpack_require__(395)
+var __vue_template__ = __webpack_require__(396)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67971,7 +67813,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 394 */
+/* 395 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67992,8 +67834,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['itemURL', 'itemTitle', 'action', 'destinationURL', 'destination'],
+    props: ['itemurl', 'title', 'action', 'destinationurl', 'destination'],
     created: function created() {
         $(function () {
             $("[data-hide]").on("click", function () {
@@ -68004,7 +67847,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 395 */
+/* 396 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -68017,13 +67860,13 @@ var render = function() {
         _vm._m(0, false, false),
         _vm._v(" "),
         _c("span", [
-          _c("a", { staticClass: "alert-link", attrs: { href: _vm.itemURL } }, [
-            _vm._v(_vm._s(_vm.itemTitle))
+          _c("a", { staticClass: "alert-link", attrs: { href: _vm.itemurl } }, [
+            _vm._v(_vm._s(_vm.title))
           ]),
           _vm._v(" was " + _vm._s(_vm.action) + " "),
           _c(
             "a",
-            { staticClass: "alert-link", attrs: { href: _vm.destinationURL } },
+            { staticClass: "alert-link", attrs: { href: _vm.destinationurl } },
             [_vm._v(_vm._s(_vm.destination))]
           )
         ])
@@ -68056,7 +67899,7 @@ if (false) {
 }
 
 /***/ }),
-/* 396 */
+/* 397 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

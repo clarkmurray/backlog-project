@@ -23,7 +23,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <span id="logoNav">
-                        <a class="logo" href="{{ url('/') }}">
+                        <a class="logo" href="{{ url('/books/backlog') }}">
                             <img src="{{asset('logo.png')}}" height="70px" width="70px">
                         </a>
                     </span>
@@ -42,8 +42,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">My Books</a>
                             <ul class="dropdown-menu">
-                                <li><a href="/home">Backlog</a></li>
-                                <li><a href="/finished">Finished</a></li>
+                                <li><a href="/books/backlog">Backlog</a></li>
+                                <li><a href="/books/finished">Finished</a></li>
                                 <li><a href="/wpm-test">WPM Test</a></li>
                             </ul>
                         </li>
